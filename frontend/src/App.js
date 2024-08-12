@@ -1,11 +1,14 @@
 import React from 'react';
-import Login from './Login';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Login';  // Asegúrate de que Login.js existe en la misma carpeta
 
 function App() {
   return (
-    <div>
-      <Login />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/SGE/Login" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
