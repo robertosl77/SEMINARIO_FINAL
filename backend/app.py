@@ -10,11 +10,12 @@ CORS(app)
 @app.route('/SGE/Login', methods=['POST'])
 def login():
     data = request.get_json()
-    email = data.get('email')
+    # email = data.get('email')
+    username= data.get('username')
     password = data.get('password')
     
     authenticator = JsonValidador()
-    is_valid = authenticator.validate_user(email, password)
+    is_valid = authenticator.validate_user(username, password)
     
     # if email == 'test@example.com' and password == 'password':
     if is_valid:
