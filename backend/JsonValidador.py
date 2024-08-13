@@ -24,6 +24,10 @@ class JsonValidador:
             if user_data['username'] == username:
                 return user_data['rol']
         return None
+    
+    def clave_secreta_flask(self):
+        secret_key = os.urandom(24)
+        return secret_key
 
 # Ejemplo de uso:
 # if __name__ == "__main__":
