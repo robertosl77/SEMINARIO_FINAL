@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
@@ -11,7 +12,7 @@ function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     });
     const data = await response.json();
     if (data.success) {
@@ -25,12 +26,18 @@ function Login() {
     <div>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <input 
+        {/* <input 
           type="email" 
           placeholder="Email" 
           value={email}
           onChange={(e) => setEmail(e.target.value)} 
-        />
+        /> */}
+        <input 
+          type="text" 
+          placeholder="Username" 
+          value={username}
+          onChange={(e) => setUsername(e.target.value)} 
+        />        
         <input 
           type="password" 
           placeholder="Password" 
