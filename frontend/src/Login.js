@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import './css/Login.css';  // Importa el archivo CSS
 
 function Login() {
-  // const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,15 +23,9 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        {/* <input 
-          type="email" 
-          placeholder="Email" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} 
-        /> */}
         <input 
           type="text" 
           placeholder="Username" 
