@@ -1,22 +1,8 @@
 {
     "1": {
-        "email": "rsleiva",
-        "password": "123"
-    },
-    "2": {
-        "email": "",
-        "password": ""
-    },
-    "3": {
-        "email": "",
-        "password": ""
-    },
-    "4": {
-        "email": "",
-        "password": ""
-    },
-    "5": {
-        "email": "",
-        "password": ""
+        "username": "rsleiva",
+        "password": "123",
+        "email":"rsleiva@edenor.com",
+        "rol":"admin"
     }
 }

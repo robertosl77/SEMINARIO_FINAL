@@ -5,17 +5,25 @@ class JsonValidador:
     def __init__(self):
         None
 
-    def validate_user(self, email, password):
+    def validate_user(self, username, password):
         json_path = os.path.join('json', 'usuarios.json')
         with open(json_path, 'r') as file:
             users = json.load(file)
         # 
         for user_id, user_data in users.items():
-            if user_data['email'] == email and user_data['password'] == password:
+            if user_data['username'] == username and user_data['password'] == password:
                 return True
         return False
     
-     
+    def obtiene_rol(self,username):
+        json_path = os.path.join('json', 'usuarios.json')
+        with open(json_path, 'r') as file:
+            users = json.load(file)
+        # 
+        for user_id, user_data in users.items():
+            if user_data['username'] == username:
+                return user_data['rol']
+        return None
 
 # Ejemplo de uso:
 # if __name__ == "__main__":

@@ -6,23 +6,30 @@ from JsonValidador import JsonValidador
 app = Flask(__name__)  # Crea la instancia de la aplicación Flask
 CORS(app)
 
-# Ruta de login
-@app.route('/SGE/Login', methods=['POST'])
-def login():
-    data = request.get_json()
-    # email = data.get('email')
-    username= data.get('username')
-    password = data.get('password')
-    
-    authenticator = JsonValidador()
-    is_valid = authenticator.validate_user(username, password)
-    
-    # if email == 'test@example.com' and password == 'password':
-    if is_valid:
-        return jsonify({"success": True})
-    else:
-        return jsonify({"success": False})
+class Servicios:
+    # Ruta de login
+    @app.route('/SGE/Login', methods=['POST'])
+    def login():
+        data = request.get_json()
+        username= data.get('username')
+        password = data.get('password')
+        
+        authenticator = JsonValidador()
+        is_valid = authenticator.validate_user(username, password)
+        
+        # if email == 'test@example.com' and password == 'password':
+        if is_valid:
+            return jsonify({"success": True})
+        else:
+            return jsonify({"success": False})
 
+    @app.route('/API/Rol', methods=['POST'])
+    def rol():
+        data = request.get_json()
+        username= data.get('username')
+        authenticator = JsonValidador()
+        rol = authenticator.obtiene_rol(username)
+        return rol
 
 if __name__ == '__main__':
     app.run(debug=True)  # Inicia el servidor en modo debug
