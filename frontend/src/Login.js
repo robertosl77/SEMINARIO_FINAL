@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './css/Login.css';  // Importa el archivo CSS
+import { useNavigate } from 'react-router-dom';  // Importa useNavigate
+
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();  // Hook para redirigir
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +19,8 @@ function Login() {
     });
     const data = await response.json();
     if (data.success) {
-      alert('Login successful');
+      // alert('Login successful');
+      navigate('/SGE/Manager');  // Redirige a la página Manager
     } else {
       alert('Login failed');
     }
