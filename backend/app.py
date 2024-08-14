@@ -25,7 +25,7 @@ class Servicios:
         else:
             return jsonify({"success": False})
 
-    @app.route('/SGE/Logout', methods=['GET'])
+    @app.route('/SGE/Logout', methods=['POST'])
     def logout():
         session.pop('username', None)  # Elimina la sesión del usuario
         return jsonify({"success": True})
