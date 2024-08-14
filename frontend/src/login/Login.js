@@ -20,6 +20,8 @@ function Login() {
     const data = await response.json();
     if (data.success) {
       // alert('Login successful');
+      sessionStorage.setItem('username', data.user.username);
+      sessionStorage.setItem('rol', data.user.rol);
       navigate('/SGE/Manager');  // Redirige a la página Manager
     } else {
       alert('Login failed');

@@ -11,17 +11,18 @@ app.secret_key = "\x8d~+\x88H\xba\xb1\xbf\xbb\x1e\xb2\xc8w\x80\xd4e\x87Q\xdfU'#\
 class Servicios:
     # Ruta de login
     @app.route('/SGE/Login', methods=['POST'])
-    def login():
+    def obtiene_usuario():
         data = request.get_json()
         username = data.get('username')
         password = data.get('password')
         
         authenticator = JsonValidador()
-        is_valid = authenticator.validate_user(username, password)
+        user_data = authenticator.obtiene_usuario(username, password)
         
-        if is_valid:
-            session['username'] = username  # Guarda el nombre de usuario en la sesión
-            return jsonify({"success": True})
+        if user_data:
+            session['username'] = user_data['username']  # Guarda el nombre de usuario en la sesión
+            session['rol'] = user_data['rol']  # Guarda el rol en la sesión, si lo deseas
+            return jsonify({"success": True, "user": user_data})  # Devuelve los datos del usuario
         else:
             return jsonify({"success": False})
 
@@ -30,7 +31,7 @@ class Servicios:
         session.pop('username', None)  # Elimina la sesión del usuario
         return jsonify({"success": True})
     
-    @app.route('/API/Rol', methods=['POST'])
+    @app.route('/API/Rol', methods=['GET'])
     def rol():
         if 'username' not in session:
             return jsonify({"error": "User not logged in"}), 401  # Verifica si el usuario está en la sesión
@@ -49,6 +50,7 @@ class Servicios:
         secret_key = authenticator.clave_secreta_flask()
         print(secret_key)
         return secret_key
+   
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -53,3 +53,77 @@
 .navbar-links li a:hover {
   text-decoration: underline;
 }
+
+.user-dropdown {
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #333;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  padding: 5px 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.dropdown-menu li:hover {
+  background-color: #444;
+}
+
+.navbar-links li {
+  margin-right: 30px;  /* Asegura que todos los elementos tengan el mismo margen */
+  display: flex;
+  align-items: center;  /* Alinea los elementos verticalmente en el centro */
+}
+
+.user-dropdown {
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;  /* Alinea el nombre del usuario verticalmente en el centro */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #333;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  padding: 5px 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.dropdown-menu li:hover {
+  background-color: #444;
+}
