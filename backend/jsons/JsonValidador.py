@@ -6,7 +6,7 @@ class JsonValidador:
         None
 
     def obtiene_usuario(self, username, password):
-        json_path = os.path.join('json', 'usuarios.json')
+        json_path = os.path.join('jsons', 'usuarios.json')
         with open(json_path, 'r') as file:
             users = json.load(file)
         
@@ -16,7 +16,7 @@ class JsonValidador:
         return None  # Devuelve None si la validación falla
     
     def obtiene_rol(self,username):
-        json_path = os.path.join('json', 'usuarios.json')
+        json_path = os.path.join('jsons', 'usuarios.json')
         with open(json_path, 'r') as file:
             users = json.load(file)
         # 
@@ -29,5 +29,13 @@ class JsonValidador:
         secret_key = os.urandom(24)
         return secret_key
     
-
+    def leer_json_geografico(self, json_path='jsons/geografico.json'):
+        try:
+            # Leer el archivo JSON
+            with open(json_path, 'r') as file:
+                data = json.load(file)
+            return data
+        except Exception as e:
+            print(f"Fail: Error al leer el archivo JSON. Detalle: {e}")
+            return None
     

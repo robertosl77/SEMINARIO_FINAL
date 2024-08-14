@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, session, redirect, url_for
 from flask_cors import CORS
-from JsonValidador import JsonValidador
+from jsons.JsonValidador import JsonValidador
+from bd.CreateTables import CreateTables
 
 app = Flask(__name__)
 CORS(app)
@@ -50,7 +51,26 @@ class Servicios:
         secret_key = authenticator.clave_secreta_flask()
         print(secret_key)
         return secret_key
-   
+
+    @app.route('/API/BD/CreaTablaClientes', methods=['POST'])
+    def CreaTablaClientes():
+        bd= CreateTables()
+        resp= bd.crear_tabla_clientes()
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})
+            
+    @app.route('/API/BD/CreaTablaGeografico', methods=['POST'])
+    def CreaTablaGeografico():
+        authenticator= JsonValidador()
+        json= authenticator.leer_json_geografico()
+        #
+        bd= CreateTables()
+        resp= bd.crear_tabla_geografico()
+        if resp:
+            resp= bd.insertar_datos_geografico(json)
+        #Cierro conexion
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})   
 
 if __name__ == '__main__':
     app.run(debug=True)
