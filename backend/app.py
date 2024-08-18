@@ -52,8 +52,22 @@ class Servicios:
         print(secret_key)
         return secret_key
 
-    @app.route('/API/BD/CreaTablaGeografico', methods=['POST'])
+    @staticmethod
+    @app.route('/API/BD/CreaTablas', methods=['POST'])
+    def CreaTablas():
+        try:
+            Servicios.CreaTablaGeografico()
+            Servicios.CreaTablaRed()
+            Servicios.CreaTablaLog()
+            Servicios.CreaTablaClientes()
+            # 
+            return jsonify({"Tablas creadas y datos insertados: ": True})  
+        except Exception as e:
+            return jsonify({"Tablas creadas y datos insertados: ": False}) 
+                    
+    # @app.route('/API/BD/CreaTablaGeografico', methods=['POST'])
     def CreaTablaGeografico():
+        return jsonify({"respuesta": True})   
         authenticator= JsonValidador()
         json= authenticator.leer_json_geografico()
         #
@@ -65,25 +79,29 @@ class Servicios:
         bd.cerrar_conexion()
         return jsonify({"respuesta": resp})   
 
-    @app.route('/API/BD/CreaTablaRed', methods=['POST'])
+    # @app.route('/API/BD/CreaTablaRed', methods=['POST'])
     def CreaTablaRed():
+        return jsonify({"respuesta": True})  
         authenticator= JsonValidador()
         bd= CreateTables()
         try:
             #ssee
             json= authenticator.leer_json_red('jsons/ssee.json')
             resp= bd.crear_tabla_ssee()
-            resp= bd.insertar_datos_ssee(json)
-            #alim
-            json= authenticator.leer_json_red('jsons/alim.json')
-            resp= bd.crear_tabla_alim()
-            resp= bd.insertar_datos_alim(json)
-            #ct
-            json= authenticator.leer_json_red('jsons/ct.json')
-            resp= bd.crear_tabla_ct()
-            resp= bd.insertar_datos_ct(json)
-            #retorno
-            resp=True
+            if resp:
+                resp= bd.insertar_datos_ssee(json)
+                #alim
+                json= authenticator.leer_json_red('jsons/alim.json')
+                if resp:
+                    resp= bd.crear_tabla_alim()
+                    if resp:
+                        resp= bd.insertar_datos_alim(json)
+                        #ct
+                        json= authenticator.leer_json_red('jsons/ct.json')
+                        if resp:
+                            resp= bd.crear_tabla_ct()
+                            if resp:
+                                resp= bd.insertar_datos_ct(json)
         except Exception as e:
             resp=False
         finally:
@@ -91,12 +109,23 @@ class Servicios:
             bd.cerrar_conexion()
         return jsonify({"respuesta": resp})  
 
-
+    # @app.route('/API/BD/CreaTablaLog', methods=['POST'])
+    def CreaTablaLog():
+        return jsonify({"respuesta": True})
+        bd= CreateTables()
+        resp= bd.crear_tabla_log()
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})
 
     @app.route('/API/BD/CreaTablaClientes', methods=['POST'])
     def CreaTablaClientes():
+        # return jsonify({"respuesta": True})
+        authenticator= JsonValidador()
         bd= CreateTables()
+        json_clientes= authenticator.leer_json_red('jsons/clientes.json')
+        json_ct= authenticator.leer_json_red('jsons/ct.json')
         resp= bd.crear_tabla_clientes()
+        resp= bd.insertar_datos_clientes(json_clientes, json_ct)
         bd.cerrar_conexion()
         return jsonify({"respuesta": resp})
 

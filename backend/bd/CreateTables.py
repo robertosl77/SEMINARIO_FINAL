@@ -1,4 +1,6 @@
 import sqlite3
+import random
+
 
 class CreateTables:
     def __init__(self, db_name='sgedatabase.db'):
@@ -6,35 +8,6 @@ class CreateTables:
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
-    def crear_tabla_clientes(self):
-        try:
-            self.cursor.execute('''
-                CREATE TABLE IF NOT EXISTS clientes (
-                    cuenta INTEGER NOT NULL UNIQUE CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo
-                    nombre_cliente TEXT NOT NULL,  -- Nombre del cliente, no nulo, varchar(200)
-                    calle TEXT NOT NULL,  -- Calle, no nulo, varchar(50)
-                    numero TEXT,  -- Número, varchar(10)
-                    piso_dpto TEXT,  -- Piso/Departamento, varchar(7)
-                    idlocalidad INTEGER,  -- Llave foránea a la tabla geografico(idlocalidad)
-                    idct INTEGER,  -- Llave foránea a la tabla red(id_ct)
-                    x REAL,  -- Coordenada X, float/double
-                    y REAL,  -- Coordenada Y, float/double
-                    logini DATE NOT NULL,  -- Fecha de inicio, no nulo
-                    logfin DATE NOT NULL,  -- Fecha de fin, no nulo
-                    FOREIGN KEY (idlocalidad) REFERENCES geografico(idlocalidad),
-                    FOREIGN KEY (idct) REFERENCES red(id_ct),
-                    PRIMARY KEY(cuenta)  -- La cuenta será la clave primaria
-                )
-            ''')
-            # Confirmar los cambios
-            self.conn.commit()
-            # Confirma
-            return True
-        except sqlite3.Error as e:
-            # Si ocurre un error, devolver un mensaje de fallo
-            print(f"Fail: Error al crear la tabla 'clientes'. Detalle: {e}")
-            return False
-        
     def crear_tabla_geografico(self):
         try:
             self.cursor.execute('''
@@ -186,20 +159,204 @@ class CreateTables:
         try:
             # Recorrer cada registro en el JSON y insertar en la tabla
             for entry in json['ct']:
-                self.cursor.execute('''
-                    INSERT INTO ct (ct, idalim)
-                    VALUES (?, ?)
-                ''', (entry['SGE_COD_CT'], entry['SGE_COD_ALIM']))
+                ct= entry['SGE_COD_CT']
+                alim= entry['SGE_COD_ALIM']
+                
+                if ct.isdigit() and alim.isdigit():
+                    self.cursor.execute('''
+                        INSERT INTO ct (ct, idalim)
+                        VALUES (?, ?)
+                    ''', (ct, alim))
             
-            # Confirmar los cambios
-            self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'ct'.")
+                # Confirmar los cambios
+                self.conn.commit()
+                print("Success: Los datos se han insertado correctamente en la tabla 'ct'.")
             return True
         except sqlite3.Error as e:
             print(f"Fail: Error al insertar datos en la tabla 'ct'. Detalle: {e}")
             return False
 
+    def crear_tabla_log(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS log (
+                    idlog INTEGER PRIMARY KEY AUTOINCREMENT,
+                    fecha DATE NOT NULL, 
+                    descripcion TEXTO
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'log'. Detalle: {e}")
+            return False        
 
+    def insertar_datos_log(self, descripcion):
+        if descripcion is None:
+            print("No se proporcionaron datos para insertar.")
+            return 0
+        
+        try:
+            self.cursor.execute('''
+                INSERT INTO log (fecha, descripcion)
+                VALUES (CURRENT_TIMESTAMP, ?)
+            ''', (descripcion,))
+            idlog = self.cursor.lastrowid
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'log'.")
+            return idlog
+        except sqlite3.Error as e:
+            print(f"Fail: Error al insertar datos en la tabla 'ct'. Detalle: {e}")
+            return 0
+
+    def crear_tabla_clientes(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS clientes (
+                    cuenta INTEGER NOT NULL UNIQUE CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo
+                    nombre_cliente TEXT NOT NULL,  -- Nombre del cliente, no nulo, varchar(200)
+                    calle TEXT NOT NULL,  -- Calle, no nulo, varchar(50)
+                    numero TEXT,  -- Número, varchar(10)
+                    piso_dpto TEXT,  -- Piso/Departamento, varchar(7)
+                    idlocalidad INTEGER,  -- Llave foránea a la tabla geografico(idlocalidad)
+                    idct INTEGER,  -- Llave foránea a la tabla red(id_ct)
+                    x REAL,  -- Coordenada X, float/double
+                    y REAL,  -- Coordenada Y, float/double
+                    logini DATE NOT NULL,  -- Fecha de inicio, no nulo
+                    logfin DATE NOT NULL,  -- Fecha de fin, no nulo
+                    FOREIGN KEY (idlocalidad) REFERENCES geografico(idlocalidad),
+                    FOREIGN KEY (idct) REFERENCES red(id_ct),
+                    PRIMARY KEY(cuenta)  -- La cuenta será la clave primaria
+                )
+            ''')
+            # Truncate Reiniciar el autoincremento
+            self.cursor.execute('DELETE FROM ct')            
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'clientes'. Detalle: {e}")
+            return False
+
+    def insertar_datos_clientes(self, json_clientes, json_ct):
+        if json_clientes is None:
+            print("No se proporcionaron datos para insertar.")
+            return
+        elif json_ct is None:
+            print("No se proporcionaron datos para insertar.")
+            return
+        
+        try:
+            for entry in json_clientes['clientes']:
+                # Crea una cuenta entre secuencial y aleatoria
+                cuenta = (cuenta if 'cuenta' in locals() else 10000) + random.randint(3, 9)
+                # Inserta Logini
+                logini= self.insertar_datos_log(f"Se agrega cliente con cuenta {cuenta}.")
+                # Inserta Logfin (segun random)
+                if random.random() > 0.9:
+                    logfin= self.insertar_datos_log(f"Baja del cliente con cuenta {cuenta}.")
+                else:
+                    logfin= 0
+                # Obtiene idlocalidad
+                idlocalidad= self.obtiene_idlocalidad(entry['localidad'])
+                # Obtiene el CT
+                idct= self.obtiene_ct(json_ct, entry.get('ct','0'))
+                if idlocalidad == 0:
+                    print(f"No se encontró la localidad {entry.get('localidad','')}, omitiendo cuenta {cuenta}.")
+                elif idct=='0':
+                    print(f"No se encontró el CT {entry.get('ct','0')}, omitiendo cuenta {cuenta}.")
+                else:
+                    # nombre_cliente= entry['nombre_cliente']
+                    nombre_cliente=self.generar_nombre_completo().upper()
+                    sql= '''
+                        INSERT INTO clientes (cuenta, nombre_cliente, calle, numero, piso_dpto, idlocalidad, idct, x, y, logini, logfin)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    '''
+                    self.cursor.execute(sql, (
+                        cuenta, 
+                        nombre_cliente, 
+                        entry['calle'], 
+                        entry['numero'], 
+                        entry.get('piso_dpto', ''), 
+                        idlocalidad, 
+                        idct, 
+                        entry['x'], 
+                        entry['y'], 
+                        logini, 
+                        logfin))
+                    
+                
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'clientes'.")
+            return True
+        except sqlite3.Error as e:
+            print(f"Fail: Error al insertar datos en la tabla 'clientes'. Detalle: {e}. cuenta {cuenta}")
+            return False
+
+    def obtiene_idlocalidad(self, localidad):
+        try:
+            # Consultar el idlocalidad según la localidad
+            self.cursor.execute('SELECT idlocalidad FROM geografico WHERE localidad = ?', (localidad,))
+            result = self.cursor.fetchone()
+            if result:
+                return result[0]  # Devolver el idlocalidad
+            else:
+                return None  # Devolver None si no se encuentra la localidad
+        except sqlite3.Error as e:
+            print(f"Error al buscar idlocalidad: {e}")
+            return 0
+    
+    def obtiene_ct(self, json, ct):
+        try:
+            # Buscar en el archivo ct.json el EDN_COD_CT que coincide con el ct del cliente
+            for entry in json['ct']:
+                if entry['EDN_COD_CT'] == ct:
+                    return entry['SGE_COD_CT']  # Devolver el SGE_COD_CT correspondiente
+            
+            # Si no se encuentra el ct, devolver None o algún valor por defecto
+            return '0'
+        
+        except Exception as e:
+            print(f"Error al procesar el archivo ct.json: {e}")
+            return '0'
+
+    def generar_nombre_completo(self):
+        # Lista ampliada de nombres
+        nombres = [
+            "Juan", "María", "Pedro", "Laura", "Carlos", "Ana", "Luis", "Sofía", "Jorge", "Valentina",
+            "Miguel", "Lucía", "Fernando", "Gabriela", "Ricardo", "Daniela", "Roberto", "Elena", "Andrés", "Paula",
+            "José", "Carmen", "Raúl", "Martina", "David", "Camila", "Santiago", "Verónica", "Tomás", "Natalia",
+            "Pablo", "Beatriz", "Alejandro", "Patricia", "Ramón", "Liliana", "Esteban", "Claudia", "Héctor", "Gloria"
+        ]
+        
+        # Lista ampliada de apellidos
+        apellidos = [
+            "García", "Rodríguez", "Pérez", "Martínez", "González", "López", "Hernández", "Díaz", "Romero", "Sánchez",
+            "Fernández", "Jiménez", "Ruiz", "Moreno", "Álvarez", "Molina", "Ortiz", "Castro", "Vega", "Silva",
+            "Torres", "Ramos", "Cruz", "Flores", "Rojas", "Guerrero", "Vargas", "Guzmán", "Reyes", "Mendoza",
+            "Ramírez", "Navarro", "Méndez", "Iglesias", "Cabrera", "Rivera", "Castillo", "Paredes", "Suárez", "Herrera"
+        ]
+        
+        # Selección aleatoria de uno o dos nombres
+        nombre = random.choice(nombres)
+        if random.random() > 0.5:  # 50% de probabilidad de tener un segundo nombre
+            nombre += f" {random.choice(nombres)}"
+        
+        # Selección aleatoria de uno o dos apellidos
+        apellido = random.choice(apellidos)
+        if random.random() > 0.5:  # 50% de probabilidad de tener un segundo apellido
+            apellido += f" {random.choice(apellidos)}"
+        
+        # Devolver el nombre completo
+        return f"{nombre} {apellido}"
+            
     def cerrar_conexion(self):
         # Cerrar la conexión a la base de datos
         self.conn.close()

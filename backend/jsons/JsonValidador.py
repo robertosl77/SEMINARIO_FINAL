@@ -41,9 +41,12 @@ class JsonValidador:
 
     def leer_json_red(self, json_path):
         try:
-            with open(json_path, 'r') as file:
+            with open(json_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
             return data
+        except json.JSONDecodeError as e:
+            print(f"Error al decodificar el archivo JSON: {e}")
         except Exception as e:
             print(f"Fail: Error al leer el archivo JSON. Detalle: {e}")
-            return None     
+            return None   
+        
