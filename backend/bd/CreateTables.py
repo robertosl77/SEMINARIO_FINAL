@@ -640,6 +640,53 @@ class CreateTables:
             print(f"Fail: Error al crear la tabla 'contactos'. Detalle: {e}")
             return False
     
+    def crear_tabla_afectaciones(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS afectaciones (
+                    idafectacion INTEGER PRIMARY KEY AUTOINCREMENT,
+                    afectacion TEXTO NOT NULL UNIQUE,  --D-24-08-0001
+                    tipo TEXTO NOT NULL, --BT, MT, AT
+                    estado TEXTO NOT NULL, --Pendiente, En Tratamiento, Cerrado, Cancelado
+                    inicio DATE NOT NULL, --Fecha de inicio de corte
+                    restitucion DATE,   -- Fecha de normalizacion del corte
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'afectaciones'. Detalle: {e}")
+            return False
+
+    def crear_tabla_afectaciones_elementos(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS afectaciones_elementos (
+                    idelementos INTEGER PRIMARY KEY AUTOINCREMENT,
+                    idafectacion INTEGER NOT NULL,  --Foraneo de afectaciones
+                    ct INTEGER NOT NULL, 
+                    inicio DATE NOT NULL, 
+                    restitucion DATE, 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER,
+                    FOREIGN KEY (idafectacion) REFERENCES afectaciones(idafectacion),
+                    FOREIGN KEY (ct) REFERENCES ct(ct)
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'afectaciones_elementos'. Detalle: {e}")
+            return False        
+            
     def cerrar_conexion(self):
         # Cerrar la conexión a la base de datos
         self.conn.close()

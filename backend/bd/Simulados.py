@@ -99,3 +99,11 @@ class Simulados:
         resp= bd.crear_tabla_contactos()
         bd.cerrar_conexion()
         return jsonify({"respuesta": resp})         
+    
+    def CreaTablaAfectaciones(self):
+        bd= CreateTables()
+        resp= bd.crear_tabla_afectaciones()
+        if resp:
+            resp= bd.crear_tabla_afectaciones_elementos()
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})         
