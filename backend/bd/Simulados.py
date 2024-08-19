@@ -107,3 +107,17 @@ class Simulados:
             resp= bd.crear_tabla_afectaciones_elementos()
         bd.cerrar_conexion()
         return jsonify({"respuesta": resp})         
+
+    def CreaTablaMarcas(self):
+        authenticator= JsonValidador()
+        bd= CreateTables()
+        json_marcas= authenticator.leer_json('jsons/marcas.json')
+        resp= bd.crear_tabla_marcas()
+        if resp:
+            resp= bd.insertar_datos_marcas(json_marcas)
+            if resp:
+                resp= bd.crear_tabla_cliente_marcas()
+                if resp:
+                    resp= bd.insertar_datos_cliente_artefactos()
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})         

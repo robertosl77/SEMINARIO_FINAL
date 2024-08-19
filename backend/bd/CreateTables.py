@@ -686,6 +686,151 @@ class CreateTables:
             # Si ocurre un error, devolver un mensaje de fallo
             print(f"Fail: Error al crear la tabla 'afectaciones_elementos'. Detalle: {e}")
             return False        
+
+    def crear_tabla_marcas(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS marcas (
+                    idmarca INTEGER PRIMARY KEY AUTOINCREMENT,
+                    marca TEXT NOT NULL,
+                    submarca TEXT NOT NULL
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'marcas'. Detalle: {e}")
+            return False
+    
+    def insertar_datos_marcas(self, json_marcas):
+        try:
+            for marcas in json_marcas['marcas']:
+                marca= marcas['marca']
+                submarca= marcas['submarca']
+                # 
+                sql= '''
+                    INSERT INTO marcas (marca, submarca)
+                    VALUES (?, ?)
+                '''
+                self.cursor.execute(sql, (
+                    marca, 
+                    submarca))
+                    
+                
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'marcas'.")
+            return True                
+
+        except sqlite3.Error as e:
+            print(f"Error al realizar el SELECT: {e}")
+        
+    def crear_tabla_cliente_marcas(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS clientes_marcas (
+                    idclientemarca INTEGER PRIMARY KEY AUTOINCREMENT,
+                    idmarca INTEGER NOT NULL,
+                    cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER,
+                    FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
+                    FOREIGN KEY (idmarca) REFERENCES marcas(idmarca)
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'clientes_marcas'. Detalle: {e}")
+            return False
+    
+    def insertar_datos_cliente_artefactos(self):
+        try:
+            # Ejecutar el SELECT a la tabla clientes
+            self.cursor.execute('select cuenta, logfin from clientes;')
+            # Recorrer los resultados
+            for row in self.cursor.fetchall():
+                cuenta= row[0]
+                # Baja potencial
+                if row[1]>0:
+                    idmarca= 4
+                elif random.random() > 0.9:
+                    idmarca= random.randint(1,3)
+                else:
+                    idmarca= 0
+                    
+                if idmarca>0:
+                    logini= self.insertar_datos_log(f"Se registra baja potencial ({idmarca}) en la cuenta {cuenta}.")
+                    logfin= 0
+                    # 
+                    sql= '''
+                        INSERT INTO clientes_marcas (idmarca, cuenta, logini, logfin)
+                        VALUES (?, ?, ?, ?)
+                    '''
+                    self.cursor.execute(sql, (idmarca, cuenta,logini, logfin))                    
+                
+                # FAE
+                if random.random() > 0.7:
+                    idmarca= random.randint(5,7)
+                else:
+                    idmarca= 0
+                    
+                if idmarca>0:
+                    logini= self.insertar_datos_log(f"Se registra marca FAE ({idmarca}) en la cuenta {cuenta}.")
+                    logfin= 0
+                    # 
+                    sql= '''
+                        INSERT INTO clientes_marcas (idmarca, cuenta, logini, logfin)
+                        VALUES (?, ?, ?, ?)
+                    '''
+                    self.cursor.execute(sql, (idmarca, cuenta,logini, logfin))
+
+                # GE
+                if random.random() > 0.6:
+                    idmarca= random.randint(8,9)
+                else:
+                    idmarca= 0
+                    
+                if idmarca>0:
+                    logini= self.insertar_datos_log(f"Se registra marca GE ({idmarca}) en la cuenta {cuenta}.")
+                    logfin= 0
+                    # 
+                    sql= '''
+                        INSERT INTO clientes_marcas (idmarca, cuenta, logini, logfin)
+                        VALUES (?, ?, ?, ?)
+                    '''
+                    self.cursor.execute(sql, (idmarca, cuenta,logini, logfin))                    
+
+                # AMI
+                if random.random() > 0.4:
+                    idmarca= random.randint(10,11)
+                else:
+                    idmarca= 0
+                    
+                if idmarca>0:
+                    logini= self.insertar_datos_log(f"Se registra marca AMI ({idmarca}) en la cuenta {cuenta}.")
+                    logfin= 0
+                    # 
+                    sql= '''
+                        INSERT INTO clientes_marcas (idmarca, cuenta, logini, logfin)
+                        VALUES (?, ?, ?, ?)
+                    '''
+                    self.cursor.execute(sql, (idmarca, cuenta,logini, logfin))  
+                
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'clientes_marcas'.")
+            return True                
+
+        except sqlite3.Error as e:
+            print(f"Error al realizar el SELECT: {e}")
+
             
     def cerrar_conexion(self):
         # Cerrar la conexión a la base de datos

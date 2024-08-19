@@ -1,0 +1,109 @@
+{
+"marcas":[
+    {
+        "idmarca": 1,
+        "marca": "BAJA POTENCIAL",
+        "submarca": "ALTA MEDICA"
+    },
+    {
+        "idmarca": 2,
+        "marca": "BAJA POTENCIAL",
+        "submarca": "FALLECIDO"
+    },
+    {
+        "idmarca": 3,
+        "marca": "BAJA POTENCIAL",
+        "submarca": "MUDANZA"
+    },
+    {
+        "idmarca": 4,
+        "marca": "BAJA POTENCIAL",
+        "submarca": "NO EDP"
+    },
+    {
+        "idmarca": 5,
+        "marca": "FAE",
+        "submarca": "GE PROPIO"
+    },
+    {
+        "idmarca": 6,
+        "marca": "FAE",
+        "submarca": "POSEE FAE"
+    },
+    {
+        "idmarca": 7,
+        "marca": "FAE",
+        "submarca": "REQUIERE FAE"
+    },
+    {
+        "idmarca": 8,
+        "marca": "GE",
+        "submarca": "APTO GE"
+    },
+    {
+        "idmarca": 9,
+        "marca": "GE",
+        "submarca": "NO APTO GE"
+    },
+    {
+        "idmarca": 10,
+        "marca": "MEDIDOR AMI",
+        "submarca": "POSEE MEDIDOR AMI"
+    },
+    {
+        "idmarca": 11,
+        "marca": "MEDIDOR AMI",
+        "submarca": "REQUIERE MEDIDOR AMI"
+    },
+    {
+        "idmarca": 12,
+        "marca": "OPERACIONES",
+        "submarca": "AUTONOMÍA"
+    },
+    {
+        "idmarca": 13,
+        "marca": "OPERACIONES",
+        "submarca": "CON SUMINISTRO"
+    },
+    {
+        "idmarca": 14,
+        "marca": "OPERACIONES",
+        "submarca": "EN PROCESO"
+    },
+    {
+        "idmarca": 15,
+        "marca": "OPERACIONES",
+        "submarca": "FAE"
+    },
+    {
+        "idmarca": 16,
+        "marca": "OPERACIONES",
+        "submarca": "GE CT"
+    },
+    {
+        "idmarca": 17,
+        "marca": "OPERACIONES",
+        "submarca": "GE PROPIO"
+    },
+    {
+        "idmarca": 18,
+        "marca": "OPERACIONES",
+        "submarca": "GE PUNTUAL"
+    },
+    {
+        "idmarca": 19,
+        "marca": "OPERACIONES",
+        "submarca": "NO REQUERIDO"
+    },
+    {
+        "idmarca": 20,
+        "marca": "OPERACIONES",
+        "submarca": "RELLAMAR"
+    },
+    {
+        "idmarca": 21,
+        "marca": "OPERACIONES",
+        "submarca": "TRASLADO"
+    }
+]
+}
