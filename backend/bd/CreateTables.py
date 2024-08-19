@@ -227,18 +227,18 @@ class CreateTables:
                     x REAL,  -- Coordenada X, float/double
                     y REAL,  -- Coordenada Y, float/double
                     edp INTEGER CHECK(edp IN (0, 1)), 
-                    logini DATE NOT NULL,  -- Fecha de inicio, no nulo
-                    logfin DATE NOT NULL,  -- Fecha de fin, no nulo
+                    logini INTEGER NOT NULL,  -- Fecha de inicio, no nulo
+                    logfin INTEGER NOT NULL,  -- Fecha de fin, no nulo
                     FOREIGN KEY (idlocalidad) REFERENCES geografico(idlocalidad),
                     FOREIGN KEY (ct) REFERENCES ct(ct),
                     PRIMARY KEY(cuenta)  -- La cuenta será la clave primaria
                 )
             ''')
             # Truncate Reiniciar el autoincremento
-            self.cursor.execute('PRAGMA foreign_keys = OFF;')
-            self.cursor.execute('DELETE FROM clientes;')
-            self.cursor.execute('DELETE FROM sqlite_sequence WHERE name = ''clientes'';')
-            self.cursor.execute('PRAGMA foreign_keys = ON;')
+            # self.cursor.execute('PRAGMA foreign_keys = OFF;')
+            # self.cursor.execute('DELETE FROM clientes;')
+            # self.cursor.execute('DELETE FROM sqlite_sequence WHERE name = ''clientes'';')
+            # self.cursor.execute('PRAGMA foreign_keys = ON;')
             # Confirmar los cambios
             self.conn.commit()
             # Confirma
@@ -378,16 +378,11 @@ class CreateTables:
                     fin_recs DATE,  -- Fecha de fin del RECS (puede ser NULL si aún no ha finalizado)
                     diagnostico, -- Diagnostico del paciente
                     riesgo, -- Riesgo del paciente ante cortes
-                    logini DATE NOT NULL,  -- Fecha de inicio del log
-                    logfin DATE,  -- Fecha de fin del log (puede ser NULL si aún no ha finalizado)
+                    logini INTEGER NOT NULL,  -- Fecha de inicio del log
+                    logfin INTEGER,  -- Fecha de fin del log (puede ser NULL si aún no ha finalizado)
                     FOREIGN KEY (cuenta) REFERENCES clientes(cuenta)  -- Clave foránea a la tabla clientes
                 )
             ''')
-            # Truncate Reiniciar el autoincremento
-            self.cursor.execute('PRAGMA foreign_keys = OFF;')
-            self.cursor.execute('DELETE FROM pacientes;')
-            self.cursor.execute('DELETE FROM sqlite_sequence WHERE name = ''pacientes'';')
-            self.cursor.execute('PRAGMA foreign_keys = ON;')
             # Confirmar los cambios
             self.conn.commit()
             # Confirma
@@ -446,11 +441,115 @@ class CreateTables:
 
         except sqlite3.Error as e:
             print(f"Error al realizar el SELECT: {e}")
+
+    def crear_tabla_artefactos(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS artefactos (
+                    idartefacto INTEGER PRIMARY KEY AUTOINCREMENT,
+                    artefacto TEXT NOT NULL,
+                    autonomia INTEGER, 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'artefactos'. Detalle: {e}")
+            return False
+    
+    def insertar_datos_artefactos(self, json_artefactos):
+        try:
+            for artefacto in json_artefactos['artefactos']:
+                logini= self.insertar_datos_log(f"Se registra Artefacto {artefacto['artefacto']}.")
+                logfin= 0
+                # 
+                sql= '''
+                    INSERT INTO artefactos (artefacto, autonomia, logini, logfin)
+                    VALUES (?, ?, ?, ?)
+                '''
+                self.cursor.execute(sql, (
+                    artefacto['artefacto'], 
+                    artefacto.get('autonomia','0'),
+                    logini, 
+                    logfin))
+                    
+                
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'artefactos'.")
+            return True                
+
+        except sqlite3.Error as e:
+            print(f"Error al realizar el SELECT: {e}")
         
-        finally:
-            # Cerrar la conexión
-            self.conn.close()
-        
+    def crear_tabla_cliente_artefactos(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS clientes_artefactos (
+                    idclienteartefacto INTEGER PRIMARY KEY AUTOINCREMENT,
+                    idartefacto INTEGER NOT NULL,
+                    cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER,
+                    FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
+                    FOREIGN KEY (idartefacto) REFERENCES artefactos(idartefacto)
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'clientes_artefactos'. Detalle: {e}")
+            return False
+    
+    def insertar_datos_cliente_artefactos(self, json_artefactos):
+        try:
+            # Ejecutar el SELECT a la tabla clientes
+            self.cursor.execute('select cuenta, logfin from clientes;')
+            # Recorrer los resultados
+            for row in self.cursor.fetchall():
+                cuenta= row[0]
+                cant_artefactos= random.randint(0, 5)
+                numeros_guardados = set()
+                # 
+                for _ in range(cant_artefactos):
+                    idartefacto = random.choice(json_artefactos['artefactos'])['id']
+                    if idartefacto not in numeros_guardados: 
+                        # Guardo el numero de artefacto para que no vuelva a salir repetido
+                        numeros_guardados.add(idartefacto)
+                        # Logs
+                        logini= self.insertar_datos_log(f"Se vincula Artefacto con cliente de cuenta {cuenta}.")
+                        if row[1]>0:
+                            logini= self.insertar_datos_log(f"Se desvincula Artefacto con cliente de cuenta {cuenta}.")
+                        else:
+                            logfin= 0
+                        # 
+                        sql= '''
+                            INSERT INTO clientes_artefactos (idartefacto, cuenta, logini, logfin)
+                            VALUES (?, ?, ?, ?)
+                        '''
+                        self.cursor.execute(sql, (
+                            idartefacto, 
+                            cuenta,
+                            logini, 
+                            logfin))
+                    
+                
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'clientes_artefactos'.")
+            return True                
+
+        except sqlite3.Error as e:
+            print(f"Error al realizar el SELECT: {e}")
+
     def cerrar_conexion(self):
         # Cerrar la conexión a la base de datos
         self.conn.close()

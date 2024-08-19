@@ -39,7 +39,7 @@ class JsonValidador:
             print(f"Fail: Error al leer el archivo JSON. Detalle: {e}")
             return None
 
-    def leer_json_red(self, json_path):
+    def leer_json(self, json_path):
         try:
             with open(json_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
