@@ -614,6 +614,31 @@ class CreateTables:
         except sqlite3.Error as e:
             print(f"Error al realizar el SELECT: {e}")
 
+    def crear_tabla_contactos(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS contactos (
+                    idcontacto INTEGER PRIMARY KEY AUTOINCREMENT,
+                    cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
+                    usuario TEXTO NOT NULL, 
+                    fechahora DATE, 
+                    observaciones TEXTO, 
+                    idtelefono INTEGER,
+                    efectivo INTEGER CHECK(efectivo IN (0, 1)), 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER,
+                    FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
+                    FOREIGN KEY (idtelefono) REFERENCES telefonos(idtelefono)
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'contactos'. Detalle: {e}")
+            return False
     
     def cerrar_conexion(self):
         # Cerrar la conexión a la base de datos
