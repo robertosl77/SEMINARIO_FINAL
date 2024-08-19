@@ -1,6 +1,6 @@
 import sqlite3
 import random
-
+from datetime import datetime
 
 class CreateTables:
     def __init__(self, db_name='sgedatabase.db'):
@@ -223,18 +223,22 @@ class CreateTables:
                     numero TEXT,  -- Número, varchar(10)
                     piso_dpto TEXT,  -- Piso/Departamento, varchar(7)
                     idlocalidad INTEGER,  -- Llave foránea a la tabla geografico(idlocalidad)
-                    idct INTEGER,  -- Llave foránea a la tabla red(id_ct)
+                    ct INTEGER,  -- Llave foránea a la tabla red(id_ct)
                     x REAL,  -- Coordenada X, float/double
                     y REAL,  -- Coordenada Y, float/double
+                    edp INTEGER CHECK(edp IN (0, 1)), 
                     logini DATE NOT NULL,  -- Fecha de inicio, no nulo
                     logfin DATE NOT NULL,  -- Fecha de fin, no nulo
                     FOREIGN KEY (idlocalidad) REFERENCES geografico(idlocalidad),
-                    FOREIGN KEY (idct) REFERENCES red(id_ct),
+                    FOREIGN KEY (ct) REFERENCES ct(ct),
                     PRIMARY KEY(cuenta)  -- La cuenta será la clave primaria
                 )
             ''')
             # Truncate Reiniciar el autoincremento
-            self.cursor.execute('DELETE FROM ct')            
+            self.cursor.execute('PRAGMA foreign_keys = OFF;')
+            self.cursor.execute('DELETE FROM clientes;')
+            self.cursor.execute('DELETE FROM sqlite_sequence WHERE name = ''clientes'';')
+            self.cursor.execute('PRAGMA foreign_keys = ON;')
             # Confirmar los cambios
             self.conn.commit()
             # Confirma
@@ -254,28 +258,32 @@ class CreateTables:
         
         try:
             for entry in json_clientes['clientes']:
-                # Crea una cuenta entre secuencial y aleatoria
-                cuenta = (cuenta if 'cuenta' in locals() else 10000) + random.randint(3, 9)
-                # Inserta Logini
-                logini= self.insertar_datos_log(f"Se agrega cliente con cuenta {cuenta}.")
-                # Inserta Logfin (segun random)
-                if random.random() > 0.9:
-                    logfin= self.insertar_datos_log(f"Baja del cliente con cuenta {cuenta}.")
-                else:
-                    logfin= 0
                 # Obtiene idlocalidad
                 idlocalidad= self.obtiene_idlocalidad(entry['localidad'])
                 # Obtiene el CT
-                idct= self.obtiene_ct(json_ct, entry.get('ct','0'))
+                ct= self.obtiene_ct(json_ct, entry.get('ct','0'))
+                #
                 if idlocalidad == 0:
                     print(f"No se encontró la localidad {entry.get('localidad','')}, omitiendo cuenta {cuenta}.")
-                elif idct=='0':
+                elif ct=='0':
                     print(f"No se encontró el CT {entry.get('ct','0')}, omitiendo cuenta {cuenta}.")
                 else:
-                    # nombre_cliente= entry['nombre_cliente']
+                    # Crea una cuenta entre secuencial y aleatoria
+                    cuenta = (cuenta if 'cuenta' in locals() else 10000) + random.randint(3, 9)
+                    # Inserta Logini
+                    logini= self.insertar_datos_log(f"Se agrega cliente con cuenta {cuenta}.")
+                    # Inserta Logfin (segun random)
+                    if random.random() > 0.9:
+                        logfin= self.insertar_datos_log(f"Baja del cliente con cuenta {cuenta}.")
+                    else:
+                        logfin= 0
+                    # Inserta nombre de cliente aleatorio
                     nombre_cliente=self.generar_nombre_completo().upper()
+                    # Selecciona cliente EDP (aleatorio >60%)
+                    # esedp = 1 if random.random() > 0.6 and logfin == 0 else 0
+                    # 
                     sql= '''
-                        INSERT INTO clientes (cuenta, nombre_cliente, calle, numero, piso_dpto, idlocalidad, idct, x, y, logini, logfin)
+                        INSERT INTO clientes (cuenta, nombre_cliente, calle, numero, piso_dpto, idlocalidad, ct, x, y, logini, logfin)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     '''
                     self.cursor.execute(sql, (
@@ -285,7 +293,7 @@ class CreateTables:
                         entry['numero'], 
                         entry.get('piso_dpto', ''), 
                         idlocalidad, 
-                        idct, 
+                        ct, 
                         entry['x'], 
                         entry['y'], 
                         logini, 
@@ -356,7 +364,93 @@ class CreateTables:
         
         # Devolver el nombre completo
         return f"{nombre} {apellido}"
-            
+
+    def crear_tabla_pacientes(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS pacientes (
+                    idpaciente INTEGER PRIMARY KEY AUTOINCREMENT,  -- ID autonumérico
+                    cuenta INTEGER NOT NULL,  -- Número de cuenta, clave foránea de la tabla clientes
+                    nombre_paciente TEXT NOT NULL,  -- Nombre del paciente
+                    dni INTEGER,  -- DNI del paciente
+                    lote INTEGER, -- Lote del ENRE
+                    inicio_recs DATE NOT NULL,  -- Fecha de inicio del RECS
+                    fin_recs DATE,  -- Fecha de fin del RECS (puede ser NULL si aún no ha finalizado)
+                    diagnostico, -- Diagnostico del paciente
+                    riesgo, -- Riesgo del paciente ante cortes
+                    logini DATE NOT NULL,  -- Fecha de inicio del log
+                    logfin DATE,  -- Fecha de fin del log (puede ser NULL si aún no ha finalizado)
+                    FOREIGN KEY (cuenta) REFERENCES clientes(cuenta)  -- Clave foránea a la tabla clientes
+                )
+            ''')
+            # Truncate Reiniciar el autoincremento
+            self.cursor.execute('PRAGMA foreign_keys = OFF;')
+            self.cursor.execute('DELETE FROM pacientes;')
+            self.cursor.execute('DELETE FROM sqlite_sequence WHERE name = ''pacientes'';')
+            self.cursor.execute('PRAGMA foreign_keys = ON;')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'pacientes'. Detalle: {e}")
+            return False
+    
+    def insertar_datos_pacientes(self, json_diagnostico, json_riesgo):
+        try:
+            lote= 1
+            # Ejecutar el SELECT a la tabla clientes
+            self.cursor.execute('select cuenta, logfin from clientes;')
+            # Recorrer los resultados
+            for row in self.cursor.fetchall():
+                cuenta= row[0]
+                paciente= self.generar_nombre_completo()
+                dni= random.randint(7000000, 50000000)
+                lote+= 1 if random.randint(1,9)>7 else 0
+                inicio_recs= datetime.today().strftime('%Y-%m-%d')
+                fin_recs= datetime.today().strftime('%Y-%m-%d') if row[1]>0 else ''
+                # Diagnóstico aleatorio (solo el texto del diagnóstico)
+                diagnostico = random.choice(json_diagnostico['diagnosticos'])['diagnostico']
+                # Riesgo aleatorio (solo el texto del riesgo)
+                riesgo = random.choice(json_riesgo['riesgos'])['riesgo']
+                # Log ini
+                logini= self.insertar_datos_log(f"Se registra RECS para la cuenta {cuenta}.")
+                # Inserta Logfin (segun random)
+                if row[1]>0:
+                    logfin= self.insertar_datos_log(f"Se informa baja del RECS para la cuenta {cuenta}.")
+                else:
+                    logfin= 0
+                # 
+                sql= '''
+                    INSERT INTO pacientes (cuenta, nombre_paciente, dni, lote, inicio_recs, fin_recs, diagnostico, riesgo, logini, logfin)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                '''
+                self.cursor.execute(sql, (
+                    cuenta, 
+                    paciente,
+                    dni,
+                    lote, 
+                    inicio_recs,
+                    fin_recs, 
+                    diagnostico, 
+                    riesgo, 
+                    logini, 
+                    logfin))
+                    
+                
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'clientes'.")
+            return True                
+
+        except sqlite3.Error as e:
+            print(f"Error al realizar el SELECT: {e}")
+        
+        finally:
+            # Cerrar la conexión
+            self.conn.close()
+        
     def cerrar_conexion(self):
         # Cerrar la conexión a la base de datos
         self.conn.close()
