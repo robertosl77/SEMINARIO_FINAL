@@ -85,3 +85,11 @@ class Simulados:
                     resp= bd.insertar_datos_cliente_artefactos(json)        
         bd.cerrar_conexion()
         return jsonify({"respuesta": resp})           
+    
+    def CreaTablaTelefonos(self):
+        bd= CreateTables()
+        resp= bd.crear_tabla_telefonos()
+        if resp:
+            resp= bd.insertar_datos_telefonos()
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})               

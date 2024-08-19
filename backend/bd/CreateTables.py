@@ -550,6 +550,71 @@ class CreateTables:
         except sqlite3.Error as e:
             print(f"Error al realizar el SELECT: {e}")
 
+    def crear_tabla_telefonos(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS telefonos (
+                    idtelefono INTEGER PRIMARY KEY AUTOINCREMENT,
+                    cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
+                    telefono TEXTO NOT NULL, 
+                    tipo TEXTO NOT NULL, 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER,
+                    FOREIGN KEY (cuenta) REFERENCES clientes(cuenta)
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'telefonos'. Detalle: {e}")
+            return False
+    
+    def insertar_datos_telefonos(self):
+        try:
+            # Ejecutar el SELECT a la tabla clientes
+            self.cursor.execute('select cuenta, logfin from clientes;')
+            # Recorrer los resultados
+            for row in self.cursor.fetchall():
+                cuenta= row[0]
+                cant_artefactos= random.randint(0, 3)
+                # 
+                for _ in range(cant_artefactos):
+                    telefono = f"{random.randint(4000, 4999)}-{random.randint(1000, 9999)}"
+                    tipo= "LINEA"
+                    if random.choice([True, False]):
+                        telefono= f"11-{telefono}"
+                        tipo= "CELULAR"
+                    # Logs
+                    logini= self.insertar_datos_log(f"Se vincula telefono {telefono} a la cuenta {cuenta}.")
+                    if row[1]>0:
+                        logini= self.insertar_datos_log(f"Se desvincula telefono {telefono} a la cuenta {cuenta}.")
+                    else:
+                        logfin= 0
+                    # 
+                    sql= '''
+                        INSERT INTO telefonos (cuenta, telefono, tipo, logini, logfin)
+                        VALUES (?, ?, ?, ?, ?)
+                    '''
+                    self.cursor.execute(sql, (
+                        cuenta,
+                        telefono, 
+                        tipo, 
+                        logini, 
+                        logfin))
+                    
+                
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Los datos se han insertado correctamente en la tabla 'telefonos'.")
+            return True                
+
+        except sqlite3.Error as e:
+            print(f"Error al realizar el SELECT: {e}")
+
+    
     def cerrar_conexion(self):
         # Cerrar la conexión a la base de datos
         self.conn.close()

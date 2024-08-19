@@ -59,10 +59,11 @@ class Servicios:
             simulados= Simulados()
             # simulados.CreaTablaGeografico()
             # simulados.CreaTablaRed()
-            simulados.CreaTablaLog()
-            simulados.CreaTablaClientes()
-            simulados.CreaTablaPacientes()
-            simulados.CreaTablaArtefactos()
+            # simulados.CreaTablaLog()
+            # simulados.CreaTablaClientes()
+            # simulados.CreaTablaPacientes()
+            # simulados.CreaTablaArtefactos()
+            simulados.CreaTablaTelefonos()
             # 
             return jsonify({"Tablas creadas y datos insertados: ": True})  
         except Exception as e:
