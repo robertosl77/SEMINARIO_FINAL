@@ -121,3 +121,16 @@ class Simulados:
                     resp= bd.insertar_datos_cliente_artefactos()
         bd.cerrar_conexion()
         return jsonify({"respuesta": resp})         
+
+    def CreaTablaAfectados(self):
+        bd= CreateTables()
+        resp= bd.crear_tabla_afectaciones_afectados()
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})         
+    
+    def CreaTablaReclamos(self):
+        bd= CreateTables()
+        resp= bd.crear_tabla_afectaciones_reclamos()
+        bd.cerrar_conexion()
+        return jsonify({"respuesta": resp})  
+        

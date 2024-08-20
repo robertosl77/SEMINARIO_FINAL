@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify, session, redirect, url_for
 from flask_cors import CORS
 from jsons.JsonValidador import JsonValidador
-from bd.Simulados import Simulados
+from Simulados import Simulados
+from Afectaciones import Afectaciones
 
 servicios = Flask(__name__)
 CORS(servicios)
@@ -66,12 +67,19 @@ class Servicios:
             # simulados.CreaTablaTelefonos()
             # simulados.CreaTablaContactos()
             # simulados.CreaTablaAfectaciones()
-            simulados.CreaTablaMarcas()
+            # simulados.CreaTablaMarcas()
+            # simulados.CreaTablaAfectados()
+            # simulados.CreaTablaReclamos()
             # 
-            return jsonify({"Tablas creadas y datos insertados: ": True})  
+            return jsonify({"success": True}), 200
         except Exception as e:
-            return jsonify({f"Error {e}: ": False}) 
+            return jsonify({f"Error {e}: ": False}), 401
                     
+    @servicios.route('/API/AF/NuevaAfectacionAT/<ssee>', methods=['POST'])
+    def NuevaAfectacionAT(ssee):
+        a= Afectaciones()
+        a.nuevo_corte_at(ssee)
+        return jsonify({"success": True}), 200
 
 
 

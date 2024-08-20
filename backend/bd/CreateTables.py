@@ -136,8 +136,8 @@ class CreateTables:
             self.cursor.execute('''
                 CREATE TABLE IF NOT EXISTS ct (
                     ct INTEGER PRIMARY KEY,
-                    idalim INGEGER, 
-                    FOREIGN KEY (idalim) REFERENCES alim(alim)
+                    alim INGEGER, 
+                    FOREIGN KEY (alim) REFERENCES alim(alim)
                 )
             ''')
             # Truncate Reiniciar el autoincremento
@@ -164,7 +164,7 @@ class CreateTables:
                 
                 if ct.isdigit() and alim.isdigit():
                     self.cursor.execute('''
-                        INSERT INTO ct (ct, idalim)
+                        INSERT INTO ct (ct, alim)
                         VALUES (?, ?)
                     ''', (ct, alim))
             
@@ -553,7 +553,7 @@ class CreateTables:
     def crear_tabla_telefonos(self):
         try:
             self.cursor.execute('''
-                CREATE TABLE IF NOT EXISTS telefonos (
+                CREATE TABLE IF NOT EXISTS clientes_telefonos (
                     idtelefono INTEGER PRIMARY KEY AUTOINCREMENT,
                     cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
                     telefono TEXTO NOT NULL, 
@@ -569,7 +569,7 @@ class CreateTables:
             return True
         except sqlite3.Error as e:
             # Si ocurre un error, devolver un mensaje de fallo
-            print(f"Fail: Error al crear la tabla 'telefonos'. Detalle: {e}")
+            print(f"Fail: Error al crear la tabla 'clientes_telefonos'. Detalle: {e}")
             return False
     
     def insertar_datos_telefonos(self):
@@ -595,7 +595,7 @@ class CreateTables:
                         logfin= 0
                     # 
                     sql= '''
-                        INSERT INTO telefonos (cuenta, telefono, tipo, logini, logfin)
+                        INSERT INTO clientes_telefonos (cuenta, telefono, tipo, logini, logfin)
                         VALUES (?, ?, ?, ?, ?)
                     '''
                     self.cursor.execute(sql, (
@@ -608,7 +608,7 @@ class CreateTables:
                 
             # Confirmar los cambios
             self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'telefonos'.")
+            print("Success: Los datos se han insertado correctamente en la tabla 'clientes_telefonos'.")
             return True                
 
         except sqlite3.Error as e:
@@ -628,7 +628,7 @@ class CreateTables:
                     logini INTEGER NOT NULL,
                     logfin INTEGER,
                     FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
-                    FOREIGN KEY (idtelefono) REFERENCES telefonos(idtelefono)
+                    FOREIGN KEY (idtelefono) REFERENCES clientes_telefonos(idtelefono)
                 )
             ''')
             # Confirmar los cambios
@@ -830,6 +830,53 @@ class CreateTables:
 
         except sqlite3.Error as e:
             print(f"Error al realizar el SELECT: {e}")
+
+    def crear_tabla_afectaciones_afectados(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS afectaciones_afectados (
+                    idafectado INTEGER PRIMARY KEY AUTOINCREMENT,
+                    idafectacion INTEGER NOT NULL,
+                    cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
+                    gestion TEXTO NOT NULL, --Este campo brinda informacion de la solucion provisoria. 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER,
+                    FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
+                    FOREIGN KEY (idafectacion) REFERENCES afectaciones(idafectacion)
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'afectaciones_afectados'. Detalle: {e}")
+            return False
+    
+    def crear_tabla_afectaciones_reclamos(self):
+        try:
+            self.cursor.execute('''
+                CREATE TABLE IF NOT EXISTS afectaciones_reclamos (
+                    idreclamo INTEGER PRIMARY KEY AUTOINCREMENT,
+                    idafectacion INTEGER NOT NULL,
+                    cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
+                    fecha DATE NOT NULL,
+                    reiteracion INTEGER NOT NULL, 
+                    logini INTEGER NOT NULL,
+                    logfin INTEGER,
+                    FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
+                    FOREIGN KEY (idafectacion) REFERENCES afectaciones(idafectacion)
+                )
+            ''')
+            # Confirmar los cambios
+            self.conn.commit()
+            # Confirma
+            return True
+        except sqlite3.Error as e:
+            # Si ocurre un error, devolver un mensaje de fallo
+            print(f"Fail: Error al crear la tabla 'afectaciones_reclamos'. Detalle: {e}")
+            return False
 
             
     def cerrar_conexion(self):
