@@ -16,7 +16,7 @@ class Afectaciones:
             ssee= str(ssee)
             cts= datos.obtiene_cts_from_ssee(ssee)
             datos.normalizar_ct(cts)
-            datos.normalizar_documentos_sinctsafectados()
+            datos.normalizar_sinctsafectados()
             idafectacion= datos.nueva_afectacion('AT')
             if idafectacion>0:
                 ct= datos.nueva_afectacion_elementos(idafectacion, cts)
@@ -30,8 +30,10 @@ class Afectaciones:
                         "ssee": ssee,
                         "origen": "AT",
                         "cts": ct,
+                        # "cts_list": cts,
                         "clientes": cl,
-                        "reclamos": re
+                        "reclamos": re[0],
+                        "reiteraciones":re[1]
                     }
                 }
                 # Devolver el JSON de éxito
@@ -44,6 +46,18 @@ class Afectaciones:
             # Devolver False en caso de error
             return json.dumps({"success": False, "error": str(e)})
             
+    def normalizar_sinctsafectados(self):
+        try:
+            datos= Datos()
+            datos.normalizar_sinctsafectados()
+            # Devolver el JSON de éxito
+            return json.dumps({"success": True})
+        
+        except sqlite3.Error as e:
+            # Devolver False en caso de error
+            return json.dumps({"success": False, "error": str(e)})
+            
+
 
 # Ejemplo de uso
 # if __name__ == "__main__":

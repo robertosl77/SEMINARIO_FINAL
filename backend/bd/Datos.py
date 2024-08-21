@@ -33,6 +33,7 @@ class Datos:
         try:
             # Ejecutar la consulta para obtener el resultado
             cts= self.cursor.execute('SELECT ct.ct FROM ssee, alim, ct, clientes WHERE ssee.idssee=alim.idssee AND alim.alim=ct.alim AND ct.ct=clientes.ct AND clientes.logfin=0 AND ssee.idssee = ? ',(ssee,)).fetchall()
+            # cts= self.cursor.execute('SELECT ct.ct FROM ssee, alim, ct WHERE ssee.idssee=alim.idssee AND alim.alim=ct.alim AND ssee.idssee = ? ',(ssee,)).fetchall()
             return cts
         except sqlite3.Error as e:        
             print(f"Error al obtener subestación: {e}")
@@ -90,7 +91,7 @@ class Datos:
             finally:
                 self.cursor.close
 
-    def normalizar_documentos_sinctsafectados(self):
+    def normalizar_sinctsafectados(self):
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()
         try:
@@ -209,12 +210,15 @@ class Datos:
         self.cursor = self.conn.cursor()        
         try:
             cant=0
+            cantr=0
             cuentas= self.cursor.execute('select cuenta from afectaciones_afectados where idafectacion = ?',(idafectacion,)).fetchall()
             for cuenta in cuentas:
-                if random.randint(0,9)>0.8:
+                if random.random()>0.7:
                     logini= self.insertar_datos_log(f"Nuevo Reclamo de la cuenta ({cuenta[0]}) en Afectacion: {idafectacion}.")
                     logfin= 0
-                    reiteracion= 0 if random.randint(0,9)>0.4 else random.randint(1,5)
+                    reiteracion= 0 if random.random()>0.4 else random.randint(1,5)
+                    if reiteracion>0:
+                        cantr+=1
                     # 
                     self.cursor.execute('''
                         INSERT INTO afectaciones_reclamos (idafectacion, cuenta, fecha, reiteracion, logini, logfin)
@@ -225,11 +229,11 @@ class Datos:
             # Confirmar los cambios
             self.conn.commit()
             print("Success: Los datos se han insertado correctamente en la tabla 'afectaciones_reclamos'.")
-            return cant
+            return [cant,cantr]
         except sqlite3.Error as e:
             self.conn.rollback()
             print(f"Fail: Error al insertar datos en la tabla 'afectaciones_reclamos'. Detalle: {e}")
-            return 0
+            return [0,0]
             
     def normaliza_documentos(idafectacion):
         # Recibe por parametro el documento que desea normalizar y normaliza tambien los cts relacionados. 

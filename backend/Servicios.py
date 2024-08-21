@@ -80,6 +80,12 @@ class Servicios:
         a= Afectaciones()
         json= a.nuevo_corte_at(ssee)
         return json, 200
+    
+    @servicios.route('/API/AF/NormalizarSinAfectaciones', methods=['POST'])
+    def NormalizarNoAfectados():
+        a= Afectaciones()
+        json= a.normalizar_sinctsafectados()
+        return json, 200    
 
 
 
