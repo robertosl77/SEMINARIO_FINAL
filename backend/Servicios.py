@@ -99,5 +99,14 @@ class Servicios:
         json= a.normalizar_afectacion(idafectacion)
         return json, 200  
 
+    @servicios.route('/API/ME/ProximasTormentas', methods=['POST'])
+    def NormalizaAfectacion():
+        a= Afectaciones()
+        json= a.normalizar_afectacion()
+        return json, 200  
+
+
+
+
 if __name__ == '__main__':
     servicios.run(debug=True)

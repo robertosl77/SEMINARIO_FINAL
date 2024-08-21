@@ -7,10 +7,10 @@
   </li>
   <li>
     <p><strong>Crea una nueva rama llamada <code>entregable2</code> desde <code>desarrollo</code>:</strong></p>
-    <pre><code>git checkout -b entregable2</code></pre>
+    <pre><code>git checkout -b entregable3</code></pre>
   </li>
   <li>
     <p><strong>Sube la nueva rama a GitHub:</strong></p>
-    <pre><code>git push origin entregable2</code></pre>
+    <pre><code>git push origin entregable3</code></pre>
   </li>
 </ol>

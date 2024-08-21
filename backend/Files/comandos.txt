@@ -1,5 +1,6 @@
 activa el entorno virtual: 
 source backend/venv/Scripts/activate
+source venv/Scripts/activate
 
 desactiva el entorno virtual: 
 desactivate
