@@ -70,6 +70,26 @@ class Afectaciones:
                     "cantidad": len(cts),
                     # "cts": cts
                 }
+            } 
+            # Devolver el JSON de éxito
+            return jsonify(result)
+        
+        except sqlite3.Error as e:
+            # Devolver False en caso de error
+            return json.dumps({"success": False, "error": str(e)})
+
+    def normalizar_afectacion(self, idafectacion):
+        try:
+            datos= Datos()
+            cts= datos.obtiene_cts_from_afectacion(idafectacion)
+            datos.normalizar_ct(cts)
+            datos.normalizar_sinctsafectados()
+            # Crear un diccionario para el JSON de éxito
+            result = {
+                "normaliza_afectacion": {
+                    "afectacion": idafectacion,
+                    "cts": len(cts),
+                }
             }
             # Devolver el JSON de éxito
             return jsonify(result)
@@ -77,6 +97,7 @@ class Afectaciones:
         except sqlite3.Error as e:
             # Devolver False en caso de error
             return json.dumps({"success": False, "error": str(e)})
+
 
 # Ejemplo de uso
 # if __name__ == "__main__":

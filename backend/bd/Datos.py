@@ -53,6 +53,19 @@ class Datos:
         finally:
             self.cursor.close
 
+    def obtiene_cts_from_afectacion(self, idafectacion):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            cts= self.cursor.execute('SELECT ct FROM afectaciones_elementos WHERE logfin=0 AND idafectacion= ?',(idafectacion,)).fetchall()
+            return cts
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cts: {e}")
+            return []
+        finally:
+            self.cursor.close
+
     def insertar_datos_log(self, descripcion):
         if descripcion is None:
             print("No se proporcionaron datos para insertar.")
@@ -184,11 +197,11 @@ class Datos:
                 cant+= 1
             # Confirmar los cambios
             self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'afectaciones'.")
+            print("Success: Los datos se han insertado correctamente en la tabla 'nueva_afectacion_elementos'.")
             return cant
         except sqlite3.Error as e:
             self.conn.rollback()
-            print(f"Fail: Error al insertar datos en la tabla 'afectaciones'. Detalle: {e}")
+            print(f"Fail: Error al insertar datos en la tabla 'nueva_afectacion_elementos'. Detalle: {e}")
             return 0
 
     def nueva_afectacion_afectados(self, idafectacion, cts):
@@ -247,10 +260,6 @@ class Datos:
             print(f"Fail: Error al insertar datos en la tabla 'afectaciones_reclamos'. Detalle: {e}")
             return [0,0]
             
-    def normaliza_documentos(idafectacion):
-        # Recibe por parametro el documento que desea normalizar y normaliza tambien los cts relacionados. 
-        None
-
             
 
 # # Ejemplo de uso
