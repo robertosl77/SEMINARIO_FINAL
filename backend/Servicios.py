@@ -87,6 +87,11 @@ class Servicios:
         json= a.normalizar_sinctsafectados()
         return json, 200    
 
+    @servicios.route('/API/AF/NormalizarElementosAleatorios', methods=['POST'])
+    def NormalizarElementosAleatorios():
+        a= Afectaciones()
+        json= a.normalizar_elementos_aleatorios()
+        return json, 200  
 
 
 if __name__ == '__main__':

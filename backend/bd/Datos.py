@@ -41,6 +41,18 @@ class Datos:
         finally:
             self.cursor.close
 
+    def obtiene_cts_aleatorios(self):
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()
+        try:
+            cts= self.cursor.execute('select ct from afectaciones_elementos where logfin=0 and (ABS(RANDOM()) % 10)>=7;').fetchall()
+            return cts
+        except sqlite3.Error as e:        
+            print(f"Error al obtener subestación: {e}")
+            return []
+        finally:
+            self.cursor.close
+
     def insertar_datos_log(self, descripcion):
         if descripcion is None:
             print("No se proporcionaron datos para insertar.")
@@ -238,10 +250,7 @@ class Datos:
     def normaliza_documentos(idafectacion):
         # Recibe por parametro el documento que desea normalizar y normaliza tambien los cts relacionados. 
         None
-        
-    def normaliza_elementos_aleatorios(idafectacion):
-        # Recibe un documento y normaliza aleatoriamente, si queda sin cts normaliza el documento. 
-        None
+
             
 
 # # Ejemplo de uso
