@@ -78,8 +78,8 @@ class Servicios:
     @servicios.route('/API/AF/NuevaAfectacionAT/<ssee>', methods=['POST'])
     def NuevaAfectacionAT(ssee):
         a= Afectaciones()
-        a.nuevo_corte_at(ssee)
-        return jsonify({"success": True}), 200
+        json= a.nuevo_corte_at(ssee)
+        return json, 200
 
 
 

@@ -1,6 +1,8 @@
 import sqlite3
-import random
 from bd.Datos import Datos
+import json
+from flask import jsonify
+
 
 class Afectaciones:
     def __init__(self, db_name='sgedatabase.db') -> None:
@@ -17,11 +19,28 @@ class Afectaciones:
             datos.normalizar_documentos_sinctsafectados()
             idafectacion= datos.nueva_afectacion('AT')
             if idafectacion>0:
-                datos.nueva_afectacion_elementos(idafectacion, cts)
-                datos.nueva_afectacion_afectados(idafectacion, cts)
-                datos.nueva_afectacion_reclamos(idafectacion)
+                ct= datos.nueva_afectacion_elementos(idafectacion, cts)
+                cl= datos.nueva_afectacion_afectados(idafectacion, cts)
+                re= datos.nueva_afectacion_reclamos(idafectacion)
+
+                # Crear un diccionario para el JSON de éxito
+                result = {
+                    idafectacion: {
+                        "afectacion": idafectacion,
+                        "cant_ct": ct,
+                        "cant_clientes": cl,
+                        "cant_reclamos": re
+                    }
+                }
+                # Devolver el JSON de éxito
+                return jsonify(result)
+            else:
+                # Devolver False en caso de fallo
+                return json.dumps({"success": False, "error": "No se pudo crear la afectación."})
+        
         except sqlite3.Error as e:
-            print(f"Error al realizar el SELECT: {e}")
+            # Devolver False en caso de error
+            return json.dumps({"success": False, "error": str(e)})
             
 
 # Ejemplo de uso

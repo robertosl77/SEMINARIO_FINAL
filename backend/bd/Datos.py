@@ -158,6 +158,7 @@ class Datos:
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()        
         try:
+            cant=0
             for ct in cts:
                 logini= self.insertar_datos_log(f"Nuevo Elemento Afectado ({ct[0]}) en Afectacion: {idafectacion}.")
                 logfin= 0
@@ -167,17 +168,21 @@ class Datos:
                     VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)
                 ''', (idafectacion,ct[0],logini,logfin,))
                 # id = self.cursor.lastrowid
+                cant= 0 if cant==None else cant + 1
             # Confirmar los cambios
             self.conn.commit()
             print("Success: Los datos se han insertado correctamente en la tabla 'afectaciones'.")
+            return cant
         except sqlite3.Error as e:
             self.conn.rollback()
             print(f"Fail: Error al insertar datos en la tabla 'afectaciones'. Detalle: {e}")
+            return 0
 
     def nueva_afectacion_afectados(self, idafectacion, cts):
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()        
         try:
+            cant=0
             for ct in cts:
                 cuentas= self.cursor.execute('select cuenta from clientes where logfin=0 and ct= ?',(ct[0],)).fetchall()
                 for cuenta in cuentas:
@@ -188,18 +193,22 @@ class Datos:
                         INSERT INTO afectaciones_afectados (idafectacion, cuenta, gestion, logini, logfin)
                         VALUES (?, ?, ?, ?, ?)
                     ''', (idafectacion,cuenta[0],'NUEVO',logini,logfin,))
+                    cant+= 0 if cant==None else 1
                 # id = self.cursor.lastrowid
             # Confirmar los cambios
             self.conn.commit()
             print("Success: Los datos se han insertado correctamente en la tabla 'afectaciones_afectados'.")
+            return cant
         except sqlite3.Error as e:
             self.conn.rollback()
             print(f"Fail: Error al insertar datos en la tabla 'afectaciones_afectados'. Detalle: {e}")
+            return 0
             
     def nueva_afectacion_reclamos(self, idafectacion):
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()        
         try:
+            cant=0
             cuentas= self.cursor.execute('select cuenta from afectaciones_afectados where idafectacion = ?',(idafectacion,)).fetchall()
             for cuenta in cuentas:
                 if random.randint(0,9)>0.8:
@@ -211,13 +220,16 @@ class Datos:
                         INSERT INTO afectaciones_reclamos (idafectacion, cuenta, fecha, reiteracion, logini, logfin)
                         VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?)
                     ''', (idafectacion,cuenta[0],reiteracion,logini,logfin,))
+                    cant+= 0 if cant==None else 1
             # id = self.cursor.lastrowid
             # Confirmar los cambios
             self.conn.commit()
             print("Success: Los datos se han insertado correctamente en la tabla 'afectaciones_reclamos'.")
+            return cant
         except sqlite3.Error as e:
             self.conn.rollback()
             print(f"Fail: Error al insertar datos en la tabla 'afectaciones_reclamos'. Detalle: {e}")
+            return 0
             
     def normaliza_documentos(idafectacion):
         # Recibe por parametro el documento que desea normalizar y normaliza tambien los cts relacionados. 
