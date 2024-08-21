@@ -53,7 +53,7 @@ class Datos:
             idlog = self.cursor.lastrowid
             # Confirmar los cambios
             self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'log'.")
+            # print("Success: Los datos se han insertado correctamente en la tabla 'log'.")
             return idlog
         except sqlite3.Error as e:
             print(f"Fail: Error al insertar datos en la tabla 'log'. Detalle: {e}")
@@ -168,7 +168,7 @@ class Datos:
                     VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)
                 ''', (idafectacion,ct[0],logini,logfin,))
                 # id = self.cursor.lastrowid
-                cant= 0 if cant==None else cant + 1
+                cant+= 1
             # Confirmar los cambios
             self.conn.commit()
             print("Success: Los datos se han insertado correctamente en la tabla 'afectaciones'.")
@@ -193,7 +193,7 @@ class Datos:
                         INSERT INTO afectaciones_afectados (idafectacion, cuenta, gestion, logini, logfin)
                         VALUES (?, ?, ?, ?, ?)
                     ''', (idafectacion,cuenta[0],'NUEVO',logini,logfin,))
-                    cant+= 0 if cant==None else 1
+                    cant+= 1
                 # id = self.cursor.lastrowid
             # Confirmar los cambios
             self.conn.commit()
@@ -220,7 +220,7 @@ class Datos:
                         INSERT INTO afectaciones_reclamos (idafectacion, cuenta, fecha, reiteracion, logini, logfin)
                         VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?)
                     ''', (idafectacion,cuenta[0],reiteracion,logini,logfin,))
-                    cant+= 0 if cant==None else 1
+                    cant+= 1
             # id = self.cursor.lastrowid
             # Confirmar los cambios
             self.conn.commit()

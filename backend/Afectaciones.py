@@ -25,11 +25,13 @@ class Afectaciones:
 
                 # Crear un diccionario para el JSON de éxito
                 result = {
-                    idafectacion: {
+                    "nueva_afectacion": {
                         "afectacion": idafectacion,
-                        "cant_ct": ct,
-                        "cant_clientes": cl,
-                        "cant_reclamos": re
+                        "ssee": ssee,
+                        "origen": "AT",
+                        "cts": ct,
+                        "clientes": cl,
+                        "reclamos": re
                     }
                 }
                 # Devolver el JSON de éxito
