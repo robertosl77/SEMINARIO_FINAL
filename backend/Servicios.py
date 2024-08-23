@@ -91,13 +91,8 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
         # Crear un diccionario para el JSON de éxito
         m = Manager(tarjeta)
         json= m.gestiona_tarjeta()
-        result = {
-            tarjeta: {
-                "resultado": json
-            }
-        }
         # Devolver el JSON de éxito
-        return jsonify(result)
+        return jsonify(json)
 
 
 

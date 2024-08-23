@@ -617,7 +617,7 @@ class CreateTables:
     def crear_tabla_contactos(self):
         try:
             self.cursor.execute('''
-                CREATE TABLE IF NOT EXISTS contactos (
+                CREATE TABLE IF NOT EXISTS afectaciones_contactos (
                     idcontacto INTEGER PRIMARY KEY AUTOINCREMENT,
                     cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
                     usuario TEXTO NOT NULL, 
@@ -637,7 +637,7 @@ class CreateTables:
             return True
         except sqlite3.Error as e:
             # Si ocurre un error, devolver un mensaje de fallo
-            print(f"Fail: Error al crear la tabla 'contactos'. Detalle: {e}")
+            print(f"Fail: Error al crear la tabla 'afectaciones_contactos'. Detalle: {e}")
             return False
     
     def crear_tabla_afectaciones(self):
