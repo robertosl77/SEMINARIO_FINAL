@@ -3,6 +3,7 @@ from flask_cors import CORS
 from jsons.JsonValidador import JsonValidador
 from Simulados import Simulados
 from Afectaciones import Afectaciones
+from Manager import Manager
 
 app = Flask(__name__)  # Cambié el nombre de la instancia Flask a 'app'
 CORS(app)
@@ -84,6 +85,28 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
         a = Afectaciones()
         json = a.normalizar_afectacion(idafectacion)
         return json, 200  
+
+    @app.route('/API/MN/GestionaTarjeta/<tarjeta>', methods=['POST'])
+    def GestionaTarjeta(tarjeta):
+        # Crear un diccionario para el JSON de éxito
+        m = Manager(tarjeta)
+        json= m.gestiona_tarjeta()
+        result = {
+            tarjeta: {
+                "resultado": json
+            }
+        }
+        # Devolver el JSON de éxito
+        return jsonify(result)
+
+
+
+
+
+
+
+
+
 
     @app.route('/API/ME/ProximasTormentas', methods=['POST'])
     def ProximasTormentas():

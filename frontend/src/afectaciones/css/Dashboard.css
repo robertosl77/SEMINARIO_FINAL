@@ -1,32 +1,52 @@
+#header {
+  width: 100%;
+  height: 160px; /* Puedes ajustar el alto según necesites */
+  background-color: #9e9e9b; /* Color de fondo para referencia */
+  position: fixed; /* Fijado en la parte superior */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
+}
+
 .dashboard {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 72px 0;
     margin: 0;
     margin-top: 5px;
   }
-  
+
   .dashboard-card {
-    background-color: #2927c5;
-    padding: 20px;
-    border-radius: 5px;
+    background-color: #45454e;
+    padding: 10px;
+    border-radius: 10px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: white;
     flex: 1;
     margin: 0 7px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .content {
-    padding: 10px;
-    background-color: #e1f5fe;
-    border-radius: 5px;
-    /* margin-top: 10px; */
-    text-align: center;
-    margin: 0;
+  .dashboard-card:hover {
+    transform: scale(1.05); /* Aumenta el tamaño en un 5% */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra */
+    background-color: #24b465; /* Cambia el color de fondo */
+  }
+  
+  .dashboard-title {
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 5px;
+  }
+  
+  .dashboard-number {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: -5px;
+  }
 
-  }
-  
-  
-  
+
+
+

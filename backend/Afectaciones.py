@@ -5,9 +5,8 @@ from flask import jsonify
 
 
 class Afectaciones:
-    def __init__(self, db_name='sgedatabase.db') -> None:
-        self.conn = sqlite3.connect(db_name)
-        self.cursor = self.conn.cursor()
+    def __init__(self) -> None:
+        None
     
     def nuevo_corte_at(self, ssee):
         try:
@@ -42,7 +41,7 @@ class Afectaciones:
                 # Devolver False en caso de fallo
                 return json.dumps({"success": False, "error": "No se pudo crear la afectación."})
         
-        except sqlite3.Error as e:
+        except Exception as e:
             # Devolver False en caso de error
             return json.dumps({"success": False, "error": str(e)})
             
@@ -53,7 +52,7 @@ class Afectaciones:
             # Devolver el JSON de éxito
             return json.dumps({"success": True})
         
-        except sqlite3.Error as e:
+        except Exception as e:
             # Devolver False en caso de error
             return json.dumps({"success": False, "error": str(e)})
             
@@ -74,7 +73,7 @@ class Afectaciones:
             # Devolver el JSON de éxito
             return jsonify(result)
         
-        except sqlite3.Error as e:
+        except Exception as e:
             # Devolver False en caso de error
             return json.dumps({"success": False, "error": str(e)})
 
@@ -94,7 +93,7 @@ class Afectaciones:
             # Devolver el JSON de éxito
             return jsonify(result)
         
-        except sqlite3.Error as e:
+        except Exception as e:
             # Devolver False en caso de error
             return json.dumps({"success": False, "error": str(e)})
 

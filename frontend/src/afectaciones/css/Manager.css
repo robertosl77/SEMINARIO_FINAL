@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    margin-top: 0px; /* Desplaza el contenido para evitar que quede oculto bajo el header */
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
