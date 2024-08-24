@@ -10,8 +10,8 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_afectados()
         elif self.tarjeta=="normalizados":
             tarjeta= self.tarjetas.tarjeta_normalizados()
-        elif self.tarjeta=="":
-            None
+        elif self.tarjeta=="reclamos":
+            tarjeta= self.tarjetas.tarjeta_reclamos()
         elif self.tarjeta=="":
             None
         elif self.tarjeta=="":

@@ -19,7 +19,7 @@ class Tarjetas:
             ''').fetchall()
             return afectados
         except sqlite3.Error as e:        
-            print(f"Error al obtener subestación: {e}")
+            print(f"Error al obtener cuentas afectadas: {e}")
             return []
         finally:
             self.cursor.close
@@ -36,7 +36,24 @@ class Tarjetas:
             ''').fetchall()
             return afectados
         except sqlite3.Error as e:        
-            print(f"Error al obtener subestación: {e}")
+            print(f"Error al obtener cuentas normalizadas: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def tarjeta_reclamos(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            afectados= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=r.cuenta and a.idafectacion=r.idafectacion and e.logfin=0 and af.logfin=0 and r.logfin=0;
+            ''').fetchall()
+            return afectados
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas con reclamos: {e}")
             return []
         finally:
             self.cursor.close
@@ -75,6 +92,14 @@ class Tarjetas:
                 ;                                              
             ''').fetchone()
             dashboard.append(tarjeta[0])
+            # Reclamos
+            tarjeta = self.cursor.execute('''
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=r.cuenta and a.idafectacion=r.idafectacion and e.logfin=0 and af.logfin=0 and r.logfin=0;
+            ''').fetchone()
+            dashboard.append(tarjeta[0])
+            # 
             return dashboard
         except sqlite3.Error as e:        
             print(f"Error al obtener las estadisticas del dashboard: {e}")

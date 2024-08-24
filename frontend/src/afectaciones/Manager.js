@@ -31,17 +31,17 @@ function Manager() {
       console.log(result); // Enviar JSON recibido a la consola
 
       setDashboardData({
-        afectados: result.dashboard[0],
-        normalizados: result.dashboard[1],
-        reclamos: result.dashboard[2],
-        sin_gestion: result.dashboard[3],
-        sin_autonomia: result.dashboard[4],
-        fae: result.dashboard[5],
-        ami: result.dashboard[6],
-        otro1: result.dashboard[7],
-        otro2: result.dashboard[8],
-        otro3: result.dashboard[9],
-        otro4: result.dashboard[10],
+        afectados: result.dashboard[0] || 0,
+        normalizados: result.dashboard[1] || 0,
+        reclamos: result.dashboard[2] || 0,
+        sin_gestion: result.dashboard[3] || 0,
+        sin_autonomia: result.dashboard[4] || 0,
+        fae: result.dashboard[5] || 0,
+        ami: result.dashboard[6] || 0,
+        otro1: result.dashboard[7] || 0,
+        otro2: result.dashboard[8] || 0,
+        otro3: result.dashboard[9] || 0,
+        otro4: result.dashboard[10] || 0,
       });
 
       setData(result); // Actualiza el estado con el resultado del backend
