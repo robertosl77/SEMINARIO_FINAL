@@ -216,9 +216,9 @@ class Datos:
                     logfin= 0
                     # 
                     self.cursor.execute('''
-                        INSERT INTO afectaciones_afectados (idafectacion, cuenta, gestion, logini, logfin)
-                        VALUES (?, ?, ?, ?, ?)
-                    ''', (idafectacion,cuenta[0],'NUEVO',logini,logfin,))
+                        INSERT INTO afectaciones_afectados (idafectacion, ct, cuenta, gestion, logini, logfin)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ''', (idafectacion,ct[0],cuenta[0],'NUEVO',logini,logfin,))
                     cant+= 1
                 # id = self.cursor.lastrowid
             # Confirmar los cambios

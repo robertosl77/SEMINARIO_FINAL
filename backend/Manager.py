@@ -22,6 +22,8 @@ class Manager:
         # Busquedas Puntuales
         solucion_provisoria= ["Con Luz", "Requiere GE", "Se Traslada", "Rellamar"]
         marcas= self.tarjetas.obtiene_marcas()
+        # Busca dashboard
+        dashboard= self.tarjetas.obtiene_dashboard()
         # Estructura el resultado en un diccionario
         json = {
             "afectados": [
@@ -94,7 +96,8 @@ class Manager:
                 for row in tarjeta
             ],
             "solucion_provisoria": solucion_provisoria, 
-            "marcas": marcas
+            "marcas": marcas, 
+            "dashboard": dashboard
         }
 
         return json

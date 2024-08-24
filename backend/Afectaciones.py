@@ -14,29 +14,30 @@ class Afectaciones:
             ssee= datos.random_id_ssee(ssee) if ssee=='0' else ssee
             ssee= str(ssee)
             cts= datos.obtiene_cts_from_ssee(ssee)
-            datos.normalizar_ct(cts)
-            datos.normalizar_sinctsafectados()
-            idafectacion= datos.nueva_afectacion('AT')
-            if idafectacion>0:
-                ct= datos.nueva_afectacion_elementos(idafectacion, cts)
-                cl= datos.nueva_afectacion_afectados(idafectacion, cts)
-                re= datos.nueva_afectacion_reclamos(idafectacion)
+            if cts:
+                datos.normalizar_ct(cts)
+                datos.normalizar_sinctsafectados()
+                idafectacion= datos.nueva_afectacion('AT')
+                if idafectacion>0:
+                    ct= datos.nueva_afectacion_elementos(idafectacion, cts)
+                    cl= datos.nueva_afectacion_afectados(idafectacion, cts)
+                    re= datos.nueva_afectacion_reclamos(idafectacion)
 
-                # Crear un diccionario para el JSON de éxito
-                result = {
-                    "nueva_afectacion": {
-                        "afectacion": idafectacion,
-                        "ssee": ssee,
-                        "origen": "AT",
-                        "cts": ct,
-                        # "cts_list": cts,
-                        "clientes": cl,
-                        "reclamos": re[0],
-                        "reiteraciones":re[1]
+                    # Crear un diccionario para el JSON de éxito
+                    result = {
+                        "nueva_afectacion": {
+                            "afectacion": idafectacion,
+                            "ssee": ssee,
+                            "origen": "AT",
+                            "cts": ct,
+                            # "cts_list": cts,
+                            "clientes": cl,
+                            "reclamos": re[0],
+                            "reiteraciones":re[1]
+                        }
                     }
-                }
-                # Devolver el JSON de éxito
-                return jsonify(result)
+                    # Devolver el JSON de éxito
+                    return jsonify(result)
             else:
                 # Devolver False en caso de fallo
                 return json.dumps({"success": False, "error": "No se pudo crear la afectación."})

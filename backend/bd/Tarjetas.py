@@ -12,7 +12,11 @@ class Tarjetas:
         self.cursor = self.conn.cursor()          
         try:
             # Ejecutar la consulta para obtener el resultado
-            afectados= self.cursor.execute('SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.cuenta=c.cuenta and c.ct=e.ct and af.logfin=0').fetchall()
+            afectados= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0                                           
+            ''').fetchall()
             return afectados
         except sqlite3.Error as e:        
             print(f"Error al obtener subestación: {e}")
@@ -25,7 +29,11 @@ class Tarjetas:
         self.cursor = self.conn.cursor()          
         try:
             # Ejecutar la consulta para obtener el resultado
-            afectados= self.cursor.execute('SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.cuenta=c.cuenta and c.ct=e.ct and af.logfin=0 and e.logfin<>0').fetchall()
+            afectados= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin<>0 and af.logfin=0
+            ''').fetchall()
             return afectados
         except sqlite3.Error as e:        
             print(f"Error al obtener subestación: {e}")
@@ -42,6 +50,34 @@ class Tarjetas:
             return marcas
         except sqlite3.Error as e:        
             print(f"Error al obtener las marcas: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def obtiene_dashboard(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        dashboard= []
+        try:
+            # Afectados
+            tarjeta = self.cursor.execute('''
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
+                ;                                              
+            ''').fetchone()
+            dashboard.append(tarjeta[0])
+            # Normalizados
+            tarjeta = self.cursor.execute('''
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin<>0 and af.logfin=0
+                ;                                              
+            ''').fetchone()
+            dashboard.append(tarjeta[0])
+            return dashboard
+        except sqlite3.Error as e:        
+            print(f"Error al obtener las estadisticas del dashboard: {e}")
             return []
         finally:
             self.cursor.close
@@ -64,7 +100,6 @@ class Tarjetas:
         finally:
             self.cursor.close()  # Asegúrate de cerrar el cursor correctamente
             self.conn.close()    # También cierra la conexión a la base de datos
-
 
     def obtiene_aparatologia(self, cuenta):      
         self.conn = sqlite3.connect(self.db_name)

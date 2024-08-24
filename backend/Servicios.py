@@ -57,7 +57,19 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
     @app.route('/API/BD/CreaTablas', methods=['POST'])
     def CreaTablas():
         try:
-            simulados = Simulados()
+            simulados= Simulados()
+            # simulados.CreaTablaGeografico()
+            # simulados.CreaTablaRed()
+            # simulados.CreaTablaLog()
+            # simulados.CreaTablaClientes()
+            # simulados.CreaTablaPacientes()
+            # simulados.CreaTablaArtefactos()
+            # simulados.CreaTablaTelefonos()
+            # simulados.CreaTablaContactos()
+            # simulados.CreaTablaAfectaciones()
+            # simulados.CreaTablaMarcas()
+            # simulados.CreaTablaAfectados()
+            # simulados.CreaTablaReclamos()
             return jsonify({"success": True}), 200
         except Exception as e:
             return jsonify({f"Error {e}: ": False}), 401

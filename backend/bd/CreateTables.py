@@ -84,7 +84,7 @@ class CreateTables:
             
             # Confirmar los cambios
             self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'ssee'.")
+            print(f"Success: Se han insertado correctamente las ssee.")
             return True
         except sqlite3.Error as e:
             print(f"Fail: Error al insertar datos en la tabla 'ssee'. Detalle: {e}")
@@ -125,7 +125,7 @@ class CreateTables:
             
             # Confirmar los cambios
             self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'alim'.")
+            print(f"Success: Se ha insertado correctamente los alimentadores.")
             return True
         except sqlite3.Error as e:
             print(f"Fail: Error al insertar datos en la tabla 'alim'. Detalle: {e}")
@@ -168,9 +168,9 @@ class CreateTables:
                         VALUES (?, ?)
                     ''', (ct, alim))
             
-                # Confirmar los cambios
-                self.conn.commit()
-                print("Success: Los datos se han insertado correctamente en la tabla 'ct'.")
+            # Confirmar los cambios
+            self.conn.commit()
+            print(f"Success: Se han insertado correctamente los cts.")
             return True
         except sqlite3.Error as e:
             print(f"Fail: Error al insertar datos en la tabla 'ct'. Detalle: {e}")
@@ -207,7 +207,7 @@ class CreateTables:
             idlog = self.cursor.lastrowid
             # Confirmar los cambios
             self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'log'.")
+            # print("Success: Los datos se han insertado correctamente en la tabla 'log'.")
             return idlog
         except sqlite3.Error as e:
             print(f"Fail: Error al insertar datos en la tabla 'ct'. Detalle: {e}")
@@ -368,7 +368,7 @@ class CreateTables:
     def crear_tabla_pacientes(self):
         try:
             self.cursor.execute('''
-                CREATE TABLE IF NOT EXISTS pacientes (
+                CREATE TABLE IF NOT EXISTS clientes_pacientes (
                     idpaciente INTEGER PRIMARY KEY AUTOINCREMENT,  -- ID autonumérico
                     cuenta INTEGER NOT NULL,  -- Número de cuenta, clave foránea de la tabla clientes
                     nombre_paciente TEXT NOT NULL,  -- Nombre del paciente
@@ -418,7 +418,7 @@ class CreateTables:
                     logfin= 0
                 # 
                 sql= '''
-                    INSERT INTO pacientes (cuenta, nombre_paciente, dni, lote, inicio_recs, fin_recs, diagnostico, riesgo, logini, logfin)
+                    INSERT INTO clientes_pacientes (cuenta, nombre_paciente, dni, lote, inicio_recs, fin_recs, diagnostico, riesgo, logini, logfin)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 '''
                 self.cursor.execute(sql, (
@@ -436,7 +436,7 @@ class CreateTables:
                 
             # Confirmar los cambios
             self.conn.commit()
-            print("Success: Los datos se han insertado correctamente en la tabla 'clientes'.")
+            print("Success: Los datos se han insertado correctamente en la tabla 'pacientes'.")
             return True                
 
         except sqlite3.Error as e:
@@ -750,7 +750,7 @@ class CreateTables:
             print(f"Fail: Error al crear la tabla 'clientes_marcas'. Detalle: {e}")
             return False
     
-    def insertar_datos_cliente_artefactos(self):
+    def insertar_datos_cliente_marcas(self):
         try:
             # Ejecutar el SELECT a la tabla clientes
             self.cursor.execute('select cuenta, logfin from clientes;')
@@ -837,11 +837,13 @@ class CreateTables:
                 CREATE TABLE IF NOT EXISTS afectaciones_afectados (
                     idafectado INTEGER PRIMARY KEY AUTOINCREMENT,
                     idafectacion INTEGER NOT NULL,
+                    ct INTEGER NOT NULL,
                     cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
                     gestion TEXTO NOT NULL, --Este campo brinda informacion de la solucion provisoria. 
                     logini INTEGER NOT NULL,
                     logfin INTEGER,
                     FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
+                    FOREIGN KEY (ct) REFERENCES ct(ct),
                     FOREIGN KEY (idafectacion) REFERENCES afectaciones(idafectacion)
                 )
             ''')

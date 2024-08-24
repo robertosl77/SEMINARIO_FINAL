@@ -118,7 +118,7 @@ class Simulados:
             if resp:
                 resp= bd.crear_tabla_cliente_marcas()
                 if resp:
-                    resp= bd.insertar_datos_cliente_artefactos()
+                    resp= bd.insertar_datos_cliente_marcas()
         bd.cerrar_conexion()
         return jsonify({"respuesta": resp})         
 
