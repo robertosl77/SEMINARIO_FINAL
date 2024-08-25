@@ -9,8 +9,8 @@ function Manager() {
     afectados: 0,
     normalizados: 0,
     reclamos: 0,
-    sin_gestion: 0,
     sin_autonomia: 0,
+    sin_gestion: 0,
     fae: 0,
     ami: 0,
     otro1: 0,
@@ -34,8 +34,8 @@ function Manager() {
         afectados: result.dashboard[0] || 0,
         normalizados: result.dashboard[1] || 0,
         reclamos: result.dashboard[2] || 0,
-        sin_gestion: result.dashboard[3] || 0,
-        sin_autonomia: result.dashboard[4] || 0,
+        sin_autonomia: result.dashboard[3] || 0,
+        sin_gestion: result.dashboard[4] || 0,
         fae: result.dashboard[5] || 0,
         ami: result.dashboard[6] || 0,
         otro1: result.dashboard[7] || 0,
@@ -67,13 +67,13 @@ function Manager() {
             <div className="dashboard-title">RECLAMOS</div>
             <div className="dashboard-number">{dashboardData.reclamos}</div> {/* Valor dinámico */}
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('sin_gestion')}>
-            <div className="dashboard-title">SIN GESTIÓN</div>
-            <div className="dashboard-number">{dashboardData.sin_gestion}</div> {/* Valor dinámico */}
-          </div>
           <div className="dashboard-card" onClick={() => handleCardClick('sin_autonomia')}>
             <div className="dashboard-title">SIN AUTONOMÍA</div>
             <div className="dashboard-number">{dashboardData.sin_autonomia}</div> {/* Valor dinámico */}
+          </div>
+          <div className="dashboard-card" onClick={() => handleCardClick('sin_contacto')}>
+            <div className="dashboard-title">SIN GESTIÓN</div>
+            <div className="dashboard-number">{dashboardData.sin_gestion}</div> {/* Valor dinámico */}
           </div>
           <div className="dashboard-card" onClick={() => handleCardClick('fae')}>
             <div className="dashboard-title">FAE</div>

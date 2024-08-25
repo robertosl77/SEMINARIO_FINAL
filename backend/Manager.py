@@ -12,6 +12,12 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_normalizados()
         elif self.tarjeta=="reclamos":
             tarjeta= self.tarjetas.tarjeta_reclamos()
+        elif self.tarjeta=="sin_autonomia":
+            tarjeta= self.tarjetas.tarjeta_sinautonomia()
+        elif self.tarjeta=="sin_contacto":
+            tarjeta= self.tarjetas.tarjeta_sincontacto()
+        elif self.tarjeta=="":
+            None
         elif self.tarjeta=="":
             None
         elif self.tarjeta=="":

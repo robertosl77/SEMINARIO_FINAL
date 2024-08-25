@@ -619,6 +619,7 @@ class CreateTables:
             self.cursor.execute('''
                 CREATE TABLE IF NOT EXISTS afectaciones_contactos (
                     idcontacto INTEGER PRIMARY KEY AUTOINCREMENT,
+                    idafectacion INTEGER NOT NULL,
                     cuenta INTEGER NOT NULL CHECK(length(cuenta) = 5),  -- Número de 5 dígitos, único, no nulo 
                     usuario TEXTO NOT NULL, 
                     fechahora DATE, 
@@ -626,7 +627,9 @@ class CreateTables:
                     idtelefono INTEGER,
                     efectivo INTEGER CHECK(efectivo IN (0, 1)), 
                     logini INTEGER NOT NULL,
+                    
                     logfin INTEGER,
+                    FOREIGN KEY (idafectacion) REFERENCES afectaciones(idafectacion),
                     FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
                     FOREIGN KEY (idtelefono) REFERENCES clientes_telefonos(idtelefono)
                 )
