@@ -14,8 +14,11 @@ class Tarjetas:
             # Ejecutar la consulta para obtener el resultado
             afectados= self.cursor.execute('''
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
-                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0                                           
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0  
+                ;                                         
             ''').fetchall()
             return afectados
         except sqlite3.Error as e:        
@@ -31,6 +34,8 @@ class Tarjetas:
             # Ejecutar la consulta para obtener el resultado
             afectados= self.cursor.execute('''
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin<>0 and af.logfin=0
             ''').fetchall()
@@ -48,6 +53,8 @@ class Tarjetas:
             # Ejecutar la consulta para obtener el resultado
             afectados= self.cursor.execute('''
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
                 where a.idafectacion=af.idafectacion 
 				and af.idafectacion=e.idafectacion 
@@ -72,6 +79,8 @@ class Tarjetas:
             # Ejecutar la consulta para obtener el resultado
             sinautonomia= self.cursor.execute('''
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=af.cuenta),0)
@@ -91,6 +100,8 @@ class Tarjetas:
             # Ejecutar la consulta para obtener el resultado
             sincontacto= self.cursor.execute('''
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and (select count(1) from afectaciones_contactos where cuenta=af.cuenta and idafectacion=af.idafectacion)=0
@@ -99,6 +110,72 @@ class Tarjetas:
             return sincontacto
         except sqlite3.Error as e:        
             print(f"Error al obtener cuentas sin contacto: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def tarjeta_fae(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            fae= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
+                and e.logfin=0 and af.logfin=0
+                and c.fae=1
+                ;
+            ''').fetchall()
+            return fae
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas con fae: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def tarjeta_ami(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            ami= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
+                and e.logfin=0 and af.logfin=0
+                and c.ami=1
+                ;
+            ''').fetchall()
+            return ami
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas con ami: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def tarjeta_ge(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            ge= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
+                and e.logfin=0 and af.logfin=0
+                and gestion in ('REQUIERE GE','GE INSTALADO')
+                ;
+            ''').fetchall()
+            return ge
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas gestionadas con GE: {e}")
             return []
         finally:
             self.cursor.close
@@ -256,6 +333,36 @@ class Tarjetas:
                 ;
             ''').fetchone()
             dashboard.append(tarjeta[0])            
+            # Con FAE
+            tarjeta = self.cursor.execute(''' 
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
+                and e.logfin=0 and af.logfin=0
+                and c.fae=1
+                ;
+            ''').fetchone()
+            dashboard.append(tarjeta[0])                        
+            # Con AMI
+            tarjeta = self.cursor.execute(''' 
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
+                and e.logfin=0 and af.logfin=0
+                and c.ami=1
+                ;
+            ''').fetchone()
+            dashboard.append(tarjeta[0])                  
+            # Gestionado con GE
+            tarjeta = self.cursor.execute(''' 
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
+                and e.logfin=0 and af.logfin=0
+                and gestion in ('REQUIERE GE','GE INSTALADO')
+                ;
+            ''').fetchone()
+            dashboard.append(tarjeta[0])                  
             # 
             return dashboard
         except sqlite3.Error as e:        

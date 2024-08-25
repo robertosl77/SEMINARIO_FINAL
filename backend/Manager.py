@@ -16,6 +16,12 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_sinautonomia()
         elif self.tarjeta=="sin_contacto":
             tarjeta= self.tarjetas.tarjeta_sincontacto()
+        elif self.tarjeta=="fae":
+            tarjeta= self.tarjetas.tarjeta_fae()
+        elif self.tarjeta=="ami":
+            tarjeta= self.tarjetas.tarjeta_ami()
+        elif self.tarjeta=="ge":
+            tarjeta= self.tarjetas.tarjeta_ge()
         elif self.tarjeta=="":
             None
         elif self.tarjeta=="":
@@ -26,7 +32,7 @@ class Manager:
             None
 
         # Busquedas Puntuales
-        solucion_provisoria= ["Con Luz", "Requiere GE", "Se Traslada", "Rellamar"]
+        solucion_provisoria= ["CON SUMINISTRO", "REQUIERE GE", "GE INSTALADO", "FAE INSTALADO", "SE TRASLADA", "CON AUTONOMÍA", "RELLAMAR", "SEGUIMIENTO"]
         marcas= self.tarjetas.obtiene_marcas()
         # Busca dashboard
         dashboard= self.tarjetas.obtiene_dashboard()
@@ -34,22 +40,24 @@ class Manager:
         json = {
             "afectados": [
                 {
-                    "idafectacion": row[0],
-                    "afectacion": row[1],
-                    "tipo": row[2],
-                    "estado": row[3],
-                    "ct": row[4],
-                    "inicio": row[5],
-                    "restitucion": row[6],
-                    "cuenta": row[7],
-                    "gestion": row[8],
+                    "idafectacion": afectados[0],
+                    "afectacion": afectados[1],
+                    "tipo": afectados[2],
+                    "estado": afectados[3],
+                    "ct": afectados[4],
+                    "inicio": afectados[5],
+                    "restitucion": afectados[6],
+                    "cuenta": afectados[7],
+                    "gestion": afectados[8],
+                    "fae": afectados[9],
+                    "ami": afectados[10],
                     "aparatologia": [
                         {
                             "idartefacto": aparatologia[0],
                             "aparato": aparatologia[1],
                             "autonomia": aparatologia[2]
                         }
-                        for aparatologia in self.tarjetas.obtiene_aparatologia(row[7])
+                        for aparatologia in self.tarjetas.obtiene_aparatologia(afectados[7])
                     ],
                     "telefonos": [
                         {
@@ -60,7 +68,7 @@ class Manager:
                             "llamadas": telefonos[4],
                             "efectivas": telefonos[5]
                         }
-                        for telefonos in self.tarjetas.obtiene_telefonos(row[7])
+                        for telefonos in self.tarjetas.obtiene_telefonos(afectados[7])
                     ],
                     "reclamos": [
                         {
@@ -72,7 +80,7 @@ class Manager:
                             "estado": reclamos[5],
                             "actuales": reclamos[6]
                         }
-                        for reclamos in self.tarjetas.obtiene_reclamos(row[7])
+                        for reclamos in self.tarjetas.obtiene_reclamos(afectados[7])
                     ],
                     "marcas": [
                         {
@@ -82,7 +90,7 @@ class Manager:
                             "marca": marca[3],
                             "submarca": marca[4]
                         }
-                        for marca in self.tarjetas.obtiene_marcas_clientes(row[7])
+                        for marca in self.tarjetas.obtiene_marcas_clientes(afectados[7])
                     ],
                     "contactos": [
                         {
@@ -96,10 +104,10 @@ class Manager:
                             "telefono": contacto[7],
                             "tipo": contacto[8]
                         }
-                        for contacto in self.tarjetas.obtiene_contactos(row[7])
+                        for contacto in self.tarjetas.obtiene_contactos(afectados[10])
                     ]
                 }
-                for row in tarjeta
+                for afectados in tarjeta
             ],
             "solucion_provisoria": solucion_provisoria, 
             "marcas": marcas, 
