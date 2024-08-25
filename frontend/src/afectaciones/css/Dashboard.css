@@ -27,6 +27,7 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra más marcada */
   background-color: #1abc9c; /* Cambia el color de fondo a un verde más brillante */
   border-color: #16a085; /* Resalta el borde al pasar sobre él */
+  font-style: italic;
 }
 
 .dashboard-title {

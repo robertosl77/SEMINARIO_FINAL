@@ -1,9 +1,13 @@
 import React from 'react';
+import Afectado from './Afectado';
 import './css/Panel_Izquierdo.css';
 
 function LeftPanel({ data }) {
   return (
     <div id="left-panel">
+      <div className="App">
+        <Afectado />
+      </div>    
       {/* Contenido del panel izquierdo */}
       {data && data.afectados && data.afectados.length > 0 ? (
         <table className="styled-table">
@@ -20,6 +24,8 @@ function LeftPanel({ data }) {
               <th>FAE</th>
               <th>AMI</th>
               <th>GE_PROPIO</th>
+              <th>RECLAMOS</th>
+              <th>REITERACIONES</th>
             </tr>
           </thead>
           <tbody>
@@ -36,6 +42,8 @@ function LeftPanel({ data }) {
                 <td>{afectado.fae}</td>
                 <td>{afectado.ami}</td>
                 <td>{afectado.ge_propio}</td>
+                <td>{afectado.cant_reclamos}</td>
+                <td>{afectado.cant_reiteraciones}</td>
               </tr>
             ))}
           </tbody>

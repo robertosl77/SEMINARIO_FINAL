@@ -17,8 +17,11 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0  
+                order by a.idafectacion
                 ;                                         
             ''').fetchall()
             return afectados
@@ -38,8 +41,11 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin<>0 and af.logfin=0
+                order by a.idafectacion
             ''').fetchall()
             return afectados
         except sqlite3.Error as e:        
@@ -58,6 +64,8 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
                 where a.idafectacion=af.idafectacion 
 				and af.idafectacion=e.idafectacion 
@@ -67,6 +75,7 @@ class Tarjetas:
 				and e.logfin=0 
 				and af.logfin=0 
 				and r.logfin=0;
+                order by a.idafectacion
             ''').fetchall()
             return afectados
         except sqlite3.Error as e:        
@@ -85,6 +94,8 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
                 where a.idafectacion=af.idafectacion 
 				and af.idafectacion=e.idafectacion 
@@ -95,6 +106,7 @@ class Tarjetas:
 				and af.logfin=0 
 				and r.logfin=0
                 and r.reiteracion>0
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return reiteracion
@@ -114,9 +126,12 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > 4
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return duracion
@@ -136,9 +151,12 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=af.cuenta),0)
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return sinautonomia
@@ -158,9 +176,12 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and (select count(1) from afectaciones_contactos where cuenta=af.cuenta and idafectacion=af.idafectacion)=0
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return sincontacto
@@ -180,10 +201,13 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
                 and (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0)=1
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return fae
@@ -203,10 +227,13 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
                 and (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0)=1
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return ami
@@ -226,10 +253,13 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
                 and (gestion in ('REQUIERE GE','GE INSTALADO') or (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0)=1)
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return ge
@@ -249,10 +279,13 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
                 and gestion in ('SEGUIMIENTO','RELLAMAR')
+                order by a.idafectacion
                 ;
             ''').fetchall()
             return seguimiento
@@ -272,8 +305,11 @@ class Tarjetas:
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=1),0) reiteraciones
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.logfin=0  
+                order by a.idafectacion
                 ;                                         
             ''').fetchall()
             return todos

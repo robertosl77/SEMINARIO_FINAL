@@ -1,6 +1,6 @@
 .styled-table {
     border: 1px solid black; /* Aplica un borde sólido a toda la tabla */
-    font-size: 12px;         /* Tamaño de la fuente */
+    font-size: 10px;         /* Tamaño de la fuente */
     border-spacing: 0;       /* Elimina el espacio entre las celdas */
     border-collapse: separate; /* Mantiene los bordes separados */
   }

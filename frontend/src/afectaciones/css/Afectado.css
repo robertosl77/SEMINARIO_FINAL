@@ -1,0 +1,80 @@
+.afectado-card {
+    width: 90%;
+    max-width: 850px;
+    margin: 10px auto;
+    padding: 15px;
+    border: 2px solid #1e88e5;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  .afectado-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .afectado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .afectado-id, .afectado-ct, .afectado-cuenta {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .afectado-nombre {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #555;
+    flex-grow: 1;
+    text-align: right;
+    margin-left: 10px;
+  }
+  
+  .afectado-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .afectado-estado, .afectado-gestion {
+    font-size: 0.9rem;
+    margin-right: 10px;
+  }
+  
+  .afectado-fechas {
+    flex-grow: 1;
+    font-size: 0.8rem;
+  }
+  
+  .afectado-opciones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .afectado-icono {
+    width: 24px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .afectado-icono.fae {
+    background-color: #ff5722; /* FAE */
+  }
+  
+  .afectado-icono.ami {
+    background-color: #4caf50; /* AMI */
+  }
+  
+  .afectado-icono.ge_propio {
+    background-color: #2196f3; /* GE Propio */
+  }
+  

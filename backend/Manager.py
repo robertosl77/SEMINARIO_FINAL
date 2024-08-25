@@ -52,6 +52,8 @@ class Manager:
                     "fae": afectados[9],
                     "ami": afectados[10],
                     "ge_propio": afectados[11],
+                    "cant_reclamos": afectados[12],
+                    "cant_reiteraciones": afectados[13],
                     "aparatologia": [
                         {
                             "idartefacto": aparatologia[0],
