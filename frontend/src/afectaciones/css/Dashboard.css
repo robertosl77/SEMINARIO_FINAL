@@ -1,19 +1,9 @@
-#header {
-  width: 100%;
-  height: 160px; /* Puedes ajustar el alto según necesites */
-  background-color: #9e9e9b; /* Color de fondo para referencia */
-  position: fixed; /* Fijado en la parte superior */
-  top: 0;
-  left: 0;
-  z-index: 1000; /* Asegura que esté encima de otros elementos */
-}
-
 .dashboard {
     display: flex;
     justify-content: space-between;
-    padding: 72px 0;
+    /* padding: 65px 0; */
     margin: 0;
-    margin-top: 5px;
+    margin-top: 65px;
   }
 
   .dashboard-card {

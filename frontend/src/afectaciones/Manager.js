@@ -19,9 +19,8 @@ function Manager() {
     seguimiento: 0,
   });
 
-  // Hook para ejecutar la llamada al endpoint "todos" al cargar el componente
   useEffect(() => {
-    handleCardClick('todos');
+    handleCardClick('todos'); // Llama al endpoint 'todos' al cargar el componente
   }, []);
 
   const handleCardClick = async (endpoint) => {
@@ -60,60 +59,100 @@ function Manager() {
       <div id="header">
         <Navbar />
         <div className="dashboard">
-          {/* Tarjetas del dashboard */}
           <div className="dashboard-card" onClick={() => handleCardClick('afectados')} title="Unicamente Clientes Afectados.">
             <div className="dashboard-title">AFECTADOS</div>
-            <div className="dashboard-number">{dashboardData.afectados}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.afectados}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('normalizados')} title="Queda pendiente confirmar si estan con suministro. ">
+          <div className="dashboard-card" onClick={() => handleCardClick('normalizados')} title="Queda pendiente confirmar si estan con suministro.">
             <div className="dashboard-title">NORMALIZADOS</div>
-            <div className="dashboard-number">{dashboardData.normalizados}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.normalizados}</div>
           </div>
           <div className="dashboard-card" onClick={() => handleCardClick('reclamos')} title="Clientes con Reclamos.">
             <div className="dashboard-title">RECLAMOS</div>
-            <div className="dashboard-number">{dashboardData.reclamos}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.reclamos}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('reiteracion')} title="Clientes con Reiteraciones. ">
+          <div className="dashboard-card" onClick={() => handleCardClick('reiteracion')} title="Clientes con Reiteraciones.">
             <div className="dashboard-title">REITERACIONES</div>
-            <div className="dashboard-number">{dashboardData.reiteracion}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.reiteracion}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('duracion')} title="Cliente cuya afectacion supera un margen de duracion aceptada. ">
+          <div className="dashboard-card" onClick={() => handleCardClick('duracion')} title="Cliente cuya afectacion supera un margen de duracion aceptada.">
             <div className="dashboard-title">DURACION</div>
-            <div className="dashboard-number">{dashboardData.duracion}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.duracion}</div>
           </div>
           <div className="dashboard-card" onClick={() => handleCardClick('sin_autonomia')} title="Clientes sin autonomia (por aparatologia).">
             <div className="dashboard-title">SIN AUTONOMÍA</div>
-            <div className="dashboard-number">{dashboardData.sin_autonomia}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.sin_autonomia}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('sin_contacto')} title="Clientes sin llamar. ">
+          <div className="dashboard-card" onClick={() => handleCardClick('sin_gestion')} title="Clientes sin llamar.">
             <div className="dashboard-title">SIN GESTIÓN</div>
-            <div className="dashboard-number">{dashboardData.sin_gestion}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.sin_gestion}</div>
           </div>
           <div className="dashboard-card" onClick={() => handleCardClick('fae')} title="Clientes con FAE.">
             <div className="dashboard-title">FAE</div>
-            <div className="dashboard-number">{dashboardData.fae}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.fae}</div>
           </div>
           <div className="dashboard-card" onClick={() => handleCardClick('ami')} title="Clientes con AMI.">
             <div className="dashboard-title">AMI</div>
-            <div className="dashboard-number">{dashboardData.ami}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.ami}</div>
           </div>
           <div className="dashboard-card" onClick={() => handleCardClick('ge')} title="Gestion de Generadores Eléctricos.">
             <div className="dashboard-title">GE</div>
-            <div className="dashboard-number">{dashboardData.ge}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.ge}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('seguimiento')} title="Clientes con estado Seguimiento o Rellamar. ">
+          <div className="dashboard-card" onClick={() => handleCardClick('seguimiento')} title="Clientes con estado Seguimiento o Rellamar.">
             <div className="dashboard-title">SEGUIMIENTO</div>
-            <div className="dashboard-number">{dashboardData.seguimiento}</div> {/* Valor dinámico */}
+            <div className="dashboard-number">{dashboardData.seguimiento}</div>
           </div>
         </div>
-      </div>
+      </div> 
       <div id="content">
-        <h1>Manager Page</h1>
-        {data ? (
-          <pre>{JSON.stringify(data, null, 2)}</pre> // Muestra el JSON formateado
-        ) : (
-          <p>Acá está reservado para colocar una tabla, pero a futuro</p>
-        )}
+        <div id="left-panel">
+          {/* Contenido del panel izquierdo */}
+          {data && data.afectados && data.afectados.length > 0 ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>ID Afectación</th>
+                  <th>Afectación</th>
+                  <th>CT</th>
+                  <th>Cuenta</th>
+                  <th>Estado</th>
+                  <th>Gestión</th>
+                  <th>Inicio</th>
+                  <th>Restitución</th>
+                  <th>FAE</th>
+                  <th>AMI</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.afectados.map((afectado, index) => (
+                  <tr key={index}>
+                    <td>{afectado.idafectacion}</td>
+                    <td>{afectado.afectacion}</td>
+                    <td>{afectado.ct}</td>
+                    <td>{afectado.cuenta}</td>
+                    <td>{afectado.estado}</td>
+                    <td>{afectado.gestion}</td>
+                    <td>{afectado.inicio}</td>
+                    <td>{afectado.restitucion}</td>
+                    <td>{afectado.fae}</td>
+                    <td>{afectado.ami}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No hay datos de afectados disponibles.</p>
+          )}
+        </div>
+        <div id="right-panel">
+          <div id="right-panel-1">
+            Right Panel #1
+          </div>
+          <div id="right-panel-2">
+            Right Panel #2 - Scrollable
+          </div>
+        </div>
       </div>
     </div>
   );

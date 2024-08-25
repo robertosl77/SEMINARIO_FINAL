@@ -1,10 +1,50 @@
-body {
-    margin: 0;
-    padding: 0;
+#header {
+    width: 100%;
+    height: 135px; /* Ajusta el alto según necesites */
+    background-color: #9e9e9b; /* Color de fondo para referencia */
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegura que esté encima de otros elementos */
 }
 
 #content {
-    margin-top: 0px; /* Desplaza el contenido para evitar que quede oculto bajo el header */
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
+    background-color: #d1c029;
+    display: flex;
+    margin-top: 200px;
+    overflow-y: auto;
+    height: calc(100vh - 80px);
+
+}
+
+#left-panel {
+    width:800px;
+    background-color: #695f5f;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#right-panel {
+    width: 600px;
+    background-color: #b4abab;
+    padding: 10px;
+    overflow-y: auto;
+
+}
+
+/*
+#right-panel-1 {
+    width: 40%;
+    height: 300px;
+    background-color: #ffa500;
+    overflow-y: auto;
+}
+
+#right-panel-2 {
+    width: 40%;
+    height: calc(100vh - 360px);
+    background-color: #ff4500;
+    overflow-y: auto;
+}
+*/
