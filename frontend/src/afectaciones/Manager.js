@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../navegacion/Navbar';
 import './css/Dashboard.css';
 import './css/Manager.css';
@@ -18,6 +18,11 @@ function Manager() {
     ge: 0,
     seguimiento: 0,
   });
+
+  // Hook para ejecutar la llamada al endpoint "todos" al cargar el componente
+  useEffect(() => {
+    handleCardClick('todos');
+  }, []);
 
   const handleCardClick = async (endpoint) => {
     try {
@@ -55,6 +60,7 @@ function Manager() {
       <div id="header">
         <Navbar />
         <div className="dashboard">
+          {/* Tarjetas del dashboard */}
           <div className="dashboard-card" onClick={() => handleCardClick('afectados')} title="Unicamente Clientes Afectados.">
             <div className="dashboard-title">AFECTADOS</div>
             <div className="dashboard-number">{dashboardData.afectados}</div> {/* Valor dinámico */}

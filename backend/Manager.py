@@ -28,7 +28,7 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_ge()
         elif self.tarjeta=="seguimiento":
             tarjeta= self.tarjetas.tarjeta_seguimiento()
-        else:
+        elif self.tarjeta=="todos":
             tarjeta= self.tarjetas.tarjeta_todos()
 
         # Busquedas Puntuales
