@@ -18,7 +18,7 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_duracion()
         elif self.tarjeta=="sin_autonomia":
             tarjeta= self.tarjetas.tarjeta_sinautonomia()
-        elif self.tarjeta=="sin_contacto":
+        elif self.tarjeta=="sin_gestion":
             tarjeta= self.tarjetas.tarjeta_sincontacto()
         elif self.tarjeta=="fae":
             tarjeta= self.tarjetas.tarjeta_fae()
@@ -51,6 +51,7 @@ class Manager:
                     "gestion": afectados[8],
                     "fae": afectados[9],
                     "ami": afectados[10],
+                    "ge_propio": afectados[11],
                     "aparatologia": [
                         {
                             "idartefacto": aparatologia[0],

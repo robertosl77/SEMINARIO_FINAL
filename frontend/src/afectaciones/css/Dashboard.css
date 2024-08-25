@@ -1,42 +1,45 @@
 .dashboard {
-    display: flex;
-    justify-content: space-between;
-    /* padding: 65px 0; */
-    margin: 0;
-    margin-top: 65px;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 10px 0;
+  background-color: #2c3e50; /* Fondo oscuro para todo el dashboard */
+  border-radius: 15px; /* Bordes redondeados para el dashboard */
+}
 
-  .dashboard-card {
-    background-color: #45454e;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    flex: 1;
-    margin: 0 7px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .dashboard-card:hover {
-    transform: scale(1.05); /* Aumenta el tamaño en un 5% */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra */
-    background-color: #24b465; /* Cambia el color de fondo */
-  }
-  
-  .dashboard-title {
-    font-size: 12px;
-    font-weight: 300;
-    margin-bottom: 5px;
-  }
-  
-  .dashboard-number {
-    font-size: 30px;
-    font-weight: bold;
-    margin-top: -5px;
-  }
+.dashboard-card {
+  background-color: #34495e; /* Fondo oscuro para las tarjetas */
+  padding: 10px; /* Ajuste de padding */
+  border-radius: 12px;
+  text-align: center;
+  font-size: 14px; /* Ajuste de fuente */
+  font-weight: bold;
+  color: #ecf0f1; /* Texto claro */
+  flex: 1;
+  margin: 0 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #16a085; /* Borde sutil */
+  height: 60%; /* Altura reducida al 60% */
+}
 
+.dashboard-card:hover {
+  transform: scale(1.05); /* Aumenta el tamaño en un 5% */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra más marcada */
+  background-color: #1abc9c; /* Cambia el color de fondo a un verde más brillante */
+  border-color: #16a085; /* Resalta el borde al pasar sobre él */
+}
 
+.dashboard-title {
+  font-size: 12px; /* Ajuste de fuente */
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #bdc3c7; /* Color de título más claro */
+}
 
-
+.dashboard-number {
+  font-size: 28px; /* Ajuste de fuente */
+  font-weight: 700;
+  margin-top: -5px;
+  color: #ffffff; /* Número destacado en blanco */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Sombra para un efecto más elegante */
+}

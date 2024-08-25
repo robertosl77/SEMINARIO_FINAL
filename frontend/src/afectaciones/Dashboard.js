@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../navegacion/Navbar';
+import React, { useState, useEffect, useCallback } from 'react';
 import './css/Dashboard.css';
-import './css/Manager.css';
 
-function Manager() {
-  const [data, setData] = useState(null); // Estado para almacenar el resultado del backend
+function Dashboard({ setData }) {
   const [dashboardData, setDashboardData] = useState({
     afectados: 0,
     normalizados: 0,
@@ -19,11 +16,7 @@ function Manager() {
     seguimiento: 0,
   });
 
-  useEffect(() => {
-    handleCardClick('todos'); // Llama al endpoint 'todos' al cargar el componente
-  }, []);
-
-  const handleCardClick = async (endpoint) => {
+  const handleCardClick = useCallback(async (endpoint) => {
     try {
       const response = await fetch(`http://localhost:5000/API/MN/GestionaTarjeta/${endpoint}`, {
         method: 'POST',
@@ -52,13 +45,16 @@ function Manager() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  };
+  }, [setData]);
+
+  useEffect(() => {
+    handleCardClick('todos'); // Llama al endpoint 'todos' al cargar el componente
+  }, [handleCardClick]);
 
   return (
     <div>
       <div id="header">
-        <Navbar />
-        <div className="dashboard">
+      <div className="dashboard">
           <div className="dashboard-card" onClick={() => handleCardClick('afectados')} title="Unicamente Clientes Afectados.">
             <div className="dashboard-title">AFECTADOS</div>
             <div className="dashboard-number">{dashboardData.afectados}</div>
@@ -105,57 +101,8 @@ function Manager() {
           </div>
         </div>
       </div> 
-      <div id="content">
-        <div id="left-panel">
-          {/* Contenido del panel izquierdo */}
-          {data && data.afectados && data.afectados.length > 0 ? (
-            <table>
-              <thead>
-                <tr>
-                  <th>ID Afectación</th>
-                  <th>Afectación</th>
-                  <th>CT</th>
-                  <th>Cuenta</th>
-                  <th>Estado</th>
-                  <th>Gestión</th>
-                  <th>Inicio</th>
-                  <th>Restitución</th>
-                  <th>FAE</th>
-                  <th>AMI</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.afectados.map((afectado, index) => (
-                  <tr key={index}>
-                    <td>{afectado.idafectacion}</td>
-                    <td>{afectado.afectacion}</td>
-                    <td>{afectado.ct}</td>
-                    <td>{afectado.cuenta}</td>
-                    <td>{afectado.estado}</td>
-                    <td>{afectado.gestion}</td>
-                    <td>{afectado.inicio}</td>
-                    <td>{afectado.restitucion}</td>
-                    <td>{afectado.fae}</td>
-                    <td>{afectado.ami}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No hay datos de afectados disponibles.</p>
-          )}
-        </div>
-        <div id="right-panel">
-          <div id="right-panel-1">
-            Right Panel #1
-          </div>
-          <div id="right-panel-2">
-            Right Panel #2 - Scrollable
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
 
-export default Manager;
+export default Dashboard;

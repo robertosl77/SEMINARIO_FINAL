@@ -226,8 +226,6 @@ class CreateTables:
                     ct INTEGER,  -- Llave foránea a la tabla red(id_ct)
                     x REAL,  -- Coordenada X, float/double
                     y REAL,  -- Coordenada Y, float/double
-                    fae INTEGER CHECK(fae IN (0, 1)), 
-                    ami INTEGER CHECK(ami IN (0, 1)), 
                     logini INTEGER NOT NULL,  -- Fecha de inicio, no nulo
                     logfin INTEGER NOT NULL,  -- Fecha de fin, no nulo
                     FOREIGN KEY (idlocalidad) REFERENCES geografico(idlocalidad),
@@ -281,11 +279,11 @@ class CreateTables:
                     # Inserta nombre de cliente aleatorio
                     nombre_cliente=self.generar_nombre_completo().upper()
                     # Selecciona FAE y/o AMI (aleatorio >60%)
-                    fae = 1 if random.random() > 0.6 and logfin == 0 else 0
-                    ami = 1 if random.random() > 0.6 and logfin == 0 else 0
+                    # fae = 1 if random.random() > 0.6 and logfin == 0 else 0
+                    # ami = 1 if random.random() > 0.6 and logfin == 0 else 0
                     # 
                     sql= '''
-                        INSERT INTO clientes (cuenta, nombre_cliente, calle, numero, piso_dpto, idlocalidad, ct, x, y, fae, ami, logini, logfin)
+                        INSERT INTO clientes (cuenta, nombre_cliente, calle, numero, piso_dpto, idlocalidad, ct, x, y, logini, logfin)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     '''
                     self.cursor.execute(sql, (
@@ -298,8 +296,6 @@ class CreateTables:
                         ct, 
                         entry['x'], 
                         entry['y'], 
-                        fae,
-                        ami,
                         logini, 
                         logfin))
                     
