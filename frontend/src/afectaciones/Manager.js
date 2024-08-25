@@ -9,14 +9,14 @@ function Manager() {
     afectados: 0,
     normalizados: 0,
     reclamos: 0,
+    reiteracion: 0,
+    duracion: 0,
     sin_autonomia: 0,
     sin_gestion: 0,
     fae: 0,
     ami: 0,
     ge: 0,
-    otro2: 0,
-    otro3: 0,
-    otro4: 0,
+    seguimiento: 0,
   });
 
   const handleCardClick = async (endpoint) => {
@@ -34,14 +34,14 @@ function Manager() {
         afectados: result.dashboard[0] || 0,
         normalizados: result.dashboard[1] || 0,
         reclamos: result.dashboard[2] || 0,
-        sin_autonomia: result.dashboard[3] || 0,
-        sin_gestion: result.dashboard[4] || 0,
-        fae: result.dashboard[5] || 0,
-        ami: result.dashboard[6] || 0,
-        ge: result.dashboard[7] || 0,
-        otro2: result.dashboard[8] || 0,
-        otro3: result.dashboard[9] || 0,
-        otro4: result.dashboard[10] || 0,
+        reiteracion: result.dashboard[3] || 0,
+        duracion: result.dashboard[4] || 0,
+        sin_autonomia: result.dashboard[5] || 0,
+        sin_gestion: result.dashboard[6] || 0,
+        fae: result.dashboard[7] || 0,
+        ami: result.dashboard[8] || 0,
+        ge: result.dashboard[9] || 0,
+        seguimiento: result.dashboard[10] || 0,
       });
 
       setData(result); // Actualiza el estado con el resultado del backend
@@ -67,6 +67,14 @@ function Manager() {
             <div className="dashboard-title">RECLAMOS</div>
             <div className="dashboard-number">{dashboardData.reclamos}</div> {/* Valor dinámico */}
           </div>
+          <div className="dashboard-card" onClick={() => handleCardClick('reiteracion')} title="Clientes con Reiteraciones. ">
+            <div className="dashboard-title">REITERACIONES</div>
+            <div className="dashboard-number">{dashboardData.reiteracion}</div> {/* Valor dinámico */}
+          </div>
+          <div className="dashboard-card" onClick={() => handleCardClick('duracion')} title="Cliente cuya afectacion supera un margen de duracion aceptada. ">
+            <div className="dashboard-title">DURACION</div>
+            <div className="dashboard-number">{dashboardData.duracion}</div> {/* Valor dinámico */}
+          </div>
           <div className="dashboard-card" onClick={() => handleCardClick('sin_autonomia')} title="Clientes sin autonomia (por aparatologia).">
             <div className="dashboard-title">SIN AUTONOMÍA</div>
             <div className="dashboard-number">{dashboardData.sin_autonomia}</div> {/* Valor dinámico */}
@@ -87,17 +95,9 @@ function Manager() {
             <div className="dashboard-title">GE</div>
             <div className="dashboard-number">{dashboardData.ge}</div> {/* Valor dinámico */}
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('otro2')} title="Otros">
-            <div className="dashboard-title">OTRO2</div>
-            <div className="dashboard-number">{dashboardData.otro2}</div> {/* Valor dinámico */}
-          </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('otro3')} title="Otros">
-            <div className="dashboard-title">OTRO3</div>
-            <div className="dashboard-number">{dashboardData.otro3}</div> {/* Valor dinámico */}
-          </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('otro4')} title="Otros">
-            <div className="dashboard-title">OTRO4</div>
-            <div className="dashboard-number">{dashboardData.otro4}</div> {/* Valor dinámico */}
+          <div className="dashboard-card" onClick={() => handleCardClick('seguimiento')} title="Clientes con estado Seguimiento o Rellamar. ">
+            <div className="dashboard-title">SEGUIMIENTO</div>
+            <div className="dashboard-number">{dashboardData.seguimiento}</div> {/* Valor dinámico */}
           </div>
         </div>
       </div>

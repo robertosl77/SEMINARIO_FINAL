@@ -12,6 +12,10 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_normalizados()
         elif self.tarjeta=="reclamos":
             tarjeta= self.tarjetas.tarjeta_reclamos()
+        elif self.tarjeta=="reiteracion":
+            tarjeta= self.tarjetas.tarjeta_reiteracion()
+        elif self.tarjeta=="duracion":
+            tarjeta= self.tarjetas.tarjeta_duracion()
         elif self.tarjeta=="sin_autonomia":
             tarjeta= self.tarjetas.tarjeta_sinautonomia()
         elif self.tarjeta=="sin_contacto":
@@ -22,17 +26,13 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_ami()
         elif self.tarjeta=="ge":
             tarjeta= self.tarjetas.tarjeta_ge()
-        elif self.tarjeta=="":
-            None
-        elif self.tarjeta=="":
-            None
-        elif self.tarjeta=="":
-            None
-        elif self.tarjeta=="":
-            None
+        elif self.tarjeta=="seguimiento":
+            tarjeta= self.tarjetas.tarjeta_seguimiento()
+        else:
+            tarjeta= self.tarjetas.tarjeta_todos()
 
         # Busquedas Puntuales
-        solucion_provisoria= ["CON SUMINISTRO", "REQUIERE GE", "GE INSTALADO", "FAE INSTALADO", "SE TRASLADA", "CON AUTONOMÍA", "RELLAMAR", "SEGUIMIENTO"]
+        solucion_provisoria= ["CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "REQUIERE GE", "GE INSTALADO", "RELLAMAR", "SEGUIMIENTO"]
         marcas= self.tarjetas.obtiene_marcas()
         # Busca dashboard
         dashboard= self.tarjetas.obtiene_dashboard()

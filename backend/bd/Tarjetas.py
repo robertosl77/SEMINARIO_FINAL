@@ -72,6 +72,55 @@ class Tarjetas:
         finally:
             self.cursor.close
 
+    def tarjeta_reiteracion(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            reiteracion= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
+                where a.idafectacion=af.idafectacion 
+				and af.idafectacion=e.idafectacion 
+				and af.ct=e.ct 
+				and af.cuenta=r.cuenta 
+				and a.idafectacion=r.idafectacion 
+				and e.logfin=0 
+				and af.logfin=0 
+				and r.logfin=0
+                and r.reiteracion>0
+                ;
+            ''').fetchall()
+            return reiteracion
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas con reiteracion: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def tarjeta_duracion(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            duracion= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
+                and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > 4
+                ;
+            ''').fetchall()
+            return duracion
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas con duracion excedida: {e}")
+            return []
+        finally:
+            self.cursor.close
+
     def tarjeta_sinautonomia(self):      
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()          
@@ -176,6 +225,48 @@ class Tarjetas:
             return ge
         except sqlite3.Error as e:        
             print(f"Error al obtener cuentas gestionadas con GE: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def tarjeta_seguimiento(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            seguimiento= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
+                and e.logfin=0 and af.logfin=0
+                and gestion in ('SEGUIMIENTO','RELLAMAR')
+                ;
+            ''').fetchall()
+            return seguimiento
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas gestionadas con Seguimiento o Rellamar: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def tarjeta_todos(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            todos= self.cursor.execute('''
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+				, (select fae from clientes where cuenta=af.cuenta) fae
+				, (select ami from clientes where cuenta=af.cuenta) ami
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.logfin=0  
+                ;                                         
+            ''').fetchall()
+            return todos
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas todos los clientes reportables: {e}")
             return []
         finally:
             self.cursor.close
@@ -315,6 +406,31 @@ class Tarjetas:
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=r.cuenta and a.idafectacion=r.idafectacion and e.logfin=0 and af.logfin=0 and r.logfin=0;
             ''').fetchone()
             dashboard.append(tarjeta[0])
+            # Clientes con Reiteraciones
+            tarjeta = self.cursor.execute(''' 
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
+                where a.idafectacion=af.idafectacion 
+				and af.idafectacion=e.idafectacion 
+				and af.ct=e.ct 
+				and af.cuenta=r.cuenta 
+				and a.idafectacion=r.idafectacion 
+				and e.logfin=0 
+				and af.logfin=0 
+				and r.logfin=0
+                and r.reiteracion>0
+                ; 
+            ''').fetchone()
+            dashboard.append(tarjeta[0])   
+            # Duracion
+            tarjeta = self.cursor.execute(''' 
+                SELECT count(1) 
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
+                and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > 4
+                ;
+            ''').fetchone()
+            dashboard.append(tarjeta[0])               
             # Sin Autonomia
             tarjeta = self.cursor.execute('''
                 SELECT count(1)
@@ -363,6 +479,16 @@ class Tarjetas:
                 ;
             ''').fetchone()
             dashboard.append(tarjeta[0])                  
+            # Gestionado con SEGUIMIENTO/RELLAMAR
+            tarjeta = self.cursor.execute(''' 
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
+                and e.logfin=0 and af.logfin=0
+                and gestion in ('SEGUIMIENTO','RELLAMAR')
+                ;
+            ''').fetchone()
+            dashboard.append(tarjeta[0])
             # 
             return dashboard
         except sqlite3.Error as e:        
