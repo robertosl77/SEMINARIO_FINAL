@@ -83,6 +83,7 @@
   font-size: 0.9rem;
   margin-bottom: 5px;
   color: #555;
+  /* background-color: rgb(228, 238, 147); */
 }
 
 .afectado-opciones {
@@ -106,16 +107,24 @@
   transition: background-color 0.3s;
 }
 
-.afectado-icono.fae {
-  background-color: #ff5722;
+.afectado-icono.reclamos {
+  background-color: #dd3309;
 }
 
-.afectado-icono.ami {
-  background-color: #4caf50;
+.afectado-icono.reiteraciones {
+  background-color: #cf6113;
+}
+
+.afectado-icono.fae {
+  background-color: #067713;
 }
 
 .afectado-icono.ge_propio {
-  background-color: #2196f3;
+  background-color: #20be08;
+}
+
+.afectado-icono.ami {
+  background-color: #1b33ba;
 }
 
 .afectado-icono:hover {

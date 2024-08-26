@@ -37,7 +37,7 @@ function Afectado({
     const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
     const diferenciaMs = fechaRestitucion - fechaInicio;
     const duracionHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
-    return duracionHoras;
+    return duracionHoras+3;
   }
 
   // Verificar si la marca "BAJA POTENCIAL" está presente
@@ -69,9 +69,11 @@ function Afectado({
         <div className="afectado-reclamos">Reclamos: {cant_reclamos}</div>
         <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
         <div className="afectado-opciones">
+          <div className="afectado-icono reclamos" title="RECLAMOS">{cant_reclamos>0 ? cant_reclamos : ''}</div>
+          <div className="afectado-icono reiteraciones" title="REITERACIONES">{cant_reiteraciones>0 ? cant_reiteraciones : ''}</div>
           <div className="afectado-icono fae" title="FAE">{fae ? 'FAE' : ''}</div>
-          <div className="afectado-icono ami" title="AMI">{ami ? 'AMI' : ''}</div>
           <div className="afectado-icono ge_propio" title="GE Propio">{ge_propio ? 'GE' : ''}</div>
+          <div className="afectado-icono ami" title="AMI">{ami ? 'AMI' : ''}</div>
         </div>
       </div>
     </div>
