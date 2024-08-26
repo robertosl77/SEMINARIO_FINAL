@@ -13,7 +13,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             afectados= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -37,7 +37,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             afectados= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -60,7 +60,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             reclamos= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -91,7 +91,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             reiteracion= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -123,7 +123,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             duracion= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -148,7 +148,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             sinautonomia= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -173,7 +173,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             sincontacto= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -198,7 +198,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             fae= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -224,7 +224,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             ami= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -250,7 +250,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             ge= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -276,7 +276,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             seguimiento= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -302,7 +302,7 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             todos= self.cursor.execute('''
-                SELECT DISTINCT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion 
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
@@ -434,7 +434,7 @@ class Tarjetas:
         try:
             # Afectados
             tarjeta = self.cursor.execute('''
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 ;                                              
@@ -442,7 +442,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])
             # Normalizados
             tarjeta = self.cursor.execute('''
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin<>0 and af.logfin=0
                 ;                                              
@@ -450,14 +450,14 @@ class Tarjetas:
             dashboard.append(tarjeta[0])
             # Reclamos
             tarjeta = self.cursor.execute('''
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=r.cuenta and a.idafectacion=r.idafectacion and e.logfin=0 and af.logfin=0 and r.logfin=0;
             ''').fetchone()
             dashboard.append(tarjeta[0])
             # Clientes con Reiteraciones
             tarjeta = self.cursor.execute(''' 
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
                 where a.idafectacion=af.idafectacion 
 				and af.idafectacion=e.idafectacion 
@@ -473,7 +473,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])   
             # Duracion
             tarjeta = self.cursor.execute(''' 
-                SELECT DISTINCT count(1) 
+                SELECT count(1) 
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > 4
@@ -482,7 +482,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])               
             # Sin Autonomia
             tarjeta = self.cursor.execute('''
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=af.cuenta),0)
@@ -491,7 +491,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])
             # Sin Contacto
             tarjeta = self.cursor.execute(''' 
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and (select count(1) from afectaciones_contactos where cuenta=af.cuenta and idafectacion=af.idafectacion)=0
@@ -500,7 +500,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])            
             # Con FAE
             tarjeta = self.cursor.execute(''' 
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
@@ -510,7 +510,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])                        
             # Con AMI
             tarjeta = self.cursor.execute(''' 
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
@@ -520,7 +520,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])                  
             # Gestionado con GE
             tarjeta = self.cursor.execute(''' 
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
@@ -530,7 +530,7 @@ class Tarjetas:
             dashboard.append(tarjeta[0])                  
             # Gestionado con SEGUIMIENTO/RELLAMAR
             tarjeta = self.cursor.execute(''' 
-                SELECT DISTINCT count(1)
+                SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0

@@ -32,8 +32,7 @@ class Datos:
         self.cursor = self.conn.cursor()          
         try:
             # Ejecutar la consulta para obtener el resultado
-            cts= self.cursor.execute('SELECT ct.ct FROM ssee, alim, ct, clientes WHERE ssee.idssee=alim.idssee AND alim.alim=ct.alim AND ct.ct=clientes.ct AND clientes.logfin=0 AND ssee.idssee = ? ',(ssee,)).fetchall()
-            # cts= self.cursor.execute('SELECT ct.ct FROM ssee, alim, ct WHERE ssee.idssee=alim.idssee AND alim.alim=ct.alim AND ssee.idssee = ? ',(ssee,)).fetchall()
+            cts= self.cursor.execute('SELECT ct.ct FROM ssee, alim, ct WHERE ssee.idssee=alim.idssee AND alim.alim=ct.alim AND ct.ct in (select ct from clientes where logfin=0) AND ssee.idssee = ? ;',(ssee,)).fetchall()
             return cts
         except sqlite3.Error as e:        
             print(f"Error al obtener subestación: {e}")
