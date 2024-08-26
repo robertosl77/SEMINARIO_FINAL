@@ -10,7 +10,7 @@ function Afectaciones() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar />  
       <Dashboard setData={setData} />
       <div id="content">
         <LeftPanel data={data}/>

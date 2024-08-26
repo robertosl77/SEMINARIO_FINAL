@@ -1,26 +1,77 @@
 import React from 'react';
 import './css/Afectado.css';
 
-function Afectado() {
+function Afectado({
+  idafectacion,
+  afectacion,
+  tipo,
+  estado,
+  ct,
+  inicio,
+  restitucion,
+  cuenta,
+  gestion,
+  fae,
+  ami,
+  ge_propio,
+  cant_reclamos,
+  cant_reiteraciones,
+  aparatologia,
+  telefonos,
+  reclamos,
+  marcas,
+  contactos,
+  solucion_provisoria,
+  tabla_marcas, 
+  onCardClick 
+}) {
+
+  const handleClick = () => {
+    if (onCardClick) {
+      onCardClick(idafectacion); // Ejecutar la función con el idafectacion
+    }
+  };
+
+  function getDuracion() {
+    const fechaInicio = new Date(inicio);
+    const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
+    const diferenciaMs = fechaRestitucion - fechaInicio;
+    const duracionHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
+    return duracionHoras;
+  }
+
+  // Verificar si la marca "BAJA POTENCIAL" está presente
+  const esBajaPotencial = marcas.some(marca => marca.marca === "BAJA POTENCIAL");
+  const esNormalizado = restitucion!==null;
+  const esSeguimiento = ["SEGUIMIENTO", "RELLAMAR"].includes(gestion);
+  const esProvisorio = ["CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "GE INSTALADO"].includes(gestion);
+
   return (
-    <div className="afectado-card">
+    <div 
+      className={`afectado-card ${
+        esSeguimiento ? 'seguimiento' :
+        esNormalizado ? 'normalizado' :
+        esProvisorio  ? 'provisorio'  :
+        esBajaPotencial ? 'baja-potencial' : ''
+      }`} 
+      onClick={handleClick}
+    >
       <div className="afectado-header">
-        <div className="afectado-id">A-24-08-0001</div>
-        <div className="afectado-ct">CT 1158</div>
-        <div className="afectado-cuenta">Cuenta: 12050</div>
-        <div className="afectado-nombre">Roberto Sanchez Leiva</div>
+        <div className="afectado-id">{afectacion}</div>
+        <div className="afectado-origen">{tipo}</div>
+        <div className="afectado-ct">CT {ct}</div>
+        <div className="afectado-cuenta">Cuenta: {cuenta}</div>
+        <div className="afectado-estado">Estado: {estado}</div>
+        <div className="afectado-gestion">Gestión: {gestion}</div>
       </div>
       <div className="afectado-body">
-        <div className="afectado-estado">Estado: Cerrado</div>
-        <div className="afectado-gestion">Gestión: REQUIERE GE</div>
-        <div className="afectado-fechas">
-          <div>Inicio: 2024-08-24 04:06:49</div>
-          <div>Restitución: 2024-08-25 00:42:22</div>
-        </div>
+        <div className="afectado-duracion">Duracion: {getDuracion()} hs</div>
+        <div className="afectado-reclamos">Reclamos: {cant_reclamos}</div>
+        <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
         <div className="afectado-opciones">
-          <div className="afectado-icono fae" title="FAE"></div>
-          <div className="afectado-icono ami" title="AMI"></div>
-          <div className="afectado-icono ge_propio" title="GE Propio"></div>
+          <div className="afectado-icono fae" title="FAE">{fae ? 'FAE' : ''}</div>
+          <div className="afectado-icono ami" title="AMI">{ami ? 'AMI' : ''}</div>
+          <div className="afectado-icono ge_propio" title="GE Propio">{ge_propio ? 'GE' : ''}</div>
         </div>
       </div>
     </div>

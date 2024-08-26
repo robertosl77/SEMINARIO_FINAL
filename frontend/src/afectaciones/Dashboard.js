@@ -25,7 +25,8 @@ function Dashboard({ setData }) {
         },
       });
       const result = await response.json();
-      console.log(result); // Enviar JSON recibido a la consola
+      // Enviar JSON recibido a la consola
+      console.log(result); 
 
       setDashboardData({
         afectados: result.dashboard[0] || 0,

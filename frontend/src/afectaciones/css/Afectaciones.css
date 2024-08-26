@@ -11,7 +11,7 @@
 }
 
 #content {
-    background-color: #d1c029;
+    /* background-color: #d1c029; */
     display: flex;
     margin-top: 200px;
     overflow-y: auto;
@@ -21,7 +21,7 @@
 
 #left-panel {
     width:900px;
-    background-color: #69bdee;
+    /* background-color: #69bdee; */
     padding: 10px;
     overflow-y: auto;
 }

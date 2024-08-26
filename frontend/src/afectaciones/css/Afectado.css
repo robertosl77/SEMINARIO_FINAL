@@ -1,80 +1,130 @@
 .afectado-card {
-    width: 90%;
-    max-width: 850px;
-    margin: 10px auto;
-    padding: 15px;
-    border: 2px solid #1e88e5;
-    border-radius: 10px;
-    background-color: #f5f5f5;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-  }
-  
-  .afectado-card:hover {
-    transform: scale(1.02);
-  }
-  
-  .afectado-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .afectado-id, .afectado-ct, .afectado-cuenta {
-    font-weight: bold;
-    font-size: 1rem;
-  }
-  
-  .afectado-nombre {
-    font-style: italic;
-    font-size: 0.9rem;
-    color: #555;
-    flex-grow: 1;
-    text-align: right;
-    margin-left: 10px;
-  }
-  
-  .afectado-body {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .afectado-estado, .afectado-gestion {
-    font-size: 0.9rem;
-    margin-right: 10px;
-  }
-  
-  .afectado-fechas {
-    flex-grow: 1;
-    font-size: 0.8rem;
-  }
-  
-  .afectado-opciones {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  
-  .afectado-icono {
-    width: 24px;
-    height: 24px;
-    background-color: #ccc;
-    border-radius: 5px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  .afectado-icono.fae {
-    background-color: #ff5722; /* FAE */
-  }
-  
-  .afectado-icono.ami {
-    background-color: #4caf50; /* AMI */
-  }
-  
-  .afectado-icono.ge_propio {
-    background-color: #2196f3; /* GE Propio */
-  }
-  
+  width: 90%;
+  max-width: 850px;
+  margin: 15px auto;
+  padding: 15px;
+  border: 2px solid #1e88e5;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.afectado-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.afectado-card.normalizado {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.afectado-card.seguimiento {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+}
+
+.afectado-card.provisorio {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+}
+
+.afectado-card.baja-potencial {
+  background-color: #e2e3e5;
+  border-color: #6c757d;
+}
+
+.afectado-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.afectado-id,
+.afectado-origen,
+.afectado-ct,
+.afectado-cuenta {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.afectado-estado {
+  font-style: italic;
+  color: #777;
+  flex-grow: 1;
+  text-align: right;
+}
+
+.afectado-gestion {
+  font-style: italic;
+  color: #777;
+  flex-grow: 1;
+  text-align: right;
+}
+
+.afectado-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.afectado-duracion,
+.afectado-reclamos,
+.afectado-reiteraciones {
+  flex-basis: 30%;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.afectado-opciones {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.afectado-icono {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.afectado-icono.fae {
+  background-color: #ff5722;
+}
+
+.afectado-icono.ami {
+  background-color: #4caf50;
+}
+
+.afectado-icono.ge_propio {
+  background-color: #2196f3;
+}
+
+.afectado-icono:hover {
+  opacity: 0.8;
+}
+
+.afectado-adicional {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 10px;
+  text-align: center;
+}
