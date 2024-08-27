@@ -370,7 +370,20 @@ class Tarjetas:
         self.cursor = self.conn.cursor()          
         try:
             # Ejecutar la consulta para obtener el resultado
-            telefonos= self.cursor.execute('select t.idtelefono, t.cuenta, t.telefono, t.tipo, (select count(1) from afectaciones_contactos where logfin=0 and idtelefono=t.idtelefono) llamadas, (select count(1) from afectaciones_contactos where logfin=0 and efectivo=1 and idtelefono=t.idtelefono) efectivas from clientes_telefonos t where logfin=0 and cuenta= ?;',(cuenta,)).fetchall()
+            telefonos= self.cursor.execute('''
+                select 
+                    t.idtelefono, 
+                    t.cuenta, 
+                    t.telefono, 
+                    t.tipo, 
+                    (select count(1) from afectaciones_contactos where logfin=0 and idtelefono=t.idtelefono) llamadas, 
+                    (select count(1) from afectaciones_contactos where logfin=0 and efectivo=1 and idtelefono=t.idtelefono) efectivas 
+                from clientes_telefonos t 
+                where logfin=0 and cuenta= ?
+                Order by
+                    (select count(1) from afectaciones_contactos where logfin=0 and efectivo=1 and idtelefono=t.idtelefono)/(select count(1) from afectaciones_contactos where logfin=0 and idtelefono=t.idtelefono) desc
+                ;
+            ''',(cuenta,)).fetchall()
             return telefonos
         except sqlite3.Error as e:        
             print(f"Error al obtener los telefonos: {e}")
