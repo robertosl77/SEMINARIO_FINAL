@@ -107,7 +107,32 @@ class Manager:
                             "telefono": contacto[7],
                             "tipo": contacto[8]
                         }
-                        for contacto in self.tarjetas.obtiene_contactos(afectados[10])
+                        for contacto in self.tarjetas.obtiene_contactos(afectados[7])
+                    ],
+                    "afectaciones": [
+                        {
+                            "idafectacion": afectaciones[0],
+                            "afectacion": afectaciones[1],
+                            "tipo": afectaciones[2],
+                            "estado": afectaciones[3],
+                            "inicio": afectaciones[4],
+                            "restitucion": afectaciones[5]
+                        }
+                        for afectaciones in self.tarjetas.obtiene_afectaciones(afectados[0])
+                    ],
+                    "pacientes": [
+                        {
+                            "idpaciente": pacientes[0],
+                            "cuenta": pacientes[1],
+                            "nombre_paciente": pacientes[2],
+                            "dni": pacientes[3],
+                            "lote": pacientes[4],
+                            "inicio_recs": pacientes[5],
+                            "fin_recs": pacientes[6],
+                            "diagnostico": pacientes[7],
+                            "riesgo": pacientes[8]
+                        }
+                        for pacientes in self.tarjetas.obtiene_pacientes(afectados[7])
                     ]
                 }
                 for afectados in tarjeta

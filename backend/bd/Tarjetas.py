@@ -427,6 +427,38 @@ class Tarjetas:
         finally:
             self.cursor.close
 
+    def obtiene_afectaciones(self, idafectacion):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            afectacion = self.cursor.execute('''
+                select idafectacion, afectacion, tipo, estado, inicio, restitucion from afectaciones where idafectacion= ?;
+            ''', (idafectacion,)).fetchall()
+
+            return afectacion
+        except sqlite3.Error as e:        
+            print(f"Error al obtener los afectacion: {e}")
+            return []
+        finally:
+            self.cursor.close
+
+    def obtiene_pacientes(self, cuenta):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            pacientes = self.cursor.execute('''
+                select idpaciente, cuenta, nombre_paciente, dni, lote, inicio_recs, fin_recs, diagnostico, riesgo from clientes_pacientes where cuenta= ?;
+            ''', (cuenta,)).fetchall()
+
+            return pacientes
+        except sqlite3.Error as e:        
+            print(f"Error al obtener los pacientes: {e}")
+            return []
+        finally:
+            self.cursor.close
+
     def obtiene_dashboard(self):      
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()          
