@@ -410,7 +410,8 @@ class Tarjetas:
                     CASE 
                         WHEN date(fecha) = date('now') THEN 1 
                         ELSE 0 
-                    END AS hoy 
+                    END AS hoy, 
+                    'R-' || strftime('%Y', fecha) || '-' || strftime('%m', fecha) || '-' || idreclamo AS nro_reclamo
                 FROM afectaciones_reclamos 
                 WHERE cuenta = ?;
             ''', (cuenta,)).fetchall()

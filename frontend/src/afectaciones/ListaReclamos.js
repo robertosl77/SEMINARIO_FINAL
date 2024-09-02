@@ -4,12 +4,14 @@ function ListaReclamos({ reclamos }) {
 
   return (
     <div style={styles.container}>
+    <h3>Reclamos</h3>
       <table style={styles.table}>
         <thead>
           <tr>
             <th style={styles.hiddenColumn}>ID Reclamo</th> {/* Columna oculta */}
             <th style={styles.hiddenColumn}>ID Afectación</th> {/* Columna oculta */}
             <th style={styles.hiddenColumn}>Cuenta</th> {/* Columna oculta */}
+            <th style={styles.headerCell}>Reclamo</th>
             <th style={styles.headerCell}>Fecha</th>
             <th style={styles.headerCell}>Estado</th>
             <th style={styles.headerCell}>Reiteraciones</th>
@@ -22,6 +24,7 @@ function ListaReclamos({ reclamos }) {
                 <td style={styles.hiddenColumn}>{reclamo.idreclamo}</td> {/* Columna oculta */}
                 <td style={styles.hiddenColumn}>{reclamo.idafectacion}</td> {/* Columna oculta */}
                 <td style={styles.hiddenColumn}>{reclamo.cuenta}</td> {/* Columna oculta */}
+                <td style={styles.cell}>{reclamo.nro_reclamo}</td>
                 <td style={styles.cell}>{new Date(reclamo.fecha).toLocaleString()}</td>
                 <td style={styles.cell}>{reclamo.estado}</td>
                 <td style={styles.cell}>{reclamo.reiteracion}</td>
@@ -29,7 +32,7 @@ function ListaReclamos({ reclamos }) {
             ))
           ) : (
             <tr>
-              <td colSpan="3" style={styles.noData}>No hay datos de reclamos disponibles</td>
+              <td colSpan="4" style={styles.noData}>No hay datos de reclamos disponibles</td>
             </tr>
           )}
         </tbody>

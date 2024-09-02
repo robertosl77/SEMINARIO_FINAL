@@ -6,15 +6,21 @@ import Footer from '../footer/Footer';
 import ListaAfectaciones from './ListaAfectaciones';
 import ListaReclamos from './ListaReclamos';
 import './css/Afectaciones.css';
+import ListaAparatologia from './ListaAparatologia';
+import ListaContactos from './ListaContactos';
 
 function Afectaciones() {
   const [data, setData] = useState(null);
   const [selectedAfectaciones, setSelectedAfectaciones] = useState(null);
   const [selectedReclamos, setSelectedReclamos] = useState(null);
+  const [selectedAparatologias, setSelectedAparatologia] = useState(null);
+  const [selectedContactos, setSelectedContacto] = useState(null);
 
-  const handleCardClick = (afectaciones, reclamos) => {
+  const handleCardClick = (afectaciones, reclamos, aparatologias, contactos) => {
     setSelectedAfectaciones(afectaciones);
     setSelectedReclamos(reclamos);
+    setSelectedAparatologia(aparatologias);
+    setSelectedContacto(contactos);
   };
 
   return (
@@ -28,8 +34,11 @@ function Afectaciones() {
             Right Panel #1
           </div>
           <div id="right-panel-2">
+            {selectedContactos && <ListaContactos contactos={selectedContactos} />}
             {selectedAfectaciones && <ListaAfectaciones data={selectedAfectaciones} />}
             {selectedReclamos && <ListaReclamos reclamos={selectedReclamos} />}
+            {selectedAparatologias && <ListaAparatologia aparatologias={selectedAparatologias} />}
+
           </div>
         </div>
       </div>   

@@ -89,7 +89,8 @@ class Manager:
                             "fecha": reclamos[3],
                             "reiteracion": reclamos[4],
                             "estado": reclamos[5],
-                            "actuales": reclamos[6]
+                            "actuales": reclamos[6], 
+                            "nro_reclamo": reclamos[7],
                         }
                         for reclamos in self.tarjetas.obtiene_reclamos(afectados[7])
                     ],

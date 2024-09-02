@@ -79,7 +79,8 @@
 .afectado-duracion,
 .afectado-reclamos,
 .afectado-reiteraciones, 
-.afectado-afectaciones {
+.afectado-afectaciones,
+.afectado-aparatologia {
   transform: translateX(-5px);
   flex-basis: 30%;
   font-size: 0.8rem;

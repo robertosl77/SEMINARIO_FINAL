@@ -28,19 +28,11 @@ function Afectado({
   onCardClick 
 }) {
 
-  const handleMouseEnter = () => {
+  const handleclick = () => {
     if (onCardClick) {
-      onCardClick(afectaciones, reclamos);  // Pasar las dos variables al componente principal
+      onCardClick(afectaciones, reclamos, aparatologia, contactos);  // Pasar las dos variables al componente principal
     }
   };
-
-  // function getDuracion() {
-  //   const fechaInicio = new Date(inicio);
-  //   const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
-  //   const diferenciaMs = fechaRestitucion - fechaInicio;
-  //   const duracionHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
-  //   return duracionHoras + 3;
-  // }
 
   // Verificar si la marca "BAJA POTENCIAL" está presente
   const esBajaPotencial = marcas.some(marca => marca.marca === "BAJA POTENCIAL");
@@ -56,7 +48,8 @@ function Afectado({
         esProvisorio  ? 'provisorio'  :
         esBajaPotencial ? 'baja-potencial' : ''
       }`}
-      onMouseEnter={handleMouseEnter}  // Agrega el evento onMouseEnter
+      // onMouseEnter={handleMouseEnter}  // Agrega el evento onMouseEnter
+      onClick={handleclick}
     >
       <div className="afectado-header">
         <div className="afectado-id">{afectacion}</div>
@@ -70,6 +63,7 @@ function Afectado({
         <div className="afectado-afectaciones">|Afectaciones: {afectaciones.length}</div>
         <div className="afectado-reclamos">|Reclamos: {cant_reclamos} de {reclamos.length}</div>
         <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
+        <div className="afectado-aparatologia">Aparatologia: {aparatologia.length}</div>
         <div className="afectado-opciones">
           <div className="afectado-icono reclamos" title="RECLAMOS">{cant_reclamos > 0 ? cant_reclamos : ''}</div>
           <div className="afectado-icono reiteraciones" title="REITERACIONES">{cant_reiteraciones > 0 ? cant_reiteraciones : ''}</div>

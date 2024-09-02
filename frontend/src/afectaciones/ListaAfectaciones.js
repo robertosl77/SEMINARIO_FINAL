@@ -11,6 +11,7 @@ function ListaAfectaciones({ data }) {
 
   return (
     <div style={styles.container}>
+        <h3>Afectaciones</h3>
       <table style={styles.table}>
         <thead>
           <tr>
