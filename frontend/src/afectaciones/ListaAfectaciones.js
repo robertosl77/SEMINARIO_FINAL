@@ -10,35 +10,35 @@ function ListaAfectaciones({ data }) {
   };
 
   return (
-    <div style={{ width: '600px', margin: 'auto' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+    <div style={styles.container}>
+      <table style={styles.table}>
         <thead>
           <tr>
-            <th style={{ display: 'none' }}>ID Afectación</th> {/* Columna oculta */}
-            <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Afectación</th>
-            <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Tipo</th>
-            <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Estado</th>
-            <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Inicio</th>
-            <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Restitución</th>
-            <th style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>Duración (hs)</th>
+            <th style={styles.hiddenColumn}>ID Afectación</th> {/* Columna oculta */}
+            <th style={styles.headerCell}>Afectación</th>
+            <th style={styles.headerCell}>Tipo</th>
+            <th style={styles.headerCell}>Estado</th>
+            <th style={styles.headerCell}>Inicio</th>
+            <th style={styles.headerCell}>Restitución</th>
+            <th style={styles.headerCell}>Duración (hs)</th>
           </tr>
         </thead>
         <tbody>
           {data && data.length > 0 ? (
             data.map((afectacion, index) => (
-              <tr key={index}>
-                <td style={{ display: 'none' }}>{afectacion.idafectacion}</td> {/* Columna oculta */}
-                <td style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>{afectacion.afectacion}</td>
-                <td style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>{afectacion.tipo}</td>
-                <td style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>{afectacion.estado}</td>
-                <td style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>{new Date(afectacion.inicio).toLocaleString()}</td>
-                <td style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>{afectacion.restitucion ? new Date(afectacion.restitucion).toLocaleString() : 'N/A'}</td>
-                <td style={{ borderBottom: '1px solid #ddd', padding: '8px' }}>{calcularDuracion(afectacion.inicio, afectacion.restitucion)}</td>
+              <tr key={index} style={styles.row}>
+                <td style={styles.hiddenColumn}>{afectacion.idafectacion}</td> {/* Columna oculta */}
+                <td style={styles.cell}>{afectacion.afectacion}</td>
+                <td style={styles.cell}>{afectacion.tipo}</td>
+                <td style={styles.cell}>{afectacion.estado}</td>
+                <td style={styles.cell}>{new Date(afectacion.inicio).toLocaleString()}</td>
+                <td style={styles.cell}>{afectacion.restitucion ? new Date(afectacion.restitucion).toLocaleString() : 'N/A'}</td>
+                <td style={styles.cell}>{calcularDuracion(afectacion.inicio, afectacion.restitucion)}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="7" style={{ textAlign: 'center', padding: '8px' }}>No hay datos disponibles</td>
+              <td colSpan="7" style={styles.noData}>No hay datos disponibles</td>
             </tr>
           )}
         </tbody>
@@ -46,5 +46,49 @@ function ListaAfectaciones({ data }) {
     </div>
   );
 }
+
+const styles = {
+  container: {
+    width: '600px',
+    margin: 'auto',
+    padding: '10px',
+    fontSize: '12px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    borderRadius: '8px',
+    backgroundColor: '#fff',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  hiddenColumn: {
+    display: 'none',
+  },
+  headerCell: {
+    borderBottom: '2px solid #ddd',
+    padding: '12px 8px',
+    textAlign: 'left',
+    backgroundColor: '#f4f4f4',
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  cell: {
+    borderBottom: '1px solid #ddd',
+    padding: '10px 8px',
+    textAlign: 'left',
+    color: '#555',
+  },
+  row: {
+    transition: 'background-color 0.3s',
+  },
+  rowHover: {
+    backgroundColor: '#f9f9f9',
+  },
+  noData: {
+    textAlign: 'center',
+    padding: '16px',
+    color: '#999',
+  },
+};
 
 export default ListaAfectaciones;

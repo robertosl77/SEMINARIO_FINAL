@@ -3,15 +3,18 @@ import Navbar from '../navegacion/Navbar';
 import Dashboard from './Dashboard';
 import LeftPanel from './Panel_Izquierdo';
 import Footer from '../footer/Footer';
-import ListaAfectaciones from './ListaAfectaciones'; // Importa el componente
+import ListaAfectaciones from './ListaAfectaciones';
+import ListaReclamos from './ListaReclamos';
 import './css/Afectaciones.css';
 
 function Afectaciones() {
   const [data, setData] = useState(null);
   const [selectedAfectaciones, setSelectedAfectaciones] = useState(null);
+  const [selectedReclamos, setSelectedReclamos] = useState(null);
 
-  const handleCardClick = (afectaciones) => {
+  const handleCardClick = (afectaciones, reclamos) => {
     setSelectedAfectaciones(afectaciones);
+    setSelectedReclamos(reclamos);
   };
 
   return (
@@ -25,11 +28,8 @@ function Afectaciones() {
             Right Panel #1
           </div>
           <div id="right-panel-2">
-            {selectedAfectaciones ? (
-              <ListaAfectaciones data={selectedAfectaciones} /> 
-            ) : (
-              <p>Seleccione una tarjeta para ver las afectaciones.</p>
-            )}
+            {selectedAfectaciones && <ListaAfectaciones data={selectedAfectaciones} />}
+            {selectedReclamos && <ListaReclamos reclamos={selectedReclamos} />}
           </div>
         </div>
       </div>   

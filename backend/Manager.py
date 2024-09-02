@@ -126,7 +126,7 @@ class Manager:
                             "inicio": afectaciones[4],
                             "restitucion": afectaciones[5]
                         }
-                        for afectaciones in self.tarjetas.obtiene_afectaciones(afectados[0])
+                        for afectaciones in self.tarjetas.obtiene_afectaciones(afectados[7])
                     ],
                     "pacientes": [
                         {

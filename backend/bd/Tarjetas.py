@@ -440,14 +440,14 @@ class Tarjetas:
         finally:
             self.cursor.close
 
-    def obtiene_afectaciones(self, idafectacion):      
+    def obtiene_afectaciones(self, cuenta):      
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()          
         try:
             # Ejecutar la consulta para obtener el resultado
             afectacion = self.cursor.execute('''
-                select idafectacion, afectacion, tipo, estado, inicio, restitucion from afectaciones where idafectacion= ?;
-            ''', (idafectacion,)).fetchall()
+                select idafectacion, afectacion, tipo, estado, inicio, restitucion from afectaciones where idafectacion in (select idafectacion from afectaciones_afectados where cuenta= ?);
+            ''', (cuenta,)).fetchall()
 
             return afectacion
         except sqlite3.Error as e:        

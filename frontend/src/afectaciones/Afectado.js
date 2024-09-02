@@ -28,19 +28,19 @@ function Afectado({
   onCardClick 
 }) {
 
-  const handleAfectacionesClick = () => {
+  const handleMouseEnter = () => {
     if (onCardClick) {
-      onCardClick(afectaciones); // Ejecutar la función con la lista de afectaciones
+      onCardClick(afectaciones, reclamos);  // Pasar las dos variables al componente principal
     }
   };
 
-  function getDuracion() {
-    const fechaInicio = new Date(inicio);
-    const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
-    const diferenciaMs = fechaRestitucion - fechaInicio;
-    const duracionHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
-    return duracionHoras + 3;
-  }
+  // function getDuracion() {
+  //   const fechaInicio = new Date(inicio);
+  //   const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
+  //   const diferenciaMs = fechaRestitucion - fechaInicio;
+  //   const duracionHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
+  //   return duracionHoras + 3;
+  // }
 
   // Verificar si la marca "BAJA POTENCIAL" está presente
   const esBajaPotencial = marcas.some(marca => marca.marca === "BAJA POTENCIAL");
@@ -55,8 +55,8 @@ function Afectado({
         esNormalizado ? 'normalizado' :
         esProvisorio  ? 'provisorio'  :
         esBajaPotencial ? 'baja-potencial' : ''
-      }`} 
-      onClick={handleAfectacionesClick} 
+      }`}
+      onMouseEnter={handleMouseEnter}  // Agrega el evento onMouseEnter
     >
       <div className="afectado-header">
         <div className="afectado-id">{afectacion}</div>
@@ -67,9 +67,8 @@ function Afectado({
         <div className="afectado-gestion">Gestión: {gestion}</div>
       </div>
       <div className="afectado-body">
-        <div className="afectado-afectaciones" onClick={handleAfectacionesClick}>|Afectaciones: {afectaciones.length}|</div>
-        <div className="afectado-duracion">Duracion: {getDuracion()} hs</div>
-        <div className="afectado-reclamos">Reclamos: {cant_reclamos}</div>
+        <div className="afectado-afectaciones">|Afectaciones: {afectaciones.length}</div>
+        <div className="afectado-reclamos">|Reclamos: {cant_reclamos} de {reclamos.length}</div>
         <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
         <div className="afectado-opciones">
           <div className="afectado-icono reclamos" title="RECLAMOS">{cant_reclamos > 0 ? cant_reclamos : ''}</div>
