@@ -78,9 +78,11 @@
 
 .afectado-duracion,
 .afectado-reclamos,
-.afectado-reiteraciones {
+.afectado-reiteraciones, 
+.afectado-afectaciones {
+  transform: translateX(-5px);
   flex-basis: 30%;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-bottom: 5px;
   color: #555;
   /* background-color: rgb(228, 238, 147); */

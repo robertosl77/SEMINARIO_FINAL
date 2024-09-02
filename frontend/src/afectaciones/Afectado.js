@@ -28,9 +28,9 @@ function Afectado({
   onCardClick 
 }) {
 
-  const handleClick = () => {
+  const handleAfectacionesClick = () => {
     if (onCardClick) {
-      onCardClick(idafectacion); // Ejecutar la función con el idafectacion
+      onCardClick(afectaciones); // Ejecutar la función con la lista de afectaciones
     }
   };
 
@@ -48,14 +48,6 @@ function Afectado({
   const esSeguimiento = ["SEGUIMIENTO", "RELLAMAR"].includes(gestion);
   const esProvisorio = ["CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "GE INSTALADO"].includes(gestion);
 
-  const handleMouseEnter = () => {
-    alert(`Mouse entered card with ID: ${cuenta}`);
-  };
-
-  const handleMouseLeave = () => {
-    // Puedes usar esto para otras acciones cuando el mouse salga del componente
-  };
-
   return (
     <div 
       className={`afectado-card ${
@@ -64,9 +56,7 @@ function Afectado({
         esProvisorio  ? 'provisorio'  :
         esBajaPotencial ? 'baja-potencial' : ''
       }`} 
-      onClick={handleClick}
-      // onMouseEnter={handleMouseEnter}
-      // onMouseLeave={handleMouseLeave}
+      onClick={handleAfectacionesClick} 
     >
       <div className="afectado-header">
         <div className="afectado-id">{afectacion}</div>
@@ -77,6 +67,7 @@ function Afectado({
         <div className="afectado-gestion">Gestión: {gestion}</div>
       </div>
       <div className="afectado-body">
+        <div className="afectado-afectaciones" onClick={handleAfectacionesClick}>|Afectaciones: {afectaciones.length}|</div>
         <div className="afectado-duracion">Duracion: {getDuracion()} hs</div>
         <div className="afectado-reclamos">Reclamos: {cant_reclamos}</div>
         <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>

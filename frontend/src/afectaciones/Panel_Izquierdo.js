@@ -2,12 +2,7 @@ import React from 'react';
 import Afectado from './Afectado';
 import './css/Panel_Izquierdo.css';
 
-function LeftPanel({ data }) {
-
-  const handleCardClick = (idafectacion) => {
-    // console.log("Card clicked with ID:", idafectacion);
-    // Aquí puedes realizar cualquier acción con el idafectacion, como navegar a otra vista o mostrar más información.
-  };
+function LeftPanel({ data, onCardClick }) {
 
   return (
     <div id="left-panel">
@@ -18,7 +13,7 @@ function LeftPanel({ data }) {
             <Afectado
               key={index}
               afectacion={afectado.afectacion}
-              afectaciones={afectado.afectaciones}
+              afectaciones={afectado.afectaciones} // Pasa las afectaciones a Afectado.js
               ami={afectado.ami}
               aparatologia={afectado.aparatologia}
               cant_reclamos={afectado.cant_reclamos}
@@ -40,7 +35,7 @@ function LeftPanel({ data }) {
               tipo={afectado.tipo}
               solucion_provisoria={data.solucion_provisoria}
               tabla_marcas={data.marcas}
-              onCardClick={handleCardClick}
+              onCardClick={onCardClick} // Pasa la función para manejar el clic en la tarjeta
             />
           ))}
         </div>
