@@ -35,10 +35,15 @@ function Afectaciones() {
           </div>
           <div id="right-panel-2">
             {selectedContactos && <ListaContactos contactos={selectedContactos} />}
+            {selectedAparatologias && <ListaAparatologia aparatologias={selectedAparatologias} />}
             {selectedAfectaciones && <ListaAfectaciones data={selectedAfectaciones} />}
             {selectedReclamos && <ListaReclamos reclamos={selectedReclamos} />}
-            {selectedAparatologias && <ListaAparatologia aparatologias={selectedAparatologias} />}
-
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
           </div>
         </div>
       </div>   
