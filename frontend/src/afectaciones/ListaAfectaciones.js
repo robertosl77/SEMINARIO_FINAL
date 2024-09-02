@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ListaAfectaciones({ data }) {
+function ListaAfectaciones({ afectaciones }) {
   // Función para calcular la duración en horas
   const calcularDuracion = (inicio, restitucion) => {
     const fechaInicio = new Date(inicio);
@@ -25,8 +25,8 @@ function ListaAfectaciones({ data }) {
           </tr>
         </thead>
         <tbody>
-          {data && data.length > 0 ? (
-            data.map((afectacion, index) => (
+          {afectaciones && afectaciones.length > 0 ? (
+            afectaciones.map((afectacion, index) => (
               <tr key={index} style={styles.row}>
                 <td style={styles.hiddenColumn}>{afectacion.idafectacion}</td> {/* Columna oculta */}
                 <td style={styles.cell}>{afectacion.afectacion}</td>
@@ -39,7 +39,7 @@ function ListaAfectaciones({ data }) {
             ))
           ) : (
             <tr>
-              <td colSpan="7" style={styles.noData}>No hay datos disponibles</td>
+              <td colSpan="7" style={styles.noafectaciones}>No hay datos disponibles</td>
             </tr>
           )}
         </tbody>
@@ -85,7 +85,7 @@ const styles = {
   rowHover: {
     backgroundColor: '#f9f9f9',
   },
-  noData: {
+  noafectaciones: {
     textAlign: 'center',
     padding: '16px',
     color: '#999',

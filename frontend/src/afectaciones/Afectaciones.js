@@ -16,14 +16,14 @@ function Afectaciones() {
   const [selectedReclamos, setSelectedReclamos] = useState(null);
   const [selectedAparatologias, setSelectedAparatologias] = useState(null);
   const [selectedContactos, setSelectedContactos] = useState(null);
-  const [selectedPacientes, setSelectedPacientes] = useState(null);
+  const [selectedPacientes, setselectedPacientes] = useState(null);
 
   const handleCardClick = (afectaciones, reclamos, aparatologias, contactos, pacientes) => {
     setSelectedAfectaciones(afectaciones);
     setSelectedReclamos(reclamos);
     setSelectedAparatologias(aparatologias);
     setSelectedContactos(contactos);
-    setSelectedPacientes(pacientes);
+    setselectedPacientes(pacientes);
   };
 
   return (
@@ -40,7 +40,7 @@ function Afectaciones() {
             {selectedContactos && <ListaContactos contactos={selectedContactos} />}
             {selectedAparatologias && <ListaAparatologias aparatologias={selectedAparatologias} />}
             {selectedPacientes && <ListaPacientes pacientes={selectedPacientes} />}
-            {selectedAfectaciones && <ListaAfectaciones data={selectedAfectaciones} />}
+            {selectedAfectaciones && <ListaAfectaciones afectaciones={selectedAfectaciones} />}
             {selectedReclamos && <ListaReclamos reclamos={selectedReclamos} />}
             <br></br>
             <br></br>
