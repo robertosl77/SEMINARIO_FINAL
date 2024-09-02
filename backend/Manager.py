@@ -33,7 +33,15 @@ class Manager:
 
         # Busquedas Puntuales
         solucion_provisoria= ["CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "REQUIERE GE", "GE INSTALADO", "RELLAMAR", "SEGUIMIENTO"]
-        marcas= self.tarjetas.obtiene_marcas()
+        # marcas= self.tarjetas.obtiene_marcas()
+        tabla_marcas =[ 
+                {
+                    "idmarca": marca[0],
+                    "marca": marca[1],
+                    "submarca": marca[2]
+                } for marca in self.tarjetas.obtiene_marcas()
+        ]
+                        
         # Busca dashboard
         dashboard= self.tarjetas.obtiene_dashboard()
         # Estructura el resultado en un diccionario
@@ -138,7 +146,7 @@ class Manager:
                 for afectados in tarjeta
             ],
             "solucion_provisoria": solucion_provisoria, 
-            "marcas": marcas, 
+            "tabla_marcas": tabla_marcas, 
             "dashboard": dashboard
         }
 
