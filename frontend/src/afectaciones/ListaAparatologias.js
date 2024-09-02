@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ListaAparatologia({ aparatologias }) {
+function ListaAparatologias({ aparatologias }) {
 
   return (
     <div style={styles.container}>
@@ -77,4 +77,4 @@ const styles = {
   },
 };
 
-export default ListaAparatologia;
+export default ListaAparatologias;

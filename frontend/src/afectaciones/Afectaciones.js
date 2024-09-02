@@ -6,21 +6,24 @@ import Footer from '../footer/Footer';
 import ListaAfectaciones from './ListaAfectaciones';
 import ListaReclamos from './ListaReclamos';
 import './css/Afectaciones.css';
-import ListaAparatologia from './ListaAparatologia';
+import ListaAparatologias from './ListaAparatologias';
 import ListaContactos from './ListaContactos';
+import ListaPacientes from './ListaPacientes';
 
 function Afectaciones() {
   const [data, setData] = useState(null);
   const [selectedAfectaciones, setSelectedAfectaciones] = useState(null);
   const [selectedReclamos, setSelectedReclamos] = useState(null);
-  const [selectedAparatologias, setSelectedAparatologia] = useState(null);
-  const [selectedContactos, setSelectedContacto] = useState(null);
+  const [selectedAparatologias, setSelectedAparatologias] = useState(null);
+  const [selectedContactos, setSelectedContactos] = useState(null);
+  const [selectedPacientes, setSelectedPacientes] = useState(null);
 
-  const handleCardClick = (afectaciones, reclamos, aparatologias, contactos) => {
+  const handleCardClick = (afectaciones, reclamos, aparatologias, contactos, pacientes) => {
     setSelectedAfectaciones(afectaciones);
     setSelectedReclamos(reclamos);
-    setSelectedAparatologia(aparatologias);
-    setSelectedContacto(contactos);
+    setSelectedAparatologias(aparatologias);
+    setSelectedContactos(contactos);
+    setSelectedPacientes(pacientes);
   };
 
   return (
@@ -35,7 +38,8 @@ function Afectaciones() {
           </div>
           <div id="right-panel-2">
             {selectedContactos && <ListaContactos contactos={selectedContactos} />}
-            {selectedAparatologias && <ListaAparatologia aparatologias={selectedAparatologias} />}
+            {selectedAparatologias && <ListaAparatologias aparatologias={selectedAparatologias} />}
+            {selectedPacientes && <ListaPacientes pacientes={selectedPacientes} />}
             {selectedAfectaciones && <ListaAfectaciones data={selectedAfectaciones} />}
             {selectedReclamos && <ListaReclamos reclamos={selectedReclamos} />}
             <br></br>

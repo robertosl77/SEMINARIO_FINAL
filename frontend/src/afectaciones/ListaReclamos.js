@@ -25,7 +25,7 @@ function ListaReclamos({ reclamos }) {
                 <td style={styles.hiddenColumn}>{reclamo.idafectacion}</td> {/* Columna oculta */}
                 <td style={styles.hiddenColumn}>{reclamo.cuenta}</td> {/* Columna oculta */}
                 <td style={styles.cell}>{reclamo.nro_reclamo}</td>
-                <td style={styles.cell}>{new Date(reclamo.fecha).toLocaleString()}</td>
+                <td style={styles.cell}>{reclamo.fecha}</td>
                 <td style={styles.cell}>{reclamo.estado}</td>
                 <td style={styles.cell}>{reclamo.reiteracion}</td>
               </tr>

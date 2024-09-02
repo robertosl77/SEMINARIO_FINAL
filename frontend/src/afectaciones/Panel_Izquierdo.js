@@ -42,6 +42,11 @@ function LeftPanel({ data, onCardClick }) {
       ) : (
         <p>No hay datos de afectados disponibles.</p>
       )}
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>      
     </div>
   );
 }

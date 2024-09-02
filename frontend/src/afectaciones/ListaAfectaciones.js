@@ -32,8 +32,8 @@ function ListaAfectaciones({ data }) {
                 <td style={styles.cell}>{afectacion.afectacion}</td>
                 <td style={styles.cell}>{afectacion.tipo}</td>
                 <td style={styles.cell}>{afectacion.estado}</td>
-                <td style={styles.cell}>{new Date(afectacion.inicio).toLocaleString()}</td>
-                <td style={styles.cell}>{afectacion.restitucion ? new Date(afectacion.restitucion).toLocaleString() : 'N/A'}</td>
+                <td style={styles.cell}>{afectacion.inicio}</td>
+                <td style={styles.cell}>{afectacion.restitucion}</td>
                 <td style={styles.cell}>{calcularDuracion(afectacion.inicio, afectacion.restitucion)}</td>
               </tr>
             ))
