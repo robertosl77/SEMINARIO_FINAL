@@ -39,25 +39,25 @@ function Afectaciones() {
             Right Panel #1
           </div>
           <div id="right-panel-2">
-            <div className={`vista ${visible && selectedView?.telefonos ? 'mostrar' : ''}`}>
+            <div className={`vista ${visible && selectedView?.telefonos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.1s' }}>
               <ListaTelefonos telefonos={selectedView?.telefonos} />
             </div>
-            <div className={`vista ${visible && selectedView?.marcas ? 'mostrar' : ''}`}>
+            <div className={`vista ${visible && selectedView?.marcas ? 'mostrar' : ''}`} style={{ transitionDelay: '0.2s' }}>
               <ListaMarcas marcas={selectedView?.marcas} />
             </div>
-            <div className={`vista ${visible && selectedView?.contactos ? 'mostrar' : ''}`}>
+            <div className={`vista ${visible && selectedView?.contactos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.3s' }}>
               <ListaContactos contactos={selectedView?.contactos} />
             </div>
-            <div className={`vista ${visible && selectedView?.aparatologias ? 'mostrar' : ''}`}>
+            <div className={`vista ${visible && selectedView?.aparatologias ? 'mostrar' : ''}`} style={{ transitionDelay: '0.4s' }}>
               <ListaAparatologias aparatologias={selectedView?.aparatologias} />
             </div>
-            <div className={`vista ${visible && selectedView?.pacientes ? 'mostrar' : ''}`}>
+            <div className={`vista ${visible && selectedView?.pacientes ? 'mostrar' : ''}`} style={{ transitionDelay: '0.5s' }}>
               <ListaPacientes pacientes={selectedView?.pacientes} />
             </div>
-            <div className={`vista ${visible && selectedView?.afectaciones ? 'mostrar' : ''}`}>
+            <div className={`vista ${visible && selectedView?.afectaciones ? 'mostrar' : ''}`} style={{ transitionDelay: '0.6s' }}>
               <ListaAfectaciones afectaciones={selectedView?.afectaciones} />
             </div>
-            <div className={`vista ${visible && selectedView?.reclamos ? 'mostrar' : ''}`}>
+            <div className={`vista ${visible && selectedView?.reclamos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.7s' }}>
               <ListaReclamos reclamos={selectedView?.reclamos} />
             </div>
           </div>

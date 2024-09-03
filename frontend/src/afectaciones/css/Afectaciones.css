@@ -49,8 +49,8 @@
 
 .vista {
     opacity: 0;
-    transform: translateX(50px);
-    transition: opacity 0.1s ease, transform 0.3s ease;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
     max-height: 0;
     overflow: hidden;
     pointer-events: none;
@@ -58,11 +58,12 @@
   
   .vista.mostrar {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
     max-height: 1000px; /* Ajusta según el contenido */
     overflow: visible;
     pointer-events: auto;
   }
+  
   
   
   
