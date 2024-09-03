@@ -7,7 +7,8 @@ function ListaAfectaciones({ afectaciones }) {
     const fechaInicio = new Date(inicio);
     const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
     const diferenciaMs = fechaRestitucion - fechaInicio;
-    return Math.floor(diferenciaMs / (1000 * 60 * 60)); // Convierte ms a horas
+    const resultado = Math.floor(diferenciaMs / (1000 * 60 * 60));
+    return restitucion ? resultado : resultado + 3; // Convierte ms a horas
   };
 
   return (
