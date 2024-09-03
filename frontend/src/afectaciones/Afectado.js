@@ -8,6 +8,7 @@ function Afectado({
   aparatologias,
   cant_reclamos,
   cant_reiteraciones,
+  cliente,
   contactos,
   ct,
   cuenta,
@@ -58,9 +59,11 @@ function Afectado({
       className={`afectado-card ${claseTarjeta} ${isSelected ? 'seleccionado' : ''}`}
       onClick={handleclick}
     >
+      {console.log(cliente)}
       {isSelected && <div className="indicador-seleccion"></div>} {/* Indicador visual de selección */}
       <div className="afectado-header">
-        <div className="afectado-id">{afectacion}</div>
+        <div className="afectado-regionzona">{cliente[0].region + '-' + cliente[0].sector}</div>
+        <div className="afectado-afectacion">{afectacion}</div>
         <div className="afectado-origen">{tipo}</div>
         <div className="afectado-ct">CT {ct}</div>
         <div className="afectado-cuenta">Cuenta: {cuenta}</div>

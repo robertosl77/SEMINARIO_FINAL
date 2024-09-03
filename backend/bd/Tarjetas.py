@@ -473,6 +473,29 @@ class Tarjetas:
         finally:
             self.cursor.close
 
+    def obtiene_cliente(self, cuenta):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            cliente = self.cursor.execute('''
+                select c.cuenta, c.nombre_cliente, c.calle, c.numero, c.piso_dpto, 
+                g.idlocalidad, g.region, g.localidad, g.partido, g.sector, 
+                c.ct, c.x, c.y
+                from clientes c, geografico g
+                where c.idlocalidad=g.idlocalidad
+                and c.logfin=0
+                and c.cuenta= ?
+                ;
+            ''', (cuenta,)).fetchall()
+
+            return cliente
+        except sqlite3.Error as e:        
+            print(f"Error al obtener el cliente: {e}")
+            return []
+        finally:
+            self.cursor.close
+
     def obtiene_dashboard(self):      
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()          

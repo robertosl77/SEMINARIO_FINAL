@@ -67,14 +67,15 @@
   border-radius: 8px;
 }
 
-.afectado-id,
+.afectado-regionzona,
+.afectado-afectacion,
 .afectado-origen,
 .afectado-ct,
 .afectado-cuenta {
   margin-right: 12px;
   margin-bottom: 6px;
   padding: 4px 8px;
-  background-color: #e0f7fa;
+  /* background-color: #e0f7fa; */
   border-radius: 4px;
   color: #00796b;
 }
@@ -131,16 +132,6 @@
   margin-right: 5px;
   transition: transform 0.3s, box-shadow 0.3s;
   background-color: rgb(124, 121, 123);
-}
-
-.afectado-afectaciones:hover,
-.afectado-reclamos:hover,
-.afectado-reiteraciones:hover, 
-.afectado-aparatologias:hover,
-.afectado-telefonos:hover,
-.afectado-duracion {
-    transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .afectado-icono {

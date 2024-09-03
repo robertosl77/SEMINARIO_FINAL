@@ -6,7 +6,6 @@ function LeftPanel({ data, onCardClick }) {
   const [selectedId, setSelectedId] = useState(null);
 
   const handleCardClick = (cuenta, ...otherProps) => {
-    console.log(cuenta);
     setSelectedId(cuenta);
     onCardClick(...otherProps);
   };
@@ -25,6 +24,7 @@ function LeftPanel({ data, onCardClick }) {
               aparatologias={afectado.aparatologia}
               cant_reclamos={afectado.cant_reclamos}
               cant_reiteraciones={afectado.cant_reiteraciones}
+              cliente={afectado.cliente}
               contactos={afectado.contactos}
               ct={afectado.ct}
               cuenta={afectado.cuenta}

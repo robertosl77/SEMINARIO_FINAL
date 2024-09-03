@@ -142,6 +142,24 @@ class Manager:
                             "riesgo": pacientes[8]
                         }
                         for pacientes in self.tarjetas.obtiene_pacientes(afectados[7])
+                    ],
+                    "cliente": [
+                        {
+                            "cuenta": cliente[0],
+                            "nombre_cliente": cliente[1],
+                            "calle": cliente[2],
+                            "nro": cliente[3],
+                            "piso_dpto": cliente[4],
+                            "idlocalidad": cliente[5],
+                            "region": cliente[6],
+                            "localidad": cliente[7],
+                            "partido": cliente[8],
+                            "sector": cliente[9],
+                            "ct": cliente[10],
+                            "x": cliente[11],
+                            "y": cliente[12],
+                        }
+                        for cliente in self.tarjetas.obtiene_cliente(afectados[7])
                     ]
                 }
                 for afectados in tarjeta

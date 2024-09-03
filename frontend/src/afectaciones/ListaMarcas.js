@@ -2,7 +2,6 @@ import React from 'react';
 import './css/Listas.css';
 
 function ListaMarcas({ marcas }) {
-  console.log(marcas);
   return (
     
     <div className="container">
