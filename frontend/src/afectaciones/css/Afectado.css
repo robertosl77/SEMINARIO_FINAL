@@ -61,20 +61,21 @@
   color: #00796b;
 }
 
-.afectado-estado,
+.afectado-estado {
+  font-style: italic;
+  color: #777;
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+  color: #ff7043;
+}
+
 .afectado-gestion {
   font-style: italic;
   color: #777;
   flex-grow: 1;
   text-align: right;
   margin-left: 10px;
-}
-
-.afectado-estado {
-  color: #ff7043;
-}
-
-.afectado-gestion {
   color: #29b6f6;
 }
 
@@ -103,13 +104,14 @@
 .afectado-aparatologias,
 .afectado-telefonos {
   font-size: 0.7rem;
-  color: #363636;
+  color: #eee7e7;
   border-radius: 15px;
   text-align: center;
   display: inline-block;
   padding: 5px;
   margin-right: 5px;
   transition: transform 0.3s, box-shadow 0.3s;
+  background-color: rgb(124, 121, 123);
 }
 
 .afectado-afectaciones:hover,
@@ -119,26 +121,6 @@
 .afectado-telefonos:hover {
     transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.afectado-afectaciones {
-  background-color: rgb(211, 125, 199);
-}
-
-.afectado-reclamos {
-  background-color: lightcoral;
-}
-
-.afectado-reiteraciones {
-  background-color: rgb(223, 165, 100);
-}
-
-.afectado-aparatologias {
-  background-color: rgb(189, 207, 124);
-}
-
-.afectado-telefonos {
-  background-color: rgb(137, 180, 219);
 }
 
 .afectado-icono {

@@ -20,14 +20,14 @@
 }
 
 #left-panel {
-    width:900px;
+    width:calc(100vh);
     /* background-color: #69bdee; */
     padding: 10px;
     overflow-y: auto;
 }
 
 #right-panel {
-    width: 800px;
+    width: auto;
     background-color: #b4abab;
     overflow-y: auto;
 

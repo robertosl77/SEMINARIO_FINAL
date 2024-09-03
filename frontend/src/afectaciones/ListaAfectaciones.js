@@ -1,4 +1,5 @@
 import React from 'react';
+import './css/Listas.css';
 
 function ListaAfectaciones({ afectaciones }) {
   // Función para calcular la duración en horas
@@ -10,36 +11,36 @@ function ListaAfectaciones({ afectaciones }) {
   };
 
   return (
-    <div style={styles.container}>
-        <h3>Afectaciones</h3>
-      <table style={styles.table}>
+    <div className="container">
+      <h3>Afectaciones</h3>
+      <table className="table">
         <thead>
           <tr>
-            <th style={styles.hiddenColumn}>ID Afectación</th> {/* Columna oculta */}
-            <th style={styles.headerCell}>Afectación</th>
-            <th style={styles.headerCell}>Tipo</th>
-            <th style={styles.headerCell}>Estado</th>
-            <th style={styles.headerCell}>Inicio</th>
-            <th style={styles.headerCell}>Restitución</th>
-            <th style={styles.headerCell}>Duración (hs)</th>
+            <th className="hiddenColumn">ID Afectación</th> {/* Columna oculta */}
+            <th className="headerCell">Afectación</th>
+            <th className="headerCell">Tipo</th>
+            <th className="headerCell">Estado</th>
+            <th className="headerCell">Inicio</th>
+            <th className="headerCell">Restitución</th>
+            <th className="headerCell">Duración (hs)</th>
           </tr>
         </thead>
         <tbody>
           {afectaciones && afectaciones.length > 0 ? (
             afectaciones.map((afectacion, index) => (
-              <tr key={index} style={styles.row}>
-                <td style={styles.hiddenColumn}>{afectacion.idafectacion}</td> {/* Columna oculta */}
-                <td style={styles.cell}>{afectacion.afectacion}</td>
-                <td style={styles.cell}>{afectacion.tipo}</td>
-                <td style={styles.cell}>{afectacion.estado}</td>
-                <td style={styles.cell}>{afectacion.inicio}</td>
-                <td style={styles.cell}>{afectacion.restitucion}</td>
-                <td style={styles.cell}>{calcularDuracion(afectacion.inicio, afectacion.restitucion)}</td>
+              <tr key={index} className="row">
+                <td className="hiddenColumn">{afectacion.idafectacion}</td> {/* Columna oculta */}
+                <td className="cell">{afectacion.afectacion}</td>
+                <td className="cell">{afectacion.tipo}</td>
+                <td className="cell">{afectacion.estado}</td>
+                <td className="cell">{afectacion.inicio}</td>
+                <td className="cell">{afectacion.restitucion}</td>
+                <td className="cell">{calcularDuracion(afectacion.inicio, afectacion.restitucion)}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="7" style={styles.noafectaciones}>No hay datos disponibles</td>
+              <td colSpan="7" className="noafectaciones">No hay datos disponibles</td>
             </tr>
           )}
         </tbody>
@@ -47,50 +48,5 @@ function ListaAfectaciones({ afectaciones }) {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    width: '750px',
-    // margin: 'auto',
-    margin: '5px',
-    padding: '10px',
-    fontSize: '12px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    borderRadius: '8px',
-    backgroundColor: '#fff',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  hiddenColumn: {
-    display: 'none',
-  },
-  headerCell: {
-    borderBottom: '2px solid #ddd',
-    padding: '12px 8px',
-    textAlign: 'left',
-    backgroundColor: '#f4f4f4',
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  cell: {
-    borderBottom: '1px solid #ddd',
-    padding: '10px 8px',
-    textAlign: 'left',
-    color: '#555',
-  },
-  row: {
-    transition: 'background-color 0.3s',
-  },
-  rowHover: {
-    backgroundColor: '#f9f9f9',
-  },
-  noafectaciones: {
-    textAlign: 'center',
-    padding: '16px',
-    color: '#999',
-  },
-};
 
 export default ListaAfectaciones;

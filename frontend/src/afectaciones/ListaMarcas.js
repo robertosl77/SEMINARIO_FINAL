@@ -1,30 +1,31 @@
 import React from 'react';
+import './css/Listas.css';
 
 function ListaMarcas({ marcas }) {
   console.log(marcas);
   return (
     
-    <div style={styles.container}>
+    <div className="container">
         <h3>Marcas</h3>
-      <table style={styles.table}>
+      <table className="table">
         <thead>
           <tr>
-            <th style={styles.hiddenColumn}>ID Marca</th> {/* Columna oculta */}
-            <th style={styles.hiddenColumn}>ID Cliente Marca</th>
-            <th style={styles.hiddenColumn}>Cuenta</th>
-            <th style={styles.headerCell}>Marca</th>
-            <th style={styles.headerCell}>Submarca</th>
+            <th className="hiddenColumn">ID Marca</th> {/* Columna oculta */}
+            <th className="hiddenColumn">ID Cliente Marca</th>
+            <th className="hiddenColumn">Cuenta</th>
+            <th className="headerCell">Marca</th>
+            <th className="headerCell">Submarca</th>
           </tr>
         </thead>
         <tbody>
           {marcas && marcas.length > 0 ? (
             marcas.map((marca, index) => (
-              <tr key={index} style={styles.row}>
-                <td style={styles.hiddenColumn}>{marca.idmarca}</td> {/* Columna oculta */}
-                <td style={styles.hiddenColumn}>{marca.idclientemarca}</td>
-                <td style={styles.hiddenColumn}>{marca.cuenta}</td>
-                <td style={styles.cell}>{marca.marca}</td>
-                <td style={styles.cell}>{marca.submarca}</td>
+              <tr key={index} className="row">
+                <td className="hiddenColumn">{marca.idmarca}</td> {/* Columna oculta */}
+                <td className="hiddenColumn">{marca.idclientemarca}</td>
+                <td className="hiddenColumn">{marca.cuenta}</td>
+                <td className="cell">{marca.marca}</td>
+                <td className="cell">{marca.submarca}</td>
               </tr>
             ))
           ) : (

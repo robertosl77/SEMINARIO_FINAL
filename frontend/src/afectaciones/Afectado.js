@@ -57,7 +57,7 @@ function Afectado({
         <div className="afectado-ct">CT {ct}</div>
         <div className="afectado-cuenta">Cuenta: {cuenta}</div>
         <div className="afectado-estado">Estado: {estado}</div>
-        <div className="afectado-gestion">Gestión: {gestion}</div>
+        <div className="afectado-gestion">{gestion}</div>
       </div>
       <div className="afectado-body">
         <div className="afectado-etiquetas">
