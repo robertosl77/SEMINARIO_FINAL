@@ -1,11 +1,11 @@
 :root {
   --container-width: 750px;
-  --container-margin: 5px;
+  --container-margin: 10px;
   --container-padding: 15px;
   --container-font-size: 11px; /* Tamaño de letra reducido */
   --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   --container-border-radius: 10px;
-  --container-background-color: #ffffff;
+  --container-background-color: #d8d6d6;
 
   --table-border-collapse: collapse;
   --table-width: 100%;
