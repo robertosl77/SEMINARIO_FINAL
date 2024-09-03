@@ -15,7 +15,7 @@ function LeftPanel({ data, onCardClick }) {
               afectacion={afectado.afectacion}
               afectaciones={afectado.afectaciones} // Pasa las afectaciones a Afectado.js
               ami={afectado.ami}
-              aparatologia={afectado.aparatologia}
+              aparatologias={afectado.aparatologia}
               cant_reclamos={afectado.cant_reclamos}
               cant_reiteraciones={afectado.cant_reiteraciones}
               contactos={afectado.contactos}

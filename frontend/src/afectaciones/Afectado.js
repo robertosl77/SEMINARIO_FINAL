@@ -5,7 +5,7 @@ function Afectado({
   afectacion,
   afectaciones,
   ami,
-  aparatologia,
+  aparatologias,
   cant_reclamos,
   cant_reiteraciones,
   contactos,
@@ -30,7 +30,7 @@ function Afectado({
 
   const handleclick = () => {
     if (onCardClick) {
-      onCardClick(afectaciones, reclamos, aparatologia, contactos);  // Pasar las dos variables al componente principal
+      onCardClick(telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos);  // Pasar las dos variables al componente principal
     }
   };
 
@@ -60,16 +60,17 @@ function Afectado({
         <div className="afectado-gestion">Gestión: {gestion}</div>
       </div>
       <div className="afectado-body">
-        <div className="afectado-afectaciones">|Afectaciones: {afectaciones.length}</div>
-        <div className="afectado-reclamos">|Reclamos: {cant_reclamos} de {reclamos.length}</div>
-        <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
-        <div className="afectado-aparatologia">Aparatologia: {aparatologia.length}</div>
+        <div className="afectado-etiquetas">
+          <div className="afectado-afectaciones">Afectaciones: {afectaciones.length}</div>
+          <div className="afectado-reclamos">Reclamos: {cant_reclamos}</div>
+          <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
+          <div className="afectado-aparatologias">Aparatologias: {aparatologias.length}</div>
+          <div className="afectado-telefonos">Telefonos: {telefonos.length}</div>
+        </div>
         <div className="afectado-opciones">
-          <div className="afectado-icono reclamos" title="RECLAMOS">{cant_reclamos > 0 ? cant_reclamos : ''}</div>
-          <div className="afectado-icono reiteraciones" title="REITERACIONES">{cant_reiteraciones > 0 ? cant_reiteraciones : ''}</div>
-          <div className="afectado-icono fae" title="FAE">{fae ? 'FAE' : ''}</div>
-          <div className="afectado-icono ge_propio" title="GE Propio">{ge_propio ? 'GE' : ''}</div>
-          <div className="afectado-icono ami" title="AMI">{ami ? 'AMI' : ''}</div>
+          <div className={fae===0 ? "afectado-icono fae_off" : "afectado-icono fae"} title="FAE">{fae ? 'FAE' : ''}</div>
+          <div className={ge_propio===0 ? "afectado-icono ge_propio_off" : "afectado-icono ge_propio"} title="GE Propio">{ge_propio ? 'GE' : ''}</div>
+          <div className={ami===0 ? "afectado-icono ami_off" : "afectado-icono ami"} title="AMI">{ami ? 'AMI' : ''}</div>
         </div>
       </div>
     </div>

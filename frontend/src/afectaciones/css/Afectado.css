@@ -1,8 +1,8 @@
 .afectado-card {
-  width: 90%;
-  max-width: 850px;
+  /* width: 90%; */
+  /* max-width: 850px; */
   margin: 15px auto;
-  padding: 15px;
+  padding: 10px;
   border: 2px solid #1e88e5;
   border-radius: 12px;
   background-color: #ffffff;
@@ -70,39 +70,74 @@
 
 .afectado-body {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  padding-top: 10px;
+  padding-top: 5px;
   border-top: 1px solid #ddd;
+  /* background-color: #1b33ba; */
 }
 
-.afectado-duracion,
-.afectado-reclamos,
-.afectado-reiteraciones, 
-.afectado-afectaciones,
-.afectado-aparatologia {
-  transform: translateX(-5px);
-  flex-basis: 30%;
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  color: #555;
-  /* background-color: rgb(228, 238, 147); */
+.afectado-etiquetas {
+  width: 80%;
 }
 
 .afectado-opciones {
+  width: 20%;
   display: flex;
-  align-items: center;
   justify-content: flex-end;
 }
 
+.afectado-afectaciones,
+.afectado-reclamos,
+.afectado-reiteraciones, 
+.afectado-aparatologias,
+.afectado-telefonos {
+  font-size: 0.7rem;
+  color: #363636;
+  border-radius: 15px;
+  text-align: center;
+  display: inline-block;
+  padding: 5px;
+  margin-right: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.afectado-afectaciones:hover,
+.afectado-reclamos:hover,
+.afectado-reiteraciones:hover, 
+.afectado-aparatologias:hover,
+.afectado-telefonos:hover {
+    transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.afectado-afectaciones {
+  background-color: rgb(211, 125, 199);
+}
+
+.afectado-reclamos {
+  background-color: lightcoral;
+}
+
+.afectado-reiteraciones {
+  background-color: rgb(223, 165, 100);
+}
+
+.afectado-aparatologias {
+  background-color: rgb(189, 207, 124);
+}
+
+.afectado-telefonos {
+  background-color: rgb(137, 180, 219);
+}
+
 .afectado-icono {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 0.60rem;
   font-weight: bold;
   border-radius: 50%;
   margin-left: 10px;
@@ -110,13 +145,12 @@
   transition: background-color 0.3s;
 }
 
-.afectado-icono.reclamos {
-  background-color: #dd3309;
+.afectado-icono.ami_off,
+.afectado-icono.fae_off, 
+.afectado-icono.ge_propio_off {
+  background-color: #666;
 }
 
-.afectado-icono.reiteraciones {
-  background-color: #cf6113;
-}
 
 .afectado-icono.fae {
   background-color: #067713;

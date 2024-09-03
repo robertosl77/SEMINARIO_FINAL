@@ -1,30 +1,38 @@
 import React from 'react';
 
-function ListaAparatologias({ aparatologias }) {
+function ListaTelefonos({ telefonos }) {
 
   return (
     <div style={styles.container}>
-    <h3>Aparatologia</h3>
+    <h3>Telefonos</h3>
       <table style={styles.table}>
         <thead>
           <tr>
-            <th style={styles.hiddenColumn}>ID Artefacto</th> {/* Columna oculta */}
-            <th style={styles.headerCell}>Aparato</th>
-            <th style={styles.headerCell}>Autonomia</th>
+            <th style={styles.hiddenColumn}>ID telefono</th> {/* Columna oculta */}
+            <th style={styles.hiddenColumn}>Cuenta</th> {/* Columna oculta */}
+            <th style={styles.headerCell}>Telefono</th>
+            <th style={styles.headerCell}>Tipo</th>
+            <th style={styles.headerCell}>Efectividad</th>
           </tr>
         </thead>
         <tbody>
-          {aparatologias && aparatologias.length > 0 ? (
-            aparatologias.map((aparatologia, index) => (
+          {telefonos && telefonos.length > 0 ? (
+            telefonos.map((telefono, index) => (
               <tr key={index} style={styles.row}>
-                <td style={styles.hiddenColumn}>{aparatologia.idartefacto}</td> {/* Columna oculta */}
-                <td style={styles.cell}>{aparatologia.aparato}</td>
-                <td style={styles.cell}>{aparatologia.autonomia}</td>
+                <td style={styles.hiddenColumn}>{telefono.idtelefono}</td> {/* Columna oculta */}
+                <td style={styles.hiddenColumn}>{telefono.cuenta}</td> {/* Columna oculta */}
+                <td style={styles.cell}>{telefono.telefono}</td>
+                <td style={styles.cell}>{telefono.tipo}</td>
+                <td style={styles.cell}>
+                  {telefono.llamadas === 0 
+                    ? "0%" 
+                    : `${((telefono.efectivas / telefono.llamadas) * 100).toFixed(2)}%`}
+                </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="2" style={styles.noData}>No hay datos de aparatologias disponibles</td>
+              <td colSpan="3" style={styles.noData}>No hay datos de telefonos disponibles</td>
             </tr>
           )}
         </tbody>
@@ -78,4 +86,4 @@ const styles = {
   },
 };
 
-export default ListaAparatologias;
+export default ListaTelefonos;

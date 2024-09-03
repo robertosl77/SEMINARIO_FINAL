@@ -9,21 +9,27 @@ import './css/Afectaciones.css';
 import ListaAparatologias from './ListaAparatologias';
 import ListaContactos from './ListaContactos';
 import ListaPacientes from './ListaPacientes';
+import ListaMarcas from './ListaMarcas';
+import ListaTelefonos from './ListaTelefonos'
 
 function Afectaciones() {
   const [data, setData] = useState(null);
+  const [selectedTelefonos, setSelectedTelefonos] = useState(null);
+  const [selectedMarcas, setSelectedMarcas] = useState(null);
+  const [selectedContactos, setSelectedContactos] = useState(null);
+  const [selectedAparatologias, setSelectedAparatologias] = useState(null);
+  const [selectedPacientes, setselectedPacientes] = useState(null);
   const [selectedAfectaciones, setSelectedAfectaciones] = useState(null);
   const [selectedReclamos, setSelectedReclamos] = useState(null);
-  const [selectedAparatologias, setSelectedAparatologias] = useState(null);
-  const [selectedContactos, setSelectedContactos] = useState(null);
-  const [selectedPacientes, setselectedPacientes] = useState(null);
 
-  const handleCardClick = (afectaciones, reclamos, aparatologias, contactos, pacientes) => {
+  const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos) => {
+    setSelectedTelefonos(telefonos);
+    setSelectedMarcas(marcas);
+    setSelectedContactos(contactos);
+    setSelectedAparatologias(aparatologias);
+    setselectedPacientes(pacientes);
     setSelectedAfectaciones(afectaciones);
     setSelectedReclamos(reclamos);
-    setSelectedAparatologias(aparatologias);
-    setSelectedContactos(contactos);
-    setselectedPacientes(pacientes);
   };
 
   return (
@@ -37,6 +43,8 @@ function Afectaciones() {
             Right Panel #1
           </div>
           <div id="right-panel-2">
+            {selectedTelefonos && <ListaTelefonos telefonos={selectedTelefonos} />}
+            {selectedMarcas && <ListaMarcas marcas={selectedMarcas} />}
             {selectedContactos && <ListaContactos contactos={selectedContactos} />}
             {selectedAparatologias && <ListaAparatologias aparatologias={selectedAparatologias} />}
             {selectedPacientes && <ListaPacientes pacientes={selectedPacientes} />}

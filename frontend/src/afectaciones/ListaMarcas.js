@@ -1,30 +1,35 @@
 import React from 'react';
 
-function ListaAparatologias({ aparatologias }) {
-
+function ListaMarcas({ marcas }) {
+  console.log(marcas);
   return (
+    
     <div style={styles.container}>
-    <h3>Aparatologia</h3>
+        <h3>Marcas</h3>
       <table style={styles.table}>
         <thead>
           <tr>
-            <th style={styles.hiddenColumn}>ID Artefacto</th> {/* Columna oculta */}
-            <th style={styles.headerCell}>Aparato</th>
-            <th style={styles.headerCell}>Autonomia</th>
+            <th style={styles.hiddenColumn}>ID Marca</th> {/* Columna oculta */}
+            <th style={styles.hiddenColumn}>ID Cliente Marca</th>
+            <th style={styles.hiddenColumn}>Cuenta</th>
+            <th style={styles.headerCell}>Marca</th>
+            <th style={styles.headerCell}>Submarca</th>
           </tr>
         </thead>
         <tbody>
-          {aparatologias && aparatologias.length > 0 ? (
-            aparatologias.map((aparatologia, index) => (
+          {marcas && marcas.length > 0 ? (
+            marcas.map((marca, index) => (
               <tr key={index} style={styles.row}>
-                <td style={styles.hiddenColumn}>{aparatologia.idartefacto}</td> {/* Columna oculta */}
-                <td style={styles.cell}>{aparatologia.aparato}</td>
-                <td style={styles.cell}>{aparatologia.autonomia}</td>
+                <td style={styles.hiddenColumn}>{marca.idmarca}</td> {/* Columna oculta */}
+                <td style={styles.hiddenColumn}>{marca.idclientemarca}</td>
+                <td style={styles.hiddenColumn}>{marca.cuenta}</td>
+                <td style={styles.cell}>{marca.marca}</td>
+                <td style={styles.cell}>{marca.submarca}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="2" style={styles.noData}>No hay datos de aparatologias disponibles</td>
+              <td colSpan="2" style={styles.nomarcas}>No hay datos disponibles</td>
             </tr>
           )}
         </tbody>
@@ -37,12 +42,12 @@ const styles = {
   container: {
     width: '750px',
     // margin: 'auto',
-    margin: '5px',
     padding: '10px',
     fontSize: '12px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     borderRadius: '8px',
     backgroundColor: '#fff',
+    margin: '5px',
   },
   table: {
     width: 'auto', // El ancho de la tabla es automático según el contenido
@@ -71,11 +76,11 @@ const styles = {
   rowHover: {
     backgroundColor: '#f9f9f9',
   },
-  noData: {
+  nomarcas: {
     textAlign: 'center',
     padding: '16px',
     color: '#999',
   },
 };
 
-export default ListaAparatologias;
+export default ListaMarcas;

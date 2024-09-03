@@ -50,8 +50,9 @@ function ListaAfectaciones({ afectaciones }) {
 
 const styles = {
   container: {
-    width: '600px',
-    margin: 'auto',
+    width: '750px',
+    // margin: 'auto',
+    margin: '5px',
     padding: '10px',
     fontSize: '12px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
