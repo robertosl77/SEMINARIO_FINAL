@@ -25,7 +25,8 @@ function Afectado({
   tipo,
   solucion_provisoria,
   tabla_marcas,
-  onCardClick 
+  onCardClick,
+  isSelected // Añadido para manejar la selección
 }) {
 
   const handleclick = () => {
@@ -40,17 +41,17 @@ function Afectado({
   const esSeguimiento = ["SEGUIMIENTO", "RELLAMAR"].includes(gestion);
   const esProvisorio = ["CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "GE INSTALADO"].includes(gestion);
 
+  const claseTarjeta = `${esSeguimiento ? 'seguimiento' : 
+                        esNormalizado ? 'normalizado' : 
+                        esProvisorio  ? 'provisorio'  : 
+                        esBajaPotencial ? 'baja-potencial' : ''}`;
+
   return (
     <div 
-      className={`afectado-card ${
-        esSeguimiento ? 'seguimiento' :
-        esNormalizado ? 'normalizado' :
-        esProvisorio  ? 'provisorio'  :
-        esBajaPotencial ? 'baja-potencial' : ''
-      }`}
-      // onMouseEnter={handleMouseEnter}  // Agrega el evento onMouseEnter
+      className={`afectado-card ${claseTarjeta} ${isSelected ? 'seleccionado' : ''}`}
       onClick={handleclick}
     >
+      {isSelected && <div className="indicador-seleccion"></div>} {/* Indicador visual de selección */}
       <div className="afectado-header">
         <div className="afectado-id">{afectacion}</div>
         <div className="afectado-origen">{tipo}</div>
@@ -68,9 +69,9 @@ function Afectado({
           <div className="afectado-telefonos">Telefonos: {telefonos.length}</div>
         </div>
         <div className="afectado-opciones">
-          <div className={fae===0 ? "afectado-icono fae_off" : "afectado-icono fae"} title="FAE">{fae ? 'FAE' : ''}</div>
-          <div className={ge_propio===0 ? "afectado-icono ge_propio_off" : "afectado-icono ge_propio"} title="GE Propio">{ge_propio ? 'GE' : ''}</div>
-          <div className={ami===0 ? "afectado-icono ami_off" : "afectado-icono ami"} title="AMI">{ami ? 'AMI' : ''}</div>
+          <div className={fae === 0 ? "afectado-icono fae_off" : "afectado-icono fae"} title="FAE">{fae ? 'FAE' : ''}</div>
+          <div className={ge_propio === 0 ? "afectado-icono ge_propio_off" : "afectado-icono ge_propio"} title="GE Propio">{ge_propio ? 'GE' : ''}</div>
+          <div className={ami === 0 ? "afectado-icono ami_off" : "afectado-icono ami"} title="AMI">{ami ? 'AMI' : ''}</div>
         </div>
       </div>
     </div>

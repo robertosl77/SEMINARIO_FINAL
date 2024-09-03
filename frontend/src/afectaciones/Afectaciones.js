@@ -23,7 +23,7 @@ function Afectaciones() {
 
     setTimeout(() => {
       // Luego de un pequeño retraso, actualizar la vista seleccionada y mostrarla
-      setSelectedView({ telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
+      setSelectedView({telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
       setVisible(true);
     }, 300); // 300ms es el tiempo de la transición de salida
   };

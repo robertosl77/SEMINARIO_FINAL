@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Afectado from './Afectado';
 import './css/Panel_Izquierdo.css';
 
 function LeftPanel({ data, onCardClick }) {
+  const [selectedId, setSelectedId] = useState(null);
+
+  const handleCardClick = (cuenta, ...otherProps) => {
+    console.log(cuenta);
+    setSelectedId(cuenta);
+    onCardClick(...otherProps);
+  };
 
   return (
     <div id="left-panel">
-      {/* Verifica si hay datos de afectados */}
       {data && data.afectados && data.afectados.length > 0 ? (
         <div>
           {data.afectados.map((afectado, index) => (
             <Afectado
               key={index}
               afectacion={afectado.afectacion}
-              afectaciones={afectado.afectaciones} // Pasa las afectaciones a Afectado.js
+              idafectacion={afectado.idafectacion}
+              afectaciones={afectado.afectaciones}
               ami={afectado.ami}
               aparatologias={afectado.aparatologia}
               cant_reclamos={afectado.cant_reclamos}
@@ -25,7 +32,6 @@ function LeftPanel({ data, onCardClick }) {
               fae={afectado.fae}
               ge_propio={afectado.ge_propio}
               gestion={afectado.gestion}
-              idafectacion={afectado.idafectacion}
               inicio={afectado.inicio}
               marcas={afectado.marcas}
               pacientes={afectado.pacientes}
@@ -35,18 +41,14 @@ function LeftPanel({ data, onCardClick }) {
               tipo={afectado.tipo}
               solucion_provisoria={data.solucion_provisoria}
               tabla_marcas={data.marcas}
-              onCardClick={onCardClick} // Pasa la función para manejar el clic en la tarjeta
+              onCardClick={(...props) => handleCardClick(afectado.cuenta, ...props)}
+              isSelected={selectedId === afectado.cuenta}
             />
           ))}
         </div>
       ) : (
         <p>No hay datos de afectados disponibles.</p>
       )}
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>      
     </div>
   );
 }
