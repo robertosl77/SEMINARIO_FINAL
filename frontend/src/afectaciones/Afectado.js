@@ -29,6 +29,13 @@ function Afectado({
   isSelected // Añadido para manejar la selección
 }) {
 
+  const calcularDuracion = (inicio, restitucion) => {
+    const fechaInicio = new Date(inicio);
+    const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
+    const diferenciaMs = fechaRestitucion - fechaInicio;
+    const resultado = Math.floor(diferenciaMs / (1000 * 60 * 60));
+    return restitucion ? resultado : resultado + 3; // Convierte ms a horas
+  };
   const handleclick = () => {
     if (onCardClick) {
       onCardClick(telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos);  // Pasar las dos variables al componente principal
@@ -67,6 +74,7 @@ function Afectado({
           <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
           <div className="afectado-aparatologias">Aparatologias: {aparatologias.length}</div>
           <div className="afectado-telefonos">Telefonos: {telefonos.length}</div>
+          <div className="afectado-duracion">Duracion (hs): {calcularDuracion(inicio, restitucion)}</div>
         </div>
         <div className="afectado-opciones">
           <div className={fae === 0 ? "afectado-icono fae_off" : "afectado-icono fae"} title="FAE">{fae ? 'FAE' : ''}</div>

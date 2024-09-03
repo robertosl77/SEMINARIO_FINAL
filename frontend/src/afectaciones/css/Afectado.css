@@ -120,7 +120,8 @@
 .afectado-reclamos,
 .afectado-reiteraciones, 
 .afectado-aparatologias,
-.afectado-telefonos {
+.afectado-telefonos,
+.afectado-duracion {
   font-size: 0.7rem;
   color: #eee7e7;
   border-radius: 15px;
@@ -136,7 +137,8 @@
 .afectado-reclamos:hover,
 .afectado-reiteraciones:hover, 
 .afectado-aparatologias:hover,
-.afectado-telefonos:hover {
+.afectado-telefonos:hover,
+.afectado-duracion {
     transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
