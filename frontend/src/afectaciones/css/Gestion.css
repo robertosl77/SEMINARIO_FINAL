@@ -1,0 +1,96 @@
+General styles
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  max-width: 500px; /* Ajuste para centrar mejor */
+  width: 100%; /* Para que ocupe todo el ancho disponible */
+  padding: 40px 30px; /* Espacio interior ajustado */
+  background-color: #fff;
+  border-radius: 10px; /* Bordes más suaves */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  text-align: center; /* Centra todo el texto y los elementos */
+}
+
+h3 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #1e88e5;
+  padding-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+  text-align: left; /* Alineación a la izquierda */
+}
+
+textarea, input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus, input:focus {
+  border-color: #1e88e5;
+  outline: none;
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+/* Buttons */
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #1e88e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+}
+
+button:hover {
+  background-color: #1669bb;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Form sections */
+.form-group {
+  margin-bottom: 15px;
+}
+
+textarea {
+  border: 2px solid #ccc; /* Bordes más gruesos */
+  border-radius: 6px;
+  transition: border-color 0.2s ease;
+}
+
+textarea:focus {
+  border-color: #1e88e5; /* Bordes azules al enfocar */
+  box-shadow: 0 0 8px rgba(30, 136, 229, 0.2); /* Sombra ligera */
+}
+
