@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Login from './login/Login';
 import Afectaciones from './afectaciones/Afectaciones'
 import Climatica from './climatica/Climatica';
-import Clientes from './afectaciones/Clientes';
+import Clientes from './clientes/Clientes';
 
 function App() {
   return (
