@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
-// import './css/Gestion.css';
 
 function GestionNota({ cuenta, idafectacion }) {
-  const [observaciones, setObservaciones] = useState('');
+  const [nota, setNota] = useState('');
 
   const handleContactoSubmit = () => {
     const contactoData = {
-      idafectacion,
-      cuenta,
-      usuario: 'usuarioLogueado', // Debería reemplazarse por el usuario real logueado
-      observaciones,
+      "cuenta":cuenta,
+      "idafectacion":idafectacion,
+      "usuario":sessionStorage.getItem('username'),
+      "nota": nota,
     };
 
-    fetch(`http://localhost:5000/API/GE/CambiaGestion/${cuenta}/${idafectacion}/${observaciones}`, {
-      method: 'POST',
+    // fetch(`http://localhost:5000/API/GE/AgregaNota/${cuenta}/${idafectacion}/${sessionStorage.getItem('username')}/${nota}`, {
+    fetch(`http://localhost:5000/API/GE/AgregaNota`, {
+        method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(contactoData),
+      body: JSON.stringify( contactoData ),
     })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
+        if (data) {
           console.log('Contacto guardado exitosamente');
+          setNota('');
         }
       })
       .catch(error => console.error('Error:', error));
@@ -33,7 +34,7 @@ function GestionNota({ cuenta, idafectacion }) {
       <div className="container-superior">
         <h3>Nota</h3>
         <div>
-          <textarea id="observaciones" value={observaciones} onChange={(e) => setObservaciones(e.target.value)}></textarea>
+          <textarea id="observaciones" value={nota} onChange={(e) => setNota(e.target.value)}></textarea>
         </div>
 
         <button id="boton" onClick={handleContactoSubmit}>Guardar Nota</button>
