@@ -4,6 +4,7 @@ from jsons.JsonValidador import JsonValidador
 from Simulados import Simulados
 from Afectaciones import Afectaciones
 from Manager import Manager
+from Gestor import Gestor
 
 app = Flask(__name__)  # Cambié el nombre de la instancia Flask a 'app'
 CORS(app)
@@ -106,6 +107,12 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
         # Devolver el JSON de éxito
         return jsonify(json)
 
+    @app.route('/API/GE/CambiaGestion/<cuenta>/<idafectacion>/<nueva_solucion>', methods=['POST'])
+    def CambiaGestion(cuenta,idafectacion, nueva_solucion):
+        g= Gestor()
+        json= g.cambia_gestion(cuenta,idafectacion, nueva_solucion)
+        # Devolver el JSON de éxito
+        return jsonify(json)
 
 
 

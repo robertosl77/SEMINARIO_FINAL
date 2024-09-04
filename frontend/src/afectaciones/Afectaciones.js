@@ -10,20 +10,23 @@ import ListaContactos from './ListaContactos';
 import ListaPacientes from './ListaPacientes';
 import ListaMarcas from './ListaMarcas';
 import ListaTelefonos from './ListaTelefonos';
+import Gestion from './Gestion';
 import './css/Afectaciones.css';
 
 function Afectaciones() {
   const [data, setData] = useState(null);
   const [selectedView, setSelectedView] = useState(null);
+  const [gestionData, setGestionData] = useState(null);
   const [visible, setVisible] = useState(false);
 
-  const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos) => {
+  const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria) => {
     // Ocultar todas las vistas primero
     setVisible(false);
 
     setTimeout(() => {
       // Luego de un pequeño retraso, actualizar la vista seleccionada y mostrarla
       setSelectedView({telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
+      setGestionData({ cuenta, solucion_provisoria, telefonos, idafectacion });
       setVisible(true);
     }, 300); // 300ms es el tiempo de la transición de salida
   };
@@ -36,7 +39,7 @@ function Afectaciones() {
         <LeftPanel data={data} onCardClick={handleCardClick} />
         <div id="right-panel">
           <div id="right-panel-1">
-            Right Panel #1
+            {gestionData && <Gestion {...gestionData} solucion_provisoria={gestionData.solucion_provisoria || []} />}
           </div>
           <div id="right-panel-2">
             <div className={`vista ${visible && selectedView?.telefonos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.1s' }}>

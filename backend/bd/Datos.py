@@ -258,7 +258,26 @@ class Datos:
             self.conn.rollback()
             print(f"Fail: Error al insertar datos en la tabla 'afectaciones_reclamos'. Detalle: {e}")
             return [0,0]
-            
+
+    def cambia_gestion(self, cuenta,idafectacion, nueva_solucion):
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()        
+        try:
+            self.insertar_datos_log(f"Se gestiono la cuenta {cuenta}, de la afectacion {idafectacion}, como {nueva_solucion}.")
+            self.cursor.execute('''
+                UPDATE afectaciones_afectados 
+                SET gestion= ?
+                WHERE idafectacion= ?
+                AND cuenta= ?
+            ''', (nueva_solucion, idafectacion, cuenta, ))
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Se modifico la gestion en la tabla 'afectaciones_afectados'.")
+            return True
+        except sqlite3.Error as e:
+            self.conn.rollback()
+            print(f"Fail: Error al actualizar la gestion en la tabla 'afectaciones_afectados'. Detalle: {e}")
+            return False         
             
 
 # # Ejemplo de uso
