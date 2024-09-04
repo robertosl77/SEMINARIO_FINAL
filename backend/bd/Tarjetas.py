@@ -429,9 +429,22 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             contactos = self.cursor.execute('''
-                select ac.idcontacto, ac.cuenta, ac.usuario, ac.fechahora, ac.observaciones, ac.idtelefono, ac.efectivo, ct.telefono, ct.tipo 
-                from afectaciones_contactos ac, clientes_telefonos ct 
-                where ac.idtelefono=ct.idtelefono and ac.logfin=0 and ct.logfin=0 and ac.cuenta= ?;
+                select 
+                    ac.idcontacto
+                    , ac.cuenta
+                    , ac.usuario
+                    , ac.fechahora
+                    , ac.observaciones
+                    , ac.idtelefono
+                    , ac.efectivo
+                    , ct.telefono
+                    , ct.tipo 
+                from 
+                    afectaciones_contactos ac left join clientes_telefonos ct on ac.idtelefono=ct.idtelefono
+                where 
+                    (ac.logfin=0 or ac.logfin is null)
+                    and (ct.logfin=0 or ct.logfin is null)
+                    and ac.cuenta= ?;
             ''', (cuenta,)).fetchall()
 
             return contactos
