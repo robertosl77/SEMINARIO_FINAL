@@ -32,7 +32,7 @@ class Manager:
             tarjeta= self.tarjetas.tarjeta_todos()
 
         # Busquedas Puntuales
-        solucion_provisoria= ["CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "REQUIERE GE", "GE INSTALADO", "RELLAMAR", "SEGUIMIENTO"]
+        solucion_provisoria= ["NUEVO", "ATENDIDO", "CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "REQUIERE GE", "GE INSTALADO", "RELLAMAR", "SEGUIMIENTO"]
         # marcas= self.tarjetas.obtiene_marcas()
         tabla_marcas =[ 
                 {

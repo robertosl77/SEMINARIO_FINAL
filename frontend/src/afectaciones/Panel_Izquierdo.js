@@ -39,8 +39,7 @@ function LeftPanel({ data, onCardClick }) {
               restitucion={afectado.restitucion}
               telefonos={afectado.telefonos}
               tipo={afectado.tipo}
-              solucion_provisoria={data.solucion_provisoria}
-              tabla_marcas={data.marcas}
+              solucion_provisoria={afectado.solucion_provisoria}
               onCardClick={(...props) => handleCardClick(afectado.cuenta, ...props)}
               isSelected={selectedId === afectado.cuenta}
             />

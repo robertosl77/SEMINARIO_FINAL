@@ -48,6 +48,11 @@
   border-color: #ffc107;
 }
 
+.afectado-card.gestionado {
+  background-color: #b0daf7;
+  border-color: #ffc107;
+}
+
 .afectado-card.baja-potencial {
   background-color: #e5e5e5;
   border-color: #6c757d;

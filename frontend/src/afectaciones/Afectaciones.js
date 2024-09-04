@@ -10,25 +10,31 @@ import ListaContactos from './ListaContactos';
 import ListaPacientes from './ListaPacientes';
 import ListaMarcas from './ListaMarcas';
 import ListaTelefonos from './ListaTelefonos';
-import Gestion from './Gestion';
+import GestionSolucion from './GestionSolucion';
+import GestionNota from './GestionNota';
 import './css/Afectaciones.css';
+import './css/Listas.css'
 
 function Afectaciones() {
   const [data, setData] = useState(null);
   const [selectedView, setSelectedView] = useState(null);
   const [gestionData, setGestionData] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [showContacto, setShowContacto] = useState(1); // Estado para controlar la pestaña activa
 
   const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria) => {
-    // Ocultar todas las vistas primero
     setVisible(false);
 
     setTimeout(() => {
-      // Luego de un pequeño retraso, actualizar la vista seleccionada y mostrarla
-      setSelectedView({telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
+      setSelectedView({ telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
       setGestionData({ cuenta, solucion_provisoria, telefonos, idafectacion });
       setVisible(true);
-    }, 300); // 300ms es el tiempo de la transición de salida
+    }, 300);
+  };
+
+  // Función para manejar el cambio de pestaña
+  const handleTabClick = (tabIndex) => {
+    setShowContacto(tabIndex); // Actualizar el estado para cambiar entre Solución Provisoria y Contacto
   };
 
   return (
@@ -38,8 +44,46 @@ function Afectaciones() {
       <div id="content">
         <LeftPanel data={data} onCardClick={handleCardClick} />
         <div id="right-panel">
-          <div id="right-panel-1">
-            {gestionData && <Gestion {...gestionData} solucion_provisoria={gestionData.solucion_provisoria || []} />}
+            <div id="boton" onClick={() => handleTabClick(1)}>Solución Provisoria</div>
+            <div id="boton" onClick={() => handleTabClick(2)}>Nota</div>
+            <div id="boton" onClick={() => handleTabClick(3)}>Contacto</div>
+            <div id="right-panel-1">
+
+            <div className="solucionProvisoria">
+              {showContacto === 1 && gestionData && (
+                <GestionSolucion
+                  {...gestionData}
+                  solucion_provisoria={data?.solucion_provisoria || []} 
+                  onGestionChange={(nuevaSolucion) => {
+                    const updatedData = data.afectados.map(afectado =>
+                      afectado.cuenta === gestionData.cuenta
+                        ? { ...afectado, solucion_provisoria: nuevaSolucion }
+                        : afectado
+                    );
+                    setData({ ...data, afectados: updatedData });
+                  }}
+                />
+              )}
+            </div>
+
+            {showContacto === 2 && (
+              <div className="solucionNota">
+                <GestionNota {...gestionData} />
+              </div>
+            )}
+
+            {showContacto === 3 && (
+              <div className="solucionContacto">
+                contacto testing
+              </div>
+            )}
+
+            {showContacto === 4 && (
+              <div className="solucionOtros">
+                contacto testing
+              </div>
+            )}
+
           </div>
           <div id="right-panel-2">
             <div className={`vista ${visible && selectedView?.telefonos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.1s' }}>

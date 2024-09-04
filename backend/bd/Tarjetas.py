@@ -285,13 +285,13 @@ class Tarjetas:
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
-                and gestion in ('SEGUIMIENTO','RELLAMAR')
+                and gestion in ('SEGUIMIENTO','RELLAMAR','REQUIERE GE')
                 order by a.idafectacion
                 ;
             ''').fetchall()
             return seguimiento
         except sqlite3.Error as e:        
-            print(f"Error al obtener cuentas gestionadas con Seguimiento o Rellamar: {e}")
+            print(f"Error al obtener cuentas gestionadas con Seguimiento, Rellamar o Requiere GE: {e}")
             return []
         finally:
             self.cursor.close
@@ -603,7 +603,7 @@ class Tarjetas:
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
-                and gestion in ('SEGUIMIENTO','RELLAMAR')
+                and gestion in ('SEGUIMIENTO','RELLAMAR','REQUIERE GE')
                 ;
             ''').fetchone()
             dashboard.append(tarjeta[0])

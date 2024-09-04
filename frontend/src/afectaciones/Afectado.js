@@ -25,7 +25,6 @@ function Afectado({
   telefonos,
   tipo,
   solucion_provisoria,
-  tabla_marcas,
   onCardClick,
   isSelected // Añadido para manejar la selección
 }) {
@@ -37,21 +36,24 @@ function Afectado({
     const resultado = Math.floor(diferenciaMs / (1000 * 60 * 60));
     return restitucion ? resultado : resultado + 3; // Convierte ms a horas
   };
+
   const handleclick = () => {
     if (onCardClick) {
-      onCardClick(telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos);  // Pasar las dos variables al componente principal
+      onCardClick(telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria);
     }
   };
 
   // Verificar si la marca "BAJA POTENCIAL" está presente
   const esBajaPotencial = marcas.some(marca => marca.marca === "BAJA POTENCIAL");
   const esNormalizado = restitucion !== null;
-  const esSeguimiento = ["SEGUIMIENTO", "RELLAMAR"].includes(gestion);
+  const esSeguimiento = ["SEGUIMIENTO", "RELLAMAR", "REQUIERE GE"].includes(gestion);
   const esProvisorio = ["CON SUMINISTRO", "SE TRASLADA", "CON AUTONOMÍA", "GE INSTALADO"].includes(gestion);
+  const esGestionado = ["ATENDIDO"].includes(gestion);
 
   const claseTarjeta = `${esSeguimiento ? 'seguimiento' : 
                         esNormalizado ? 'normalizado' : 
                         esProvisorio  ? 'provisorio'  : 
+                        esGestionado  ? 'gestionado'  : 
                         esBajaPotencial ? 'baja-potencial' : ''}`;
 
   return (
@@ -59,7 +61,6 @@ function Afectado({
       className={`afectado-card ${claseTarjeta} ${isSelected ? 'seleccionado' : ''}`}
       onClick={handleclick}
     >
-      {console.log(cliente)}
       {isSelected && <div className="indicador-seleccion"></div>} {/* Indicador visual de selección */}
       <div className="afectado-header">
         <div className="afectado-regionzona">{cliente[0].region + '-' + cliente[0].sector}</div>
@@ -77,7 +78,7 @@ function Afectado({
           <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
           <div className="afectado-aparatologias">Aparatologias: {aparatologias.length}</div>
           <div className="afectado-telefonos">Telefonos: {telefonos.length}</div>
-          <div className="afectado-duracion">Duracion (hs): {calcularDuracion(inicio, restitucion)}</div>
+          <div className="afectado-duracion">Duración (hs): {calcularDuracion(inicio, restitucion)}</div>
         </div>
         <div className="afectado-opciones">
           <div className={fae === 0 ? "afectado-icono fae_off" : "afectado-icono fae"} title="FAE">{fae ? 'FAE' : ''}</div>
