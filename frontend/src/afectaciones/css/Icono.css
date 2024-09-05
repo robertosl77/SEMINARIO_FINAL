@@ -1,0 +1,37 @@
+.afectado-icono {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.60rem;
+    font-weight: bold;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .afectado-icono.ami_off,
+  .afectado-icono.fae_off, 
+  .afectado-icono.ge_propio_off {
+    background-color: #666;
+  }
+  
+  
+  .afectado-icono.fae {
+    background-color: #067713;
+  }
+  
+  .afectado-icono.ge_propio {
+    background-color: #20be08;
+  }
+  
+  .afectado-icono.ami {
+    background-color: #1b33ba;
+  }
+  
+  .afectado-icono:hover {
+    opacity: 0.8;
+  }

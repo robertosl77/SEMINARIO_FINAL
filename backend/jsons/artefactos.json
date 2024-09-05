@@ -1,0 +1,83 @@
+{
+    "artefactos": [
+      {
+        "id": 1,
+        "artefacto": "ACONDICIONADOR DE AIRE",
+        "autonomia": "6"
+      },
+      {
+        "id": 2,
+        "artefacto": "ASPIRADOR DE SECRECIONES",
+        "autonomia": "3"
+      },
+      {
+        "id": 3,
+        "artefacto": "ASISTENCIA RESPIRATORIA MECÁNICA",
+        "autonomia": "2"
+      },
+      {
+        "id": 4,
+        "artefacto": "BOMBA DE ALIMENTACIÓN",
+        "autonomia": "6"
+      },
+      {
+        "id": 5,
+        "artefacto": "BOMBA DE INFUSIÓN",
+        "autonomia": "6"
+      },
+      {
+        "id": 6,
+        "artefacto": "BPAP",
+        "autonomia": "8"
+      },
+      {
+        "id": 7,
+        "artefacto": "CAMA ELÉCTRICA MOTORIZADA"
+      },
+      {
+        "id": 8,
+        "artefacto": "COLCHÓN ANTIESCARAS"
+      },
+      {
+        "id": 9,
+        "artefacto": "CONCENTRADOR DE OXÍGENO",
+        "autonomia": "4"
+      },
+      {
+        "id": 10,
+        "artefacto": "CPAP",
+        "autonomia": "12"
+      },
+      {
+        "id": 11,
+        "artefacto": "DIÁLISIS PERITONEAL",
+        "autonomia": "4"
+      },
+      {
+        "id": 12,
+        "artefacto": "HELADERAS COVID",
+        "autonomia": "2"
+      },
+      {
+        "id": 13,
+        "artefacto": "HUMIDIFICADOR",
+        "autonomia": "12"
+      },
+      {
+        "id": 14,
+        "artefacto": "NEBULIZADOR",
+        "autonomia": "12"
+      },
+      {
+        "id": 15,
+        "artefacto": "RESPIRADOR",
+        "autonomia": "2"
+      },
+      {
+        "id": 16,
+        "artefacto": "SATURADOR",
+        "autonomia": "6"
+      }
+    ]
+  }
+  

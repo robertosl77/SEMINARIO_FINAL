@@ -1,0 +1,15 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0; /* Asegura que el footer se extienda desde el borde izquierdo */
+  width: 100%;
+  background-color: #b82d2d;
+  text-align: right; /* Alinea el texto a la derecha */
+  /* Añade padding para un mejor espaciado */
+  padding: 0px 30px;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif; /* Cambia la fuente */
+  color: #fff; /* Cambia el color del texto */
+  font-size: 14px; /* Ajusta el tamaño de la fuente */
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+}

@@ -22,7 +22,7 @@ function Login() {
       // alert('Login successful');
       sessionStorage.setItem('username', data.user.username);
       sessionStorage.setItem('rol', data.user.rol);
-      navigate('/SGE/Manager');  // Redirige a la página Manager
+      navigate('/SGE/Afectaciones');  // Redirige a la página Afectaciones
     } else {
       alert('Login failed');
     }

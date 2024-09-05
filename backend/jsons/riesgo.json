@@ -1,0 +1,25 @@
+{
+    "riesgos": [
+      {
+        "id": 1,
+        "riesgo": "GRAVE"
+      },
+      {
+        "id": 2,
+        "riesgo": "LEVE"
+      },
+      {
+        "id": 3,
+        "riesgo": "MODERADO"
+      },
+      {
+        "id": 4,
+        "riesgo": "TERMINAL"
+      },
+      {
+        "id": 5,
+        "riesgo": "VACÍO"
+      }
+    ]
+  }
+  

@@ -1,0 +1,164 @@
+{
+"geografico": [
+ {"region":"R1","localidad":"ACASSUSO","partido":"SAN ISIDRO","sector":"OLIVOS"}
+,{"region":"R1","localidad":"AGRONOMIA","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"AYACUCHO","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"BECCAR","partido":"SAN ISIDRO","sector":"OLIVOS"}
+,{"region":"R1","localidad":"BELGRANO","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"BERNARDO MONTEAGUDO","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"BILLINGHURST","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"BO PARQUE SAN MARTIN","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"BOULOGNE","partido":"SAN ISIDRO","sector":"OLIVOS"}
+,{"region":"R1","localidad":"C J LOMAS DEL PALOMAR","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"C JARDIN EL LIBERTADOR","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"C LIBERTADOR SAN MARTIN","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"CARAPACHAY","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"CASEROS","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"CHACABUCO","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"CHACARITA","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"CHURRUCA","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"CIUDADELA","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"CNEL JOSE ZAPIOLA","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"COGHLAN","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"COLEGIALES","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"COLEGIO MILITAR","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"EJCTO MILITAR (TF)","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"EL LIBERTADOR","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"FLORIDA","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"FLORIDA (OESTE)","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"GDEROS DE SAN MARTIN","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"GODOY CRUZ","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"GRAL EUGENIO NECOCHEA","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"GRAL JOSE DE SUCRE","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"GRAL JOSE TOMAS GUIDO","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"GREGORIA MATORRAS","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"JOSE INGENIEROS","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"JOSE LEON SUAREZ","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"JUAN GREGORIO LAS HERAS","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"JUAN M DE PUEYRREDON","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"LA LUCILA","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"LA PATERNAL","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"LOMA HERMOSA","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"M REMEDIOS DE ESCALADA","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"MARQUES A DE AGUADO","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"MARTIN CORONADO","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"MARTINEZ","partido":"SAN ISIDRO","sector":"OLIVOS"}
+,{"region":"R1","localidad":"MUNRO","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"NUÑEZ","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"OLIVOS","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"PABLO PODESTA","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"PALERMO","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"PARQUE SAN LORENZO","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"PTE F ALCORTA","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"RECOLETA","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"REMEDIOS DE ESCALADA","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"SAAVEDRA","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"SAENZ PEÑA","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"SAN ANDRES","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"SAN ISIDRO","partido":"SAN ISIDRO","sector":"OLIVOS"}
+,{"region":"R1","localidad":"SANTOS LUGARES","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"VICENTE LOPEZ","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"VILLA ADELINA (SI)","partido":"SAN ISIDRO","sector":"OLIVOS"}
+,{"region":"R1","localidad":"VILLA ADELINA (VL)","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"VILLA BALLESTER","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"VILLA BOSCH","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"VILLA CRESPO","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"VILLA DEVOTO","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"VILLA LIBERTAD","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"VILLA LYNCH","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"VILLA MAIPU","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"VILLA MARTELLI","partido":"VICENTE LOPEZ","sector":"OLIVOS"}
+,{"region":"R1","localidad":"VILLA ORTUZAR","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"VILLA PUEYRREDON","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"VILLA RAFFO","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"VILLA URQUIZA","partido":"CAPITAL FEDERAL","sector":"NORTE"}
+,{"region":"R1","localidad":"YAPEYU","partido":"GRAL SAN MARTIN","sector":"SAN MARTIN"}
+,{"region":"R1","localidad":"11 DE SEPTIEMBRE","partido":"3 DE FEBRERO","sector":"SAN MARTIN"}
+,{"region":"R2","localidad":"ALDO BONZI","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"CASTELAR","partido":"MORON","sector":"MORON"}
+,{"region":"R2","localidad":"CIUDAD EVITA","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"EL PALOMAR","partido":"MORON","sector":"MORON"}
+,{"region":"R2","localidad":"GONZALEZ CATAN","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"GRAL LAS HERAS","partido":"GRAL LAS HERAS","sector":"MERLO"}
+,{"region":"R2","localidad":"GREGORIO DE LAFERRERE","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"HAEDO","partido":"MORON","sector":"MORON"}
+,{"region":"R2","localidad":"HURLINGHAM","partido":"HURLINGHAM","sector":"MORON"}
+,{"region":"R2","localidad":"ISIDRO CASANOVA","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"ITUZAINGO","partido":"ITUZAINGO","sector":"MORON"}
+,{"region":"R2","localidad":"LA TABLADA","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"LIBERTAD","partido":"MERLO","sector":"MERLO"}
+,{"region":"R2","localidad":"LOMAS DEL MIRADOR","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"MARCOS PAZ","partido":"MARCOS PAZ","sector":"MERLO"}
+,{"region":"R2","localidad":"MARIANO ACOSTA","partido":"MERLO","sector":"MERLO"}
+,{"region":"R2","localidad":"MERLO","partido":"MERLO","sector":"MERLO"}
+,{"region":"R2","localidad":"MORON","partido":"MORON","sector":"MORON"}
+,{"region":"R2","localidad":"PONTEVEDRA","partido":"MERLO","sector":"MERLO"}
+,{"region":"R2","localidad":"RAFAEL CASTILLO","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"RAMOS MEJIA","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"SAN ANTONIO DE PADUA","partido":"MERLO","sector":"MERLO"}
+,{"region":"R2","localidad":"SAN JUSTO","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"TAPIALES","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"VILLA LUZURIAGA","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"VILLA MADERO","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"VILLA SARMIENTO","partido":"MORON","sector":"MORON"}
+,{"region":"R2","localidad":"VILLA TESEI","partido":"HURLINGHAM","sector":"MORON"}
+,{"region":"R2","localidad":"VILLA UDAONDO","partido":"ITUZAINGO","sector":"MORON"}
+,{"region":"R2","localidad":"VIRREY DEL PINO","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R2","localidad":"WILLIAM MORRIS","partido":"HURLINGHAM","sector":"MORON"}
+,{"region":"R2","localidad":"20 DE JUNIO","partido":"LA MATANZA","sector":"MATANZA"}
+,{"region":"R3","localidad":"ADOLFO SOURDEAUX","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"BELLA VISTA","partido":"SAN MIGUEL","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"BENAVIDEZ","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"CAMPO DE MAYO","partido":"SAN MIGUEL","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"CIUDAD DE TIGRE","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"CUARTEL V","partido":"MORENO","sector":"MORENO"}
+,{"region":"R3","localidad":"DEL VISO","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"DELTA 1RA SECCION (ES)","partido":"ESCOBAR","sector":"PILAR"}
+,{"region":"R3","localidad":"DELTA 1RA SECCION (TI)","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"DELTA 2DA SECCION (SF)","partido":"SAN FERNANDO","sector":"TIGRE"}
+,{"region":"R3","localidad":"DELTA 3RA SECCION (SF)","partido":"SAN FERNANDO","sector":"TIGRE"}
+,{"region":"R3","localidad":"DIQUE LUJAN","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"DON TORCUATO","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"EL TALAR","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"EL TRIANGULO","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"ESCOBAR","partido":"ESCOBAR","sector":"PILAR"}
+,{"region":"R3","localidad":"FATIMA","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"FRANCISCO ALVAREZ","partido":"MORENO","sector":"MORENO"}
+,{"region":"R3","localidad":"GARIN","partido":"ESCOBAR","sector":"PILAR"}
+,{"region":"R3","localidad":"GENERAL PACHECO","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"GRAL RODRIGUEZ","partido":"GRAL RODRIGUEZ","sector":"MORENO"}
+,{"region":"R3","localidad":"GRAND BOURG","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"INGENIERO MASCHWITZ","partido":"ESCOBAR","sector":"PILAR"}
+,{"region":"R3","localidad":"JOSE C PAZ","partido":"JOSE C PAZ","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"LA LONJA","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"LA REJA","partido":"MORENO","sector":"MORENO"}
+,{"region":"R3","localidad":"LOMA VERDE","partido":"ESCOBAR","sector":"PILAR"}
+,{"region":"R3","localidad":"LOS POLVORINES","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"LUIS LAGOMARSINO","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"MALVINAS ARGENTINAS","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"MANUEL ALBERTI","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"MANZANARES","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"MAQUINISTA SAVIO","partido":"ESCOBAR","sector":"PILAR"}
+,{"region":"R3","localidad":"MATHEU","partido":"ESCOBAR","sector":"PILAR"}
+,{"region":"R3","localidad":"MORENO","partido":"MORENO","sector":"MORENO"}
+,{"region":"R3","localidad":"MUÑIZ","partido":"SAN MIGUEL","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"NORDELTA","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"PABLO NOGUES","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"PASO DEL REY","partido":"MORENO","sector":"MORENO"}
+,{"region":"R3","localidad":"PILAR","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"PTE DERQUI","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"RICARDO ROJAS","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"RINCON DE MILBERG","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"SAN FERNANDO","partido":"SAN FERNANDO","sector":"TIGRE"}
+,{"region":"R3","localidad":"SAN MIGUEL","partido":"SAN MIGUEL","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"TIERRAS ALTAS","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"TORTUGUITAS","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"TRONCOS DEL TALAR","partido":"TIGRE","sector":"TIGRE"}
+,{"region":"R3","localidad":"TRUJUI","partido":"MORENO","sector":"MORENO"}
+,{"region":"R3","localidad":"VICTORIA","partido":"SAN FERNANDO","sector":"TIGRE"}
+,{"region":"R3","localidad":"VILLA ASTOLFI","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"VILLA DE MAYO","partido":"MALVINAS ARGENTINAS","sector":"SAN MIGUEL"}
+,{"region":"R3","localidad":"VILLA ROSA","partido":"PILAR","sector":"PILAR"}
+,{"region":"R3","localidad":"VIRREYES","partido":"SAN FERNANDO","sector":"TIGRE"}
+,{"region":"R3","localidad":"ZELAYA","partido":"PILAR","sector":"PILAR"}
+]}

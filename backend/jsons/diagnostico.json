@@ -1,0 +1,225 @@
+{
+    "diagnosticos": [
+      {
+        "id": 1,
+        "diagnostico": "ACALASIA PRIMARIA PROGRESIVA"
+      },
+      {
+        "id": 2,
+        "diagnostico": "ACIDURIA GLUTARICA TIPO 1"
+      },
+      {
+        "id": 3,
+        "diagnostico": "ACME"
+      },
+      {
+        "id": 4,
+        "diagnostico": "ACNÉ"
+      },
+      {
+        "id": 5,
+        "diagnostico": "ACROMEGALIA"
+      },
+      {
+        "id": 6,
+        "diagnostico": "ACROMOSOPATIA"
+      },
+      {
+        "id": 7,
+        "diagnostico": "ACV"
+      },
+      {
+        "id": 8,
+        "diagnostico": "ACV CON EPOC"
+      },
+      {
+        "id": 9,
+        "diagnostico": "ACV ESQUÉMICO HEMORRÁGICO"
+      },
+      {
+        "id": 10,
+        "diagnostico": "ACV ISQUÉMICO TRANSITORIO"
+      },
+      {
+        "id": 11,
+        "diagnostico": "AGENESIA DE CUERPO CALLOSO"
+      },
+      {
+        "id": 12,
+        "diagnostico": "ALZHEIMER"
+      },
+      {
+        "id": 13,
+        "diagnostico": "AME ATROFIA MUSCULAR ESPINAL"
+      },
+      {
+        "id": 14,
+        "diagnostico": "AMPUTACIÓN BILATERAL"
+      },
+      {
+        "id": 15,
+        "diagnostico": "ANEMIA"
+      },
+      {
+        "id": 16,
+        "diagnostico": "ANEURISMA CEREBRAL CONGÉNITO"
+      },
+      {
+        "id": 17,
+        "diagnostico": "ANTECEDENTES DE ESCLEROSIS LATERAL AMIOTRÓFICA"
+      },
+      {
+        "id": 18,
+        "diagnostico": "APNEAS DEL SUEÑO"
+      },
+      {
+        "id": 19,
+        "diagnostico": "ARTRITIS REUMATOIDEA"
+      },
+      {
+        "id": 20,
+        "diagnostico": "ASTROFIA MEDULAR CON BASTIOTOMIA"
+      },
+      {
+        "id": 21,
+        "diagnostico": "ATRESIA DE ESOFAGO"
+      },
+      {
+        "id": 22,
+        "diagnostico": "ATROFIA CEREBRAL"
+      },
+      {
+        "id": 23,
+        "diagnostico": "ATROFIA ESPINAL PROGRESIVA TIPO 1"
+      },
+      {
+        "id": 24,
+        "diagnostico": "ATROFIA MUSCULAR"
+      },
+      {
+        "id": 25,
+        "diagnostico": "ATROFIA MUSCULAR DE DUYEN"
+      },
+      {
+        "id": 26,
+        "diagnostico": "ATROFIA MUSCULAR ESPINAL TIPO 2"
+      },
+      {
+        "id": 27,
+        "diagnostico": "AUTISMO"
+      },
+      {
+        "id": 28,
+        "diagnostico": "BRONCODISPLASIA PULMONAR"
+      },
+      {
+        "id": 29,
+        "diagnostico": "BRONCONEUMONIA"
+      },
+      {
+        "id": 30,
+        "diagnostico": "CARDIOPATÍA"
+      },
+      {
+        "id": 31,
+        "diagnostico": "CÁNCER"
+      },
+      {
+        "id": 32,
+        "diagnostico": "CÁNCER DE PULMÓN"
+      },
+      {
+        "id": 33,
+        "diagnostico": "CEREBRO ATROFIADO POR ACCIDENTE"
+      },
+      {
+        "id": 34,
+        "diagnostico": "CUADRIPLEJIA"
+      },
+      {
+        "id": 35,
+        "diagnostico": "DEMENCIA SENIL"
+      },
+      {
+        "id": 36,
+        "diagnostico": "DIABETES"
+      },
+      {
+        "id": 37,
+        "diagnostico": "DISTROFIA MUSCULAR"
+      },
+      {
+        "id": 38,
+        "diagnostico": "DISPLACIA BRONCOPULMONAR"
+      },
+      {
+        "id": 39,
+        "diagnostico": "EDEMA DE PULMÓN"
+      },
+      {
+        "id": 40,
+        "diagnostico": "ENCEFALOPATÍA CRÓNICA"
+      },
+      {
+        "id": 41,
+        "diagnostico": "EPOC"
+      },
+      {
+        "id": 42,
+        "diagnostico": "ESCLEROSIS MÚLTIPLE"
+      },
+      {
+        "id": 43,
+        "diagnostico": "FIBROSIS PULMONAR"
+      },
+      {
+        "id": 44,
+        "diagnostico": "HEMIPLEJIA"
+      },
+      {
+        "id": 45,
+        "diagnostico": "HIPERTENSIÓN PULMONAR"
+      },
+      {
+        "id": 46,
+        "diagnostico": "INSUFICIENCIA CARDIACA"
+      },
+      {
+        "id": 47,
+        "diagnostico": "INSUFICIENCIA RENAL"
+      },
+      {
+        "id": 48,
+        "diagnostico": "MENINGOENCEFALITIS"
+      },
+      {
+        "id": 49,
+        "diagnostico": "MIOPATÍA"
+      },
+      {
+        "id": 50,
+        "diagnostico": "OXIGENODEPENDENCIA"
+      },
+      {
+        "id": 51,
+        "diagnostico": "PARKINSON"
+      },
+      {
+        "id": 52,
+        "diagnostico": "POLINEURITIS CRÓNICA"
+      },
+      {
+        "id": 53,
+        "diagnostico": "SÍNDROME DE DOWN"
+      },
+      {
+        "id": 54,
+        "diagnostico": "SÍNDROME DE RETT"
+      },
+      {
+        "id": 55,
+        "diagnostico": "TRASPLANTE RENAL"
+      }
+    ]
+  }
+  
