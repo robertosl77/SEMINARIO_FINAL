@@ -13,7 +13,7 @@ import ListaTelefonos from './ListaTelefonos';
 import GestionSolucion from './gestiones/GestionSolucion';
 import GestionNota from './gestiones/GestionNota';
 import './css/Afectaciones.css';
-import './css/Listas.css'
+import './css/Listas.css';
 
 function Afectaciones() {
   const [data, setData] = useState(null);
@@ -44,10 +44,15 @@ function Afectaciones() {
       <div id="content">
         <LeftPanel data={data} onCardClick={handleCardClick} />
         <div id="right-panel">
-            <div id="boton" onClick={() => handleTabClick(1)}>Solución Provisoria</div>
-            <div id="boton" onClick={() => handleTabClick(2)}>Nota</div>
-            <div id="boton" onClick={() => handleTabClick(3)}>Contacto</div>
-            <div id="right-panel-1">
+          {/* Los botones se muestran solo cuando un afectado está seleccionado */}
+          {visible && (
+            <div className="boton-container">
+              <div id="boton" onClick={() => handleTabClick(1)}>Solución Provisoria</div>
+              <div id="boton" onClick={() => handleTabClick(2)}>Nota</div>
+              <div id="boton" onClick={() => handleTabClick(3)}>Contacto</div>
+            </div>
+          )}
+          <div id="right-panel-1">
 
             <div className="solucionProvisoria">
               {showContacto === 1 && gestionData && (
