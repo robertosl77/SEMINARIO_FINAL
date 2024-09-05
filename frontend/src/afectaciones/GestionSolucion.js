@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/Listas.css';
 
 function GestionSolucion({ cuenta, solucion_provisoria = [], telefonos = [], idafectacion, onGestionChange }) {
   const [selectedSolucion, setSelectedSolucion] = useState(solucion_provisoria[0] || '');
-  const [showSuccess, setShowSuccess] = useState(false);  // Estado para manejar el mensaje de éxito
+  const [showSuccess, setShowSuccess] = useState(false);
 
+  // Función para manejar el cambio de la solución provisoria
   const handleSolucionChange = (event) => {
     const nuevaSolucion = event.target.value;
     setSelectedSolucion(nuevaSolucion);
@@ -12,25 +13,31 @@ function GestionSolucion({ cuenta, solucion_provisoria = [], telefonos = [], ida
     fetch(`http://localhost:5000/API/GE/CambiaGestion/${cuenta}/${idafectacion}/${nuevaSolucion}`, {
       method: 'POST',
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data) {
-        onGestionChange(nuevaSolucion);
-        setShowSuccess(true);  // Mostrar mensaje de éxito
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          onGestionChange(nuevaSolucion);
+          setShowSuccess(true);  // Mostrar mensaje de éxito
 
-        // Ocultar el mensaje de éxito después de 3 segundos
-        setTimeout(() => {
-          setShowSuccess(false);
-        }, 3000);
-      }
-    })
-    .catch(error => console.error('Error:', error));
+          // Ocultar el mensaje de éxito después de 3 segundos
+          setTimeout(() => {
+            setShowSuccess(false);
+          }, 3000);
+        }
+      })
+      .catch(error => console.error('Error:', error));
   };
+
+  // Reiniciar el estado cuando `cuenta` o `idafectacion` cambien
+  useEffect(() => {
+    setSelectedSolucion(solucion_provisoria[0] || '');
+    setShowSuccess(false);  // Ocultar el mensaje de éxito al cambiar de afectado
+  }, [cuenta, idafectacion, solucion_provisoria]);
 
   return (
     <div>
       <div className="container-superior">
-        <h3>Solucion Provisoria de la cuenta {cuenta}: </h3>
+        <h3>Solución Provisoria de la cuenta {cuenta}:</h3>
 
         <select id="solucionSelect" value={selectedSolucion} onChange={handleSolucionChange}>
           {solucion_provisoria.map((solucion, index) => (
@@ -47,7 +54,7 @@ function GestionSolucion({ cuenta, solucion_provisoria = [], telefonos = [], ida
           </div>
         )}
       </div>
-      
+
       <style jsx>{`
         .success-message {
           margin-top: 10px;

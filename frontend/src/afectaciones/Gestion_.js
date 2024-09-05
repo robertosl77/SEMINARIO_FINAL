@@ -12,7 +12,7 @@ function Gestion({ cuenta, solucion_provisoria = [], telefonos = [], idafectacio
     const nuevaSolucion = event.target.value;
     setSelectedSolucion(nuevaSolucion);
 
-    fetch(`http://localhost:5000/API/GE/CambiaGestion/${cuenta}/${idafectacion}/${nuevaSolucion}`, {
+    fetch(`http://localhost:5000/API/GE/CambiaGestion/${cuenta}/${idafectacion}/${nuevaSolucion}`, { 
       method: 'POST',
     })
     .then(response => response.json())
