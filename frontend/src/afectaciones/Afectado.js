@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/Afectado.css';
+import './css/Icono.css';
 
 function Afectado({
   afectacion,
