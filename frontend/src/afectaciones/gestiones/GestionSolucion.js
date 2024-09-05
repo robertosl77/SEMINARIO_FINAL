@@ -38,14 +38,13 @@ function GestionSolucion({ cuenta, solucion_provisoria = [], telefonos = [], ida
     <div>
       <div className="container-superior">
         <h3>Solución Provisoria de la cuenta {cuenta}:</h3>
-
         <select id="solucionSelect" value={selectedSolucion} onChange={handleSolucionChange}>
           {solucion_provisoria.map((solucion, index) => (
             <option key={index} value={solucion}>
               {solucion}
             </option>
           ))}
-        </select>
+          </select>
 
         {/* Mostrar el mensaje de éxito fuera del <select> */}
         {showSuccess && (

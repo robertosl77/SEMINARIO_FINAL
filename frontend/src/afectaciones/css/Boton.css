@@ -1,0 +1,61 @@
+#boton {
+    display: inline-block;
+    padding: 10px 25px; /* Espaciado interno amplio */
+    background: linear-gradient(135deg, #2b1d20, #bbdf3c); /* Degradado llamativo */
+    color: white; /* Color de texto blanco para un buen contraste */
+    border: none; /* Sin bordes */
+    border-radius: 12px; /* Bordes suaves */
+    font-size: 1.2em; /* Tamaño de fuente destacado */
+    font-weight: bold; /* Texto en negrita */
+    text-align: center; /* Centrar el texto */
+    cursor: pointer; /* Cambiar el cursor cuando se pasa sobre el botón */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.4s ease; /* Transiciones suaves */
+    background-size: 200%; /* El fondo del degradado es más grande para un efecto visual al hover */
+    box-shadow: 0 10px 20px rgba(75, 73, 74, 0.5); /* Sombra suave pero destacada */
+    position: relative; /* Para poder agregar efectos internos */
+    z-index: 1; /* Asegura que los efectos internos no cubran el texto */
+    overflow: hidden; /* Oculta los elementos fuera del botón */
+    font-size: 12px;
+    width: 160px;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  #boton:hover {
+    background-position: right center; /* Mover el degradado al pasar el mouse */
+    box-shadow: 0 15px 30px rgba(165, 190, 19, 0.6); /* Sombra más intensa en hover */
+    transform: translateY(-1px) scale(1.05); /* Efecto de elevación y ligera expansión */
+  }
+  
+  #boton:active {
+    transform: translateY(1px) scale(1); /* Efecto de presión al hacer clic */
+    box-shadow: 0 5px 10px rgba(255, 75, 43, 0.4); /* Sombra reducida cuando está activo */
+  }
+  
+  #boton::before {
+    content: ''; /* Efecto interno decorativo */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2), rgba(255,255,255,0));
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease-in-out;
+    z-index: 0;
+  }
+  
+  #boton:hover::before {
+    transform: translate(-50%, -50%) scale(1); /* Efecto de "explosión" de luz */
+  }
+  
+  #boton:focus {
+    outline: none; /* Eliminar el borde predeterminado del botón */
+    box-shadow: 0 0 10px rgba(183, 206, 80, 0.7); /* Sombra más definida al enfocar */
+  }
+  
+  #boton-container {
+    width: 70%;
+  }
+  
+  

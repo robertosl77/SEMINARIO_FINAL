@@ -14,6 +14,10 @@ import GestionSolucion from './gestiones/GestionSolucion';
 import GestionNota from './gestiones/GestionNota';
 import './css/Afectaciones.css';
 import './css/Listas.css';
+import './css/Boton.css'
+import './css/Gestion.css'
+import './css/SwitchStyle.css'
+import GestionContacto from './gestiones/GestionContacto';
 
 function Afectaciones() {
   const [data, setData] = useState(null);
@@ -79,7 +83,7 @@ function Afectaciones() {
 
             {showContacto === 3 && (
               <div className="solucionContacto">
-                contacto testing
+                <GestionContacto {...gestionData} />
               </div>
             )}
 
