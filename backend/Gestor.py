@@ -11,3 +11,7 @@ class Gestor:
     def agrega_nota(self,cuenta,idafectacion,usuario,nota):
         d = Datos()
         return d.agrega_nota(cuenta,idafectacion,usuario,nota)
+    
+    def agrega_contacto(self,cuenta,idafectacion,usuario,nota,idtelefono,efectivo):
+        d = Datos()
+        return d.agrega_contacto(cuenta,idafectacion,usuario,nota,idtelefono,efectivo)    

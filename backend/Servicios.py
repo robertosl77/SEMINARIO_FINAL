@@ -114,7 +114,6 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
         # Devolver el JSON de éxito
         return jsonify(json)
 
-    # @app.route('/API/GE/AgregaNota/<cuenta>/<idafectacion>/<usuario>/<nota>', methods=['POST'])
     @app.route('/API/GE/AgregaNota', methods=['POST'])
     def AgregaNota():
         data = request.get_json()
@@ -128,7 +127,20 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
         # Devolver el JSON de éxito
         return jsonify(json)
 
-
+    @app.route('/API/GE/AgregaContacto', methods=['POST'])
+    def AgregaContacto():
+        data = request.get_json()
+        cuenta = data.get('cuenta')
+        idafectacion = data.get('idafectacion')
+        usuario = data.get('usuario')
+        nota = data.get('nota')
+        idtelefono = data.get('idtelefono')
+        efectivo = data.get('efectivo')
+        # 
+        g= Gestor()
+        json=g.agrega_contacto(cuenta,idafectacion,usuario,nota,idtelefono,efectivo)
+        # Devolver el JSON de éxito
+        return jsonify(json)
 
 
 

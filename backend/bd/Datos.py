@@ -299,6 +299,26 @@ class Datos:
             print(f"Fail: Error al actualizar la gestion en la tabla 'afectaciones_contactos'. Detalle: {e}")
             return False         
             
+    def agrega_contacto(self, cuenta,idafectacion,usuario,nota,idtelefono,efectivo):
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()        
+        try:
+            logini=self.insertar_datos_log(f"Se inserto nota en la cuenta {cuenta}.")
+            logfin=0
+            self.cursor.execute('''
+                INSERT INTO afectaciones_contactos 
+                (idafectacion,cuenta,usuario,fechahora,observaciones,idtelefono,efectivo,logini,logfin)
+                VALUES ( ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?)
+            ''', (idafectacion, cuenta, usuario, nota, idtelefono, efectivo, logini, logfin, ))
+            # Confirmar los cambios
+            self.conn.commit()
+            print("Success: Se modifico la gestion en la tabla 'afectaciones_contactos'.")
+            return True
+        except sqlite3.Error as e:
+            self.conn.rollback()
+            print(f"Fail: Error al actualizar la gestion en la tabla 'afectaciones_contactos'. Detalle: {e}")
+            return False         
+            
 
 # # Ejemplo de uso
 # if __name__ == "__main__":
