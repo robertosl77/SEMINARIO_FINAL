@@ -123,6 +123,8 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
         nota = data.get('nota')
         # 
         g= Gestor()
+        if '' in [cuenta,idafectacion,usuario,nota]:
+            return jsonify(False)
         json=g.agrega_nota(cuenta,idafectacion,usuario,nota)
         # Devolver el JSON de éxito
         return jsonify(json)
@@ -133,12 +135,14 @@ class ServiciosHandler:  # Cambié el nombre de la clase a 'ServiciosHandler'
         cuenta = data.get('cuenta')
         idafectacion = data.get('idafectacion')
         usuario = data.get('usuario')
-        nota = data.get('nota')
+        contacto = data.get('contacto')
         idtelefono = data.get('idtelefono')
         efectivo = data.get('efectivo')
         # 
         g= Gestor()
-        json=g.agrega_contacto(cuenta,idafectacion,usuario,nota,idtelefono,efectivo)
+        if '' in [cuenta,idafectacion,usuario,contacto,idtelefono,efectivo]:
+            return jsonify(False)
+        json=g.agrega_contacto(cuenta,idafectacion,usuario,contacto,idtelefono,efectivo)
         # Devolver el JSON de éxito
         return jsonify(json)
 
