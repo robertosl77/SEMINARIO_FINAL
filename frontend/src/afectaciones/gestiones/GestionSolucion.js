@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './css/Listas.css';
+import '../css/Listas.css';
 
 function GestionSolucion({ cuenta, solucion_provisoria = [], telefonos = [], idafectacion, onGestionChange }) {
   const [selectedSolucion, setSelectedSolucion] = useState(solucion_provisoria[0] || '');

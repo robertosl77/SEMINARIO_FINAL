@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import './css/Gestion.css';
 
 function Gestion({ cuenta, solucion_provisoria = [], telefonos = [], idafectacion, onGestionChange }) {
   const [selectedSolucion, setSelectedSolucion] = useState(solucion_provisoria[0] || '');

@@ -10,8 +10,8 @@ import ListaContactos from './ListaContactos';
 import ListaPacientes from './ListaPacientes';
 import ListaMarcas from './ListaMarcas';
 import ListaTelefonos from './ListaTelefonos';
-import GestionSolucion from './GestionSolucion';
-import GestionNota from './GestionNota';
+import GestionSolucion from './gestiones/GestionSolucion';
+import GestionNota from './gestiones/GestionNota';
 import './css/Afectaciones.css';
 import './css/Listas.css'
 
