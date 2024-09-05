@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import Navbar from '../navegacion/Navbar';
 import Dashboard from './Dashboard';
-import LeftPanel from './Panel_Izquierdo';
+import LeftPanel from './panel_izquierdo/Panel_Izquierdo';
 import Footer from '../footer/Footer';
-import ListaAfectaciones from './ListaAfectaciones';
-import ListaReclamos from './ListaReclamos';
-import ListaAparatologias from './ListaAparatologias';
-import ListaContactos from './ListaContactos';
-import ListaPacientes from './ListaPacientes';
-import ListaMarcas from './ListaMarcas';
-import ListaTelefonos from './ListaTelefonos';
+import ListaAfectaciones from './panel_derecho/ListaAfectaciones';
+import ListaReclamos from './panel_derecho/ListaReclamos';
+import ListaAparatologias from './panel_derecho/ListaAparatologias';
+import ListaContactos from './panel_derecho/ListaContactos';
+import ListaPacientes from './panel_derecho/ListaPacientes';
+import ListaMarcas from './panel_derecho/ListaMarcas';
+import ListaTelefonos from './panel_derecho/ListaTelefonos';
 import GestionSolucion from './gestiones/GestionSolucion';
 import GestionNota from './gestiones/GestionNota';
+import GestionContacto from './gestiones/GestionContacto';
 import './css/Afectaciones.css';
 import './css/Listas.css';
 import './css/Boton.css'
 import './css/Gestion.css'
 import './css/SwitchStyle.css'
-import GestionContacto from './gestiones/GestionContacto';
 
 function Afectaciones() {
   const [data, setData] = useState(null);

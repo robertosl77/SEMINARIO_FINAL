@@ -16,6 +16,8 @@ function Dashboard({ setData }) {
     seguimiento: 0,
   });
 
+  const [selectedCard, setSelectedCard] = useState(''); // Estado para la tarjeta seleccionada
+
   const handleCardClick = useCallback(async (endpoint) => {
     try {
       const response = await fetch(`http://localhost:5000/API/MN/GestionaTarjeta/${endpoint}`, {
@@ -25,7 +27,6 @@ function Dashboard({ setData }) {
         },
       });
       const result = await response.json();
-      // Enviar JSON recibido a la consola
       console.log(result); 
 
       setDashboardData({
@@ -43,6 +44,7 @@ function Dashboard({ setData }) {
       });
 
       setData(result); // Actualiza el estado con el resultado del backend
+      setSelectedCard(endpoint); // Actualiza la tarjeta seleccionada
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -56,47 +58,91 @@ function Dashboard({ setData }) {
     <div>
       <div id="header">
       <div className="dashboard">
-          <div className="dashboard-card" onClick={() => handleCardClick('afectados')} title="Unicamente Clientes Afectados.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'afectados' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('afectados')}
+            title="Unicamente Clientes Afectados."
+          >
             <div className="dashboard-title">AFECTADOS</div>
             <div className="dashboard-number">{dashboardData.afectados}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('normalizados')} title="Queda pendiente confirmar si estan con suministro.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'normalizados' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('normalizados')}
+            title="Queda pendiente confirmar si estan con suministro."
+          >
             <div className="dashboard-title">NORMALIZADOS</div>
             <div className="dashboard-number">{dashboardData.normalizados}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('reclamos')} title="Clientes con Reclamos.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'reclamos' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('reclamos')}
+            title="Clientes con Reclamos."
+          >
             <div className="dashboard-title">RECLAMOS</div>
             <div className="dashboard-number">{dashboardData.reclamos}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('reiteracion')} title="Clientes con Reiteraciones.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'reiteracion' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('reiteracion')}
+            title="Clientes con Reiteraciones."
+          >
             <div className="dashboard-title">REITERACIONES</div>
             <div className="dashboard-number">{dashboardData.reiteracion}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('duracion')} title="Cliente cuya afectacion supera un margen de duracion aceptada.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'duracion' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('duracion')}
+            title="Cliente cuya afectacion supera un margen de duracion aceptada."
+          >
             <div className="dashboard-title">DURACION</div>
             <div className="dashboard-number">{dashboardData.duracion}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('sin_autonomia')} title="Clientes sin autonomia (por aparatologia).">
+          <div 
+            className={`dashboard-card ${selectedCard === 'sin_autonomia' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('sin_autonomia')}
+            title="Clientes sin autonomia (por aparatologia)."
+          >
             <div className="dashboard-title">SIN AUTONOMÍA</div>
             <div className="dashboard-number">{dashboardData.sin_autonomia}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('sin_gestion')} title="Clientes sin llamar.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'sin_gestion' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('sin_gestion')}
+            title="Clientes sin llamar."
+          >
             <div className="dashboard-title">SIN GESTIÓN</div>
             <div className="dashboard-number">{dashboardData.sin_gestion}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('fae')} title="Clientes con FAE.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'fae' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('fae')}
+            title="Clientes con FAE."
+          >
             <div className="dashboard-title">FAE</div>
             <div className="dashboard-number">{dashboardData.fae}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('ami')} title="Clientes con AMI.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'ami' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('ami')}
+            title="Clientes con AMI."
+          >
             <div className="dashboard-title">AMI</div>
             <div className="dashboard-number">{dashboardData.ami}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('ge')} title="Gestion de Generadores Eléctricos.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'ge' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('ge')}
+            title="Gestion de Generadores Eléctricos."
+          >
             <div className="dashboard-title">GE</div>
             <div className="dashboard-number">{dashboardData.ge}</div>
           </div>
-          <div className="dashboard-card" onClick={() => handleCardClick('seguimiento')} title="Clientes con estado Seguimiento o Rellamar.">
+          <div 
+            className={`dashboard-card ${selectedCard === 'seguimiento' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('seguimiento')}
+            title="Clientes con estado Seguimiento o Rellamar."
+          >
             <div className="dashboard-title">SEGUIMIENTO</div>
             <div className="dashboard-number">{dashboardData.seguimiento}</div>
           </div>
