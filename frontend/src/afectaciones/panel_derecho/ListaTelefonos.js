@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/Listas.css';
+import '../css/Listas.css';
 
 function ListaTelefonos({ telefonos }) {
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Afectado from './Afectado';
-import './css/Panel_Izquierdo.css';
+import Afectado from '../Afectado';
+import '../css/Panel_Izquierdo.css';
 
 function LeftPanel({ data, onCardClick }) {
   const [selectedId, setSelectedId] = useState(null);
