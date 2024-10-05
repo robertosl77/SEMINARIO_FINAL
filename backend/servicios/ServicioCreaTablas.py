@@ -3,7 +3,7 @@ from bd.CreateTables import CreateTables
 from jsons.JsonValidador import JsonValidador
 
 
-class Simulados:
+class ServicioCreaTablas:
     def CreaTablaGeografico(self):
         authenticator= JsonValidador()
         json= authenticator.leer_json_geografico()

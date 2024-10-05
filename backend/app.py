@@ -1,4 +1,4 @@
-from Servicios import app  # Importa la instancia 'app' de Flask desde Servicios.py
+from controladores.Controlador import app
 
 class App:
     @staticmethod

@@ -1,6 +1,6 @@
 from bd.Tarjetas import Tarjetas
 
-class Manager:
+class ServiciosManager:
     def __init__(self, tarjeta) -> None:
         self.tarjeta = tarjeta
         self.tarjetas= Tarjetas()

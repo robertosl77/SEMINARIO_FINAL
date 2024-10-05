@@ -1,7 +1,7 @@
 # 726e87aa626942da836185317242108
 import requests
 
-class Alertas:
+class ServiciosTormentas:
     def __init__(self, api_key):
         self.api_key = api_key
         self.base_url = "http://api.weatherapi.com/v1/forecast.json"
@@ -50,10 +50,10 @@ class Alertas:
         return alertas
 
 # Ejemplo de uso
-if __name__ == "__main__":
-    tormentas = Alertas(api_key="726e87aa626942da836185317242108")
-    alertas = tormentas.obtener_alertas(localidad="ACASSUSO", partido="SAN ISIDRO")
-    for alerta in alertas:
-        print(f"Fecha: {alerta['fecha']}")
-        for condicion in alerta['condiciones']:
-            print(f"  - {condicion}")
+# if __name__ == "__main__":
+#     tormentas = Alertas(api_key="726e87aa626942da836185317242108")
+#     alertas = tormentas.obtener_alertas(localidad="ACASSUSO", partido="SAN ISIDRO")
+#     for alerta in alertas:
+#         print(f"Fecha: {alerta['fecha']}")
+#         for condicion in alerta['condiciones']:
+#             print(f"  - {condicion}")

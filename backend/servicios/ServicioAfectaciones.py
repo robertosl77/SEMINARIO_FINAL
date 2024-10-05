@@ -4,7 +4,7 @@ import json
 from flask import jsonify
 
 
-class Afectaciones:
+class ServicioAfectaciones:
     def __init__(self) -> None:
         None
     

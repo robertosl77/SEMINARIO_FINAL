@@ -1,6 +1,6 @@
 from bd.Datos import Datos
 
-class Gestor:
+class ServicioGestor:
     def __init__(self) -> None:
         pass
 
