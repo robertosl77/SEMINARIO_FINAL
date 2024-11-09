@@ -44,7 +44,7 @@ function GestionSolucion({ cuenta, solucion_provisoria = [], telefonos = [], ida
               {solucion}
             </option>
           ))}
-          </select>
+        </select>
 
         {/* Mostrar el mensaje de éxito fuera del <select> */}
         {showSuccess && (
@@ -54,7 +54,7 @@ function GestionSolucion({ cuenta, solucion_provisoria = [], telefonos = [], ida
         )}
       </div>
 
-      <style jsx>{`
+      <style>{`
         .success-message {
           margin-top: 10px;
           padding: 10px;
