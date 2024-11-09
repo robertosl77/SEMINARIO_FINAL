@@ -185,10 +185,10 @@ def validar_contrasena(password):
         print("La contraseña debe contener al menos un número.")
         return False
 
-    # Verificar que contenga al menos un carácter especial
-    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-        print("La contraseña debe contener al menos un carácter especial.")
-        return False
+    # # Verificar que contenga al menos un carácter especial
+    # if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+    #     print("La contraseña debe contener al menos un carácter especial.")
+    #     return False
 
     # Verificar que no contenga números secuenciales (ej. 1234)
     if re.search(r'(012|123|234|345|456|567|678|789|890)', password):
