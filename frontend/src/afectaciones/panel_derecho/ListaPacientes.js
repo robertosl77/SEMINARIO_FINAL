@@ -2,15 +2,14 @@ import React from 'react';
 import '../css/Listas.css';
 
 function ListaPacientes({ pacientes }) {
-
   return (
     <div className="container">
     <h3>Pacientes</h3>
       <table className="table">
         <thead>
           <tr>
-            <th className="hiddenColumn">ID Paciente</th> {/* Columna oculta */}
-            <th className="hiddenColumn">Cuenta</th> {/* Columna oculta */}
+            <th className="hiddenColumn">ID Paciente</th> 
+            <th className="hiddenColumn">Cuenta</th> 
             <th className="headerCell">Nombre Paciente</th>
             <th className="headerCell">DNI</th>
             <th className="headerCell">Lote</th>
@@ -24,8 +23,8 @@ function ListaPacientes({ pacientes }) {
           {pacientes && pacientes.length > 0 ? (
             pacientes.map((paciente, index) => (
               <tr key={index} className="row">
-                <td className="hiddenColumn">{paciente.idpaciente}</td> {/* Columna oculta */}
-                <td className="hiddenColumn">{paciente.cuenta}</td> {/* Columna oculta */}
+                <td className="hiddenColumn">{paciente.idpaciente}</td> 
+                <td className="hiddenColumn">{paciente.cuenta}</td> 
                 <td className="cell">{paciente.nombre_paciente}</td>
                 <td className="cell">{paciente.dni}</td>
                 <td className="cell">{paciente.lote}</td>

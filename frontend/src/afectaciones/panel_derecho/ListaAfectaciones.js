@@ -17,7 +17,7 @@ function ListaAfectaciones({ afectaciones }) {
       <table className="table">
         <thead>
           <tr>
-            <th className="hiddenColumn">ID Afectación</th> {/* Columna oculta */}
+            <th className="hiddenColumn">ID Afectación</th> 
             <th className="headerCell">Afectación</th>
             <th className="headerCell">Tipo</th>
             <th className="headerCell">Estado</th>
@@ -30,7 +30,7 @@ function ListaAfectaciones({ afectaciones }) {
           {afectaciones && afectaciones.length > 0 ? (
             afectaciones.map((afectacion, index) => (
               <tr key={index} className="row">
-                <td className="hiddenColumn">{afectacion.idafectacion}</td> {/* Columna oculta */}
+                <td className="hiddenColumn">{afectacion.idafectacion}</td> 
                 <td className="cell">{afectacion.afectacion}</td>
                 <td className="cell">{afectacion.tipo}</td>
                 <td className="cell">{afectacion.estado}</td>

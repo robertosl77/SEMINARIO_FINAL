@@ -3,13 +3,12 @@ import '../css/Listas.css';
 
 function ListaMarcas({ marcas }) {
   return (
-    
     <div className="container">
-        <h3>Marcas</h3>
+      <h3>Marcas</h3>
       <table className="table">
         <thead>
           <tr>
-            <th className="hiddenColumn">ID Marca</th> {/* Columna oculta */}
+            <th className="hiddenColumn">ID Marca</th>
             <th className="hiddenColumn">ID Cliente Marca</th>
             <th className="hiddenColumn">Cuenta</th>
             <th className="headerCell">Marca</th>
@@ -18,18 +17,20 @@ function ListaMarcas({ marcas }) {
         </thead>
         <tbody>
           {marcas && marcas.length > 0 ? (
-            marcas.map((marca, index) => (
-              <tr key={index} className="row">
-                <td className="hiddenColumn">{marca.idmarca}</td> {/* Columna oculta */}
-                <td className="hiddenColumn">{marca.idclientemarca}</td>
-                <td className="hiddenColumn">{marca.cuenta}</td>
-                <td className="cell">{marca.marca}</td>
-                <td className="cell">{marca.submarca}</td>
-              </tr>
-            ))
+            marcas.map((marca, index) => {
+              return (
+                <tr key={index} className="row">
+                  <td className="hiddenColumn">{marca.idmarca}</td>
+                  <td className="hiddenColumn">{marca.idclientemarca}</td>
+                  <td className="hiddenColumn">{marca.cuenta}</td>
+                  <td className="cell">{marca.marca}</td>
+                  <td className="cell">{marca.submarca}</td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
-              <td colSpan="2" style={styles.nomarcas}>No hay datos disponibles</td>
+              <td colSpan="5" style={styles.nomarcas}>No hay datos disponibles</td>
             </tr>
           )}
         </tbody>
@@ -41,7 +42,6 @@ function ListaMarcas({ marcas }) {
 const styles = {
   container: {
     width: '750px',
-    // margin: 'auto',
     padding: '10px',
     fontSize: '12px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -50,7 +50,7 @@ const styles = {
     margin: '5px',
   },
   table: {
-    width: 'auto', // El ancho de la tabla es automático según el contenido
+    width: 'auto',
     borderCollapse: 'collapse',
   },
   hiddenColumn: {
