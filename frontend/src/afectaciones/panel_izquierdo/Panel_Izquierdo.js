@@ -11,8 +11,7 @@ function LeftPanel({ data, onCardClick }) {
   };
 
   return (
-    <div id="left-panel">
-      <div id="content">
+    <div id="content">
       {data && data.afectados && data.afectados.length > 0 ? (
         <div>
           {data.afectados.map((afectado, index) => (
@@ -49,7 +48,6 @@ function LeftPanel({ data, onCardClick }) {
       ) : (
         <p>No hay datos de afectados disponibles.</p>
       )}
-      </div>
     </div>
   );
 }

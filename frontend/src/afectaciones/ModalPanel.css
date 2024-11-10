@@ -8,6 +8,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    overflow-y: unset;
   }
   
   .modal-content {
@@ -41,3 +42,6 @@
     }
   }
   
+  .no-scroll {
+    overflow: hidden;
+  }

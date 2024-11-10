@@ -10,10 +10,23 @@ function ModalPanel({ isVisible, onClose, children }) {
       }
     };
     window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
+
+  // Manejar clase `no-scroll` para el body
+  useEffect(() => {
+    if (isVisible) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [isVisible]);
 
   // Cerrar al hacer clic fuera del contenido
   const handleOverlayClick = (event) => {

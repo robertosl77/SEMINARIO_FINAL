@@ -14,11 +14,10 @@ import ListaTelefonos from './panel_derecho/ListaTelefonos';
 import GestionSolucion from './gestiones/GestionSolucion';
 import GestionNota from './gestiones/GestionNota';
 import GestionContacto from './gestiones/GestionContacto';
-import './css/Afectaciones.css';
 import './css/Listas.css';
-import './css/Boton.css'
+import './css/objeto_boton.css'
 import './css/Gestion.css'
-import './css/SwitchStyle.css'
+import './css/objeto_SwitchStyle.css'
 
 function Afectaciones() {
   const [data, setData] = useState(null);
@@ -46,9 +45,7 @@ function Afectaciones() {
     <div>
       <Navbar />  
       <Dashboard setData={setData} />
-      {/* <div id="content"> */}
       <LeftPanel data={data} onCardClick={handleCardClick} />
-      {/* </div>    */}
 
         <ModalPanel isVisible={visible} onClose={() => setVisible(false)}>
           <div id="right-panel">

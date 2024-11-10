@@ -1,17 +1,9 @@
 #content {
-  /* background-color: #d1c029; */
-  /* display: flex; */
   margin-top: 200px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   height: calc(100vh - 180px);
-  padding-bottom: 60px; /* Ajusta este valor según la altura del footer */
-}
-
-#left-panel {
-  width:calc(100vh);
-  /* background-color: #69bdee; */
   padding: 10px;
-  overflow-y: auto;
+  padding-bottom: 60px; /* Ajusta este valor según la altura del footer */
 }
 
 .styled-table {
