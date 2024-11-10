@@ -79,7 +79,7 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
       <div className="container-superior">
         <h3>Contacto</h3>
 
-        <select id="solucionSelect" value={selectedSolucion} onChange={handleSolucionChange}>
+        <select id="solucionSelect" value={selectedSolucion} onChange={handleSolucionChange}> 
           {solucion_provisoria.map((solucion, index) => (
             <option key={index} value={solucion}>
               {solucion}
