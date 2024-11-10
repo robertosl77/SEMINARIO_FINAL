@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import Navbar from '../navegacion/Navbar';
 import Dashboard from './Dashboard';
-import LeftPanel from './panel_izquierdo/Panel_Izquierdo';
+import Afectados from './Afectados';
 import Footer from '../footer/Footer';
 import ModalPanel from './ModalPanel';
-import ListaAfectaciones from './panel_derecho/ListaAfectaciones';
-import ListaReclamos from './panel_derecho/ListaReclamos';
-import ListaAparatologias from './panel_derecho/ListaAparatologias';
-import ListaContactos from './panel_derecho/ListaContactos';
-import ListaPacientes from './panel_derecho/ListaPacientes';
-import ListaMarcas from './panel_derecho/ListaMarcas';
-import ListaTelefonos from './panel_derecho/ListaTelefonos';
+import ListaAfectaciones from './Detalles/ListaAfectaciones';
+import ListaReclamos from './Detalles/ListaReclamos';
+import ListaAparatologias from './Detalles/ListaAparatologias';
+import ListaContactos from './Detalles/ListaContactos';
+import ListaPacientes from './Detalles/ListaPacientes';
+import ListaMarcas from './Detalles/ListaMarcas';
+import ListaTelefonos from './Detalles/ListaTelefonos';
 import GestionSolucion from './gestiones/GestionSolucion';
 import GestionNota from './gestiones/GestionNota';
 import GestionContacto from './gestiones/GestionContacto';
 import './css/Listas.css';
-import './css/objeto_boton.css'
 import './css/Gestion.css'
+import './css/objeto_boton.css'
 import './css/objeto_SwitchStyle.css'
 
 function Afectaciones() {
@@ -45,10 +45,10 @@ function Afectaciones() {
     <div>
       <Navbar />  
       <Dashboard setData={setData} />
-      <LeftPanel data={data} onCardClick={handleCardClick} />
+      <Afectados data={data} onCardClick={handleCardClick} />
 
         <ModalPanel isVisible={visible} onClose={() => setVisible(false)}>
-          <div id="right-panel">
+          <div>
             {/* Los botones se muestran solo cuando un afectado está seleccionado */}
             {visible && (
               <div className="boton-container">
@@ -57,7 +57,7 @@ function Afectaciones() {
                 <div id="boton" onClick={() => handleTabClick(3)}>Contacto</div>
               </div>
             )}
-            <div id="right-panel-1">
+            <div>
               <div className="solucionProvisoria">
                 {showContacto === 1 && gestionData && (
                   <GestionSolucion
@@ -95,7 +95,7 @@ function Afectaciones() {
               )}
 
             </div>
-            <div id="right-panel-2">
+            <div>
               <div className={`vista ${visible && selectedView?.telefonos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.1s' }}>
                 <ListaTelefonos telefonos={selectedView?.telefonos} />
               </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './ModalPanel.css';
+import './css/ModalPanel.css';
 
 function ModalPanel({ isVisible, onClose, children }) {
   // Cerrar al presionar la tecla Escape

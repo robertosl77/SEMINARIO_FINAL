@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Afectado from '../Afectado';
-import '../css/Panel_Izquierdo.css';
+import Afectado from './Afectado';
+import './css/Afectados.css';
 
-function LeftPanel({ data, onCardClick }) {
+function Afectados({ data, onCardClick }) {
   const [selectedId, setSelectedId] = useState(null);
 
   const handleCardClick = (cuenta, ...otherProps) => {
@@ -53,4 +53,4 @@ function LeftPanel({ data, onCardClick }) {
   );
 }
 
-export default LeftPanel;
+export default Afectados;
