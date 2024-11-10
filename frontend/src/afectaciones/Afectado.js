@@ -27,15 +27,14 @@ function Afectado({
   tipo,
   solucion_provisoria,
   onCardClick,
-  isSelected // Añadido para manejar la selección
+  isSelected // Indica si el afectado está seleccionado
 }) {
 
   const calcularDuracion = (inicio, restitucion) => {
     const fechaInicio = new Date(inicio);
     const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
     const diferenciaMs = fechaRestitucion - fechaInicio;
-    const resultado = Math.floor(diferenciaMs / (1000 * 60 * 60));
-    return restitucion ? resultado : resultado + 3; // Convierte ms a horas
+    return Math.floor(diferenciaMs / (1000 * 60 * 60)); // Convierte ms a horas
   };
 
   const handleclick = () => {
@@ -44,7 +43,7 @@ function Afectado({
     }
   };
 
-  // Verificar si la marca "BAJA POTENCIAL" está presente
+  // Determina clases adicionales basadas en condiciones específicas
   const esBajaPotencial = marcas.some(marca => marca.marca === "BAJA POTENCIAL");
   const esNormalizado = restitucion !== null;
   const esSeguimiento = ["SEGUIMIENTO", "RELLAMAR", "REQUIERE GE"].includes(gestion);

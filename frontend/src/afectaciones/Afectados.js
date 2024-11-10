@@ -6,7 +6,7 @@ function Afectados({ data, onCardClick }) {
   const [selectedId, setSelectedId] = useState(null);
 
   const handleCardClick = (cuenta, ...otherProps) => {
-    setSelectedId(cuenta);
+    setSelectedId(cuenta); // Mantiene `selectedId` al hacer clic
     onCardClick(...otherProps);
   };
 
@@ -41,7 +41,7 @@ function Afectados({ data, onCardClick }) {
               tipo={afectado.tipo}
               solucion_provisoria={afectado.solucion_provisoria}
               onCardClick={(...props) => handleCardClick(afectado.cuenta, ...props)}
-              isSelected={selectedId === afectado.cuenta}
+              isSelected={selectedId === afectado.cuenta} // Indica si el afectado está seleccionado
             />
           ))}
           <br /><br /><br /><br />
