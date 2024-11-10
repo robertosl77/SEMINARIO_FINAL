@@ -44,6 +44,7 @@ function LeftPanel({ data, onCardClick }) {
               isSelected={selectedId === afectado.cuenta}
             />
           ))}
+          <br /><br /><br /><br />
         </div>
       ) : (
         <p>No hay datos de afectados disponibles.</p>
