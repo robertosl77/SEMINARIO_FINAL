@@ -18,8 +18,8 @@ class ServiciosManager:
             tarjeta= self.tarjetas.tarjeta_duracion()
         elif self.tarjeta=="sin_autonomia":
             tarjeta= self.tarjetas.tarjeta_sinautonomia()
-        elif self.tarjeta=="sin_gestion":
-            tarjeta= self.tarjetas.tarjeta_sincontacto()
+        elif self.tarjeta=="nuevos":
+            tarjeta= self.tarjetas.tarjeta_nuevos()
         elif self.tarjeta=="fae":
             tarjeta= self.tarjetas.tarjeta_fae()
         elif self.tarjeta=="ami":

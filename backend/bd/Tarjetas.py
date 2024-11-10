@@ -249,22 +249,37 @@ class Tarjetas:
         finally:
             self.cursor.close
 
-    def tarjeta_sincontacto(self):      
+    def tarjeta_nuevos(self):      
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()          
         try:
             # Ejecutar la consulta para obtener el resultado
             sincontacto= self.cursor.execute('''
+                SELECT * FROM (
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
                 , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion) reclamos
                 , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion),0) reiteraciones
+                ,case 
+                    when af.gestion in ('CON SUMINISTRO', 'SE TRASLADA', 'CON AUTONOMÍA', 'GE INSTALADO') then 1
+                    when af.gestion = 'ATENDIDO' then 2
+                    when af.gestion = 'NUEVO' then 3
+                    when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
+                    else 0
+                end as prioridad
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and (select count(1) from afectaciones_contactos where cuenta=af.cuenta and idafectacion=af.idafectacion)=0
-                order by a.idafectacion
+                and af.gestion='NUEVO'
+                )
+                order by
+                estado DESC
+                ,prioridad DESC
+                ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
+                ,(reclamos+reiteraciones) DESC
+                ,(fae+ami+ge_propio)
                 ;
             ''').fetchall()
             return sincontacto
@@ -280,17 +295,31 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             fae= self.cursor.execute('''
+                SELECT * FROM (
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
                 , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion) reclamos
                 , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion),0) reiteraciones
+                ,case 
+                    when af.gestion in ('CON SUMINISTRO', 'SE TRASLADA', 'CON AUTONOMÍA', 'GE INSTALADO') then 1
+                    when af.gestion = 'ATENDIDO' then 2
+                    when af.gestion = 'NUEVO' then 3
+                    when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
+                    else 0
+                end as prioridad
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
                 and (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0)=1
-                order by a.idafectacion
+                )
+                order by
+                estado DESC
+                ,prioridad DESC
+                ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
+                ,(reclamos+reiteraciones) DESC
+                ,(fae+ami+ge_propio)
                 ;
             ''').fetchall()
             return fae
@@ -306,17 +335,31 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             ami= self.cursor.execute('''
+                SELECT * FROM (
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
                 , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion) reclamos
                 , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion),0) reiteraciones
+                ,case 
+                    when af.gestion in ('CON SUMINISTRO', 'SE TRASLADA', 'CON AUTONOMÍA', 'GE INSTALADO') then 1
+                    when af.gestion = 'ATENDIDO' then 2
+                    when af.gestion = 'NUEVO' then 3
+                    when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
+                    else 0
+                end as prioridad
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
                 and (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0)=1
-                order by a.idafectacion
+                )
+                order by
+                estado DESC
+                ,prioridad DESC
+                ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
+                ,(reclamos+reiteraciones) DESC
+                ,(fae+ami+ge_propio)
                 ;
             ''').fetchall()
             return ami
@@ -332,17 +375,31 @@ class Tarjetas:
         try:
             # Ejecutar la consulta para obtener el resultado
             ge= self.cursor.execute('''
+                SELECT * FROM (
                 SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
 				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
 				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
 				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
                 , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion) reclamos
                 , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion),0) reiteraciones
+                ,case 
+                    when af.gestion in ('CON SUMINISTRO', 'SE TRASLADA', 'CON AUTONOMÍA', 'GE INSTALADO') then 1
+                    when af.gestion = 'ATENDIDO' then 2
+                    when af.gestion = 'NUEVO' then 3
+                    when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
+                    else 0
+                end as prioridad
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
                 and (gestion in ('REQUIERE GE','GE INSTALADO') or (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0)=1)
-                order by a.idafectacion
+                )
+                order by
+                estado DESC
+                ,prioridad DESC
+                ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
+                ,(reclamos+reiteraciones) DESC
+                ,(fae+ami+ge_propio)
                 ;
             ''').fetchall()
             return ge

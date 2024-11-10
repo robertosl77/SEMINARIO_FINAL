@@ -103,7 +103,7 @@ class Datos:
                             afectacion[0][1]))  
                         # Normaliza Reclamos
                         sql= '''
-                            UPDATE afectaciones_reclamos SET logfin= ? WHERE idafectacion = ? AND cuenta in (select cuenta from clientes where logfin=0 and ct= ?)
+                            UPDATE afectaciones_reclamos SET logfin= ?, fecha_sysdate=CURRENT_TIMESTAMP WHERE idafectacion = ? AND cuenta in (select cuenta from clientes where logfin=0 and ct= ?)
                         '''
                         self.cursor.execute(sql, (
                             logfin,
@@ -245,8 +245,8 @@ class Datos:
                         cantr+=1
                     # 
                     self.cursor.execute('''
-                        INSERT INTO afectaciones_reclamos (idafectacion, cuenta, fecha, reiteracion, logini, logfin)
-                        VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?)
+                        INSERT INTO afectaciones_reclamos (idafectacion, cuenta, fecha, fecha_sysdate, reiteracion, logini, logfin)
+                        VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)
                     ''', (idafectacion,cuenta[0],reiteracion,logini,logfin,))
                     cant+= 1
             # id = self.cursor.lastrowid

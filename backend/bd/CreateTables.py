@@ -284,7 +284,7 @@ class CreateTables:
                     # 
                     sql= '''
                         INSERT INTO clientes (cuenta, nombre_cliente, calle, numero, piso_dpto, idlocalidad, ct, x, y, logini, logfin)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     '''
                     self.cursor.execute(sql, (
                         cuenta, 
@@ -297,9 +297,10 @@ class CreateTables:
                         entry['x'], 
                         entry['y'], 
                         logini, 
-                        logfin))
+                        logfin
+                    ))
+
                     
-                
             # Confirmar los cambios
             self.conn.commit()
             print("Success: Los datos se han insertado correctamente en la tabla 'clientes'.")
@@ -870,6 +871,7 @@ class CreateTables:
                     reiteracion INTEGER NOT NULL, 
                     logini INTEGER NOT NULL,
                     logfin INTEGER,
+                    fecha_sysdate DATE,
                     FOREIGN KEY (cuenta) REFERENCES clientes(cuenta),
                     FOREIGN KEY (idafectacion) REFERENCES afectaciones(idafectacion)
                 )
