@@ -9,7 +9,7 @@ function Dashboard({ setData }) {
     reiteracion: 0,
     duracion: 0,
     sin_autonomia: 0,
-    sin_gestion: 0,
+    nuevos: 0,
     fae: 0,
     ami: 0,
     ge: 0,
@@ -36,7 +36,7 @@ function Dashboard({ setData }) {
         reiteracion: result.dashboard[3] || 0,
         duracion: result.dashboard[4] || 0,
         sin_autonomia: result.dashboard[5] || 0,
-        sin_gestion: result.dashboard[6] || 0,
+        nuevos: result.dashboard[6] || 0,
         fae: result.dashboard[7] || 0,
         ami: result.dashboard[8] || 0,
         ge: result.dashboard[9] || 0,
@@ -107,12 +107,12 @@ function Dashboard({ setData }) {
             <div className="dashboard-number">{dashboardData.sin_autonomia}</div>
           </div>
           <div 
-            className={`dashboard-card ${selectedCard === 'sin_gestion' ? 'selected' : ''}`} 
-            onClick={() => handleCardClick('sin_gestion')}
+            className={`dashboard-card ${selectedCard === 'nuevos' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('nuevos')}
             title="Clientes sin llamar."
           >
-            <div className="dashboard-title">SIN GESTIÓN</div>
-            <div className="dashboard-number">{dashboardData.sin_gestion}</div>
+            <div className="dashboard-title">NUEVOS</div>
+            <div className="dashboard-number">{dashboardData.nuevos}</div>
           </div>
           <div 
             className={`dashboard-card ${selectedCard === 'fae' ? 'selected' : ''}`} 
