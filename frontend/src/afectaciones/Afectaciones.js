@@ -24,7 +24,7 @@ function Afectaciones() {
   const [selectedView, setSelectedView] = useState(null);
   const [gestionData, setGestionData] = useState(null);
   const [visible, setVisible] = useState(false);
-  const [showContacto, setShowContacto] = useState(1); // Estado para controlar la pestaña activa
+  const [showContacto, setShowContacto] = useState(3); // Estado para controlar la pestaña activa
 
   const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria) => {
     setVisible(false);
@@ -50,7 +50,7 @@ function Afectaciones() {
         <ModalPanel isVisible={visible} onClose={() => setVisible(false)}>
           <div>
             {/* Los botones se muestran solo cuando un afectado está seleccionado */}
-            {visible && (
+            {visible && false && (
               <div className="boton-container">
                 <div id="boton" onClick={() => handleTabClick(1)}>Solución Provisoria</div>
                 <div id="boton" onClick={() => handleTabClick(2)}>Nota</div>
@@ -84,7 +84,19 @@ function Afectaciones() {
 
               {showContacto === 3 && (
                 <div className="solucionContacto">
-                  <GestionContacto {...gestionData} />
+                  <GestionContacto 
+                    {...gestionData}
+                    solucion_provisoria={data?.solucion_provisoria || []} 
+                    onGestionChange={(nuevaGestion) => {
+                      const updatedData = data.afectados.map(afectado =>
+                        afectado.cuenta === gestionData.cuenta
+                          ? { ...afectado, gestion: nuevaGestion } // Asegúrate de que se actualice `gestion`
+                          : afectado
+                      );
+                      setData({ ...data, afectados: updatedData });
+                    }}
+                    
+                  />
                 </div>
               )}
 
