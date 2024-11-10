@@ -79,31 +79,29 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
       <div className="container-superior">
         <h3>Contacto</h3>
 
-        <div className="checkbox-container">
-          <select id="solucionSelect" value={selectedSolucion} onChange={handleSolucionChange}>
-            {solucion_provisoria.map((solucion, index) => (
-              <option key={index} value={solucion}>
-                {solucion}
-              </option>
-            ))}
-          </select>
+        <select id="solucionSelect" value={selectedSolucion} onChange={handleSolucionChange}>
+          {solucion_provisoria.map((solucion, index) => (
+            <option key={index} value={solucion}>
+              {solucion}
+            </option>
+          ))}
+        </select>
 
-
-        </div>        
-
-        <div id="contenedorTelefono">
+        <div id="contenedorTelefono" className="telefono-contacto-container">
           {/* Selector de teléfonos */}
-          <div>
+          <div className="telefono-select-wrapper">
             <select
               id="telefonoSelect"
               value={selectedTelefono}
               onChange={(e) => setSelectedTelefono(e.target.value)}
-              className="telefonoSelect" // Aplicar estilo de maquetado
+              className="telefonoSelect"
             >
-              <option value=""></option>
+              <option value="">Selecciona un teléfono</option>
               {telefonosOrdenados.map((telefono) => (
                 <option key={telefono.idtelefono} value={telefono.idtelefono}>
-                  {telefono.telefono} (Efectividad: {(telefono.efectivas / telefono.llamadas) * 100}%)
+                  {telefono.telefono} (Efectividad: {isNaN(telefono.efectivas / telefono.llamadas * 100)
+                    ? 0
+                    : Math.round((telefono.efectivas / telefono.llamadas) * 100)}%)
                 </option>
               ))}
             </select>
@@ -122,10 +120,8 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
               <span className="slider"></span>
             </label>
           </div>
-
-
-         
         </div>
+
         {/* Campo de texto para observaciones */}
         <div>
           <textarea
