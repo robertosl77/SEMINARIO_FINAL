@@ -1,3 +1,19 @@
+#content {
+  /* background-color: #d1c029; */
+  /* display: flex; */
+  margin-top: 200px;
+  overflow-y: auto;
+  height: calc(100vh - 180px);
+  padding-bottom: 60px; /* Ajusta este valor según la altura del footer */
+}
+
+#left-panel {
+  width:calc(100vh);
+  /* background-color: #69bdee; */
+  padding: 10px;
+  overflow-y: auto;
+}
+
 .styled-table {
     border: 1px solid black; /* Aplica un borde sólido a toda la tabla */
     font-size: 10px;         /* Tamaño de la fuente */
