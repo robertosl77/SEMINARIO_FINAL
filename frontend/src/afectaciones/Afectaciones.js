@@ -63,14 +63,15 @@ function Afectaciones() {
                 <GestionSolucion
                   {...gestionData}
                   solucion_provisoria={data?.solucion_provisoria || []} 
-                  onGestionChange={(nuevaSolucion) => {
+                  onGestionChange={(nuevaGestion) => {
                     const updatedData = data.afectados.map(afectado =>
                       afectado.cuenta === gestionData.cuenta
-                        ? { ...afectado, solucion_provisoria: nuevaSolucion }
+                        ? { ...afectado, gestion: nuevaGestion } // Asegúrate de que se actualice `gestion`
                         : afectado
                     );
                     setData({ ...data, afectados: updatedData });
                   }}
+                  
                 />
               )}
             </div>
