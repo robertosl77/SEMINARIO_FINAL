@@ -34,7 +34,7 @@ function Navbar() {
       </div>
       <span className="navbar-title">Sistema de Gestión para Electrodependientes</span>
       <ul className="navbar-links">
-        {['admin', 'operador', 'consulta'].includes(rol) && <li><Link to="/SGE/Manager">Manager</Link></li>}
+        {['admin', 'operador', 'consulta'].includes(rol) && <li><Link to="/SGE/Afectaciones">Afectaciones</Link></li>}
         {['admin', 'operador'].includes(rol) && <li><Link to="/SGE/Climatica">Climatica</Link></li>}
         {['admin'].includes(rol) && <li><Link to="/SGE/Clientes">Clientes</Link></li>}
         <li className="user-dropdown" onClick={toggleDropdown}>
