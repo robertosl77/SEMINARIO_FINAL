@@ -148,7 +148,7 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
           </div>
         )}        
       </div>
-      <style jsx>{`
+      <style>{`
         .success-message {
           margin-top: 10px;
           padding: 10px;

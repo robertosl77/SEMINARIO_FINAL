@@ -34,7 +34,7 @@ function Afectado({
     const fechaInicio = new Date(inicio);
     const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
     const diferenciaMs = fechaRestitucion - fechaInicio;
-    return Math.floor(diferenciaMs / (1000 * 60 * 60)); // Convierte ms a horas
+    return Math.floor(diferenciaMs / (1000 * 60 * 60))+3; // Convierte ms a horas
   };
 
   const handleclick = () => {
@@ -73,7 +73,7 @@ function Afectado({
       </div>
       <div className="afectado-body">
         <div className="afectado-etiquetas">
-          <div className="afectado-afectaciones">Afectaciones: {afectaciones.length}</div>
+          {/* <div className="afectado-afectaciones">Afectaciones: {afectaciones.length}</div> */}
           <div className="afectado-reclamos">Reclamos: {cant_reclamos}</div>
           <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
           <div className="afectado-aparatologias">Aparatologias: {aparatologias.length}</div>

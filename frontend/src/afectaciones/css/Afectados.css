@@ -3,15 +3,16 @@ body {
 }
 
 #content {
+  width: 900px;
   margin-top: 200px;
   height: calc(100vh - 180px);
   padding: 15px 20px;
-  padding-bottom: 60px; /* Ajusta según la altura del footer */
+  padding-bottom: 60px;
   background-color: #ffffff; /* Fondo blanco para destacar contenido */
   border-radius: 12px; /* Bordes redondeados */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   border: 1px solid #e0e0e0; /* Borde sutil */
-  overflow-y: auto; /* Mantiene el desplazamiento si es necesario */
+  overflow-y: auto;
   scrollbar-width: thin; /* Ajusta el grosor de la barra de desplazamiento (Firefox) */
 }
 

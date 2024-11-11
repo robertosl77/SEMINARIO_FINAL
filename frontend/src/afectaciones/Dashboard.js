@@ -51,7 +51,7 @@ function Dashboard({ setData }) {
   }, [setData]);
 
   useEffect(() => {
-    handleCardClick('todos'); // Llama al endpoint 'todos' al cargar el componente
+    handleCardClick('afectados'); // Llama al endpoint 'todos' al cargar el componente
   }, [handleCardClick]);
 
   return (
