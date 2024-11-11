@@ -27,12 +27,14 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente                                           
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0  
                 order by a.idafectacion
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,(reclamos+reiteraciones) DESC
                 ,(fae+ami+ge_propio)
@@ -65,11 +67,13 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin<>0 and af.logfin=0
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,(reclamos+reiteraciones) DESC
                 ,(fae+ami+ge_propio)
@@ -102,6 +106,7 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
                 where a.idafectacion=af.idafectacion 
 				and af.idafectacion=e.idafectacion 
@@ -114,6 +119,7 @@ class Tarjetas:
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,(reclamos+reiteraciones) DESC
                 ,(fae+ami+ge_propio)
@@ -146,6 +152,7 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
                 where a.idafectacion=af.idafectacion 
 				and af.idafectacion=e.idafectacion 
@@ -159,6 +166,7 @@ class Tarjetas:
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,(reclamos+reiteraciones) DESC
                 ,(fae+ami+ge_propio)
@@ -191,12 +199,14 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > 4
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,CAST((julianday('now') - julianday(inicio)) * 24 AS INTEGER) DESC
                 ,(reclamos+reiteraciones) DESC
@@ -230,12 +240,14 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and CAST((julianday('now') - julianday(e.inicio)) * 24 AS INTEGER) > ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=af.cuenta),0)
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
                 ,(reclamos+reiteraciones) DESC
@@ -269,6 +281,7 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and (select count(1) from afectaciones_contactos where cuenta=af.cuenta and idafectacion=af.idafectacion)=0
@@ -276,6 +289,7 @@ class Tarjetas:
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
                 ,(reclamos+reiteraciones) DESC
@@ -309,6 +323,7 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
@@ -316,6 +331,7 @@ class Tarjetas:
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
                 ,(reclamos+reiteraciones) DESC
@@ -349,6 +365,7 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, clientes c
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=c.cuenta
                 and e.logfin=0 and af.logfin=0
@@ -356,6 +373,7 @@ class Tarjetas:
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
                 ,(reclamos+reiteraciones) DESC
@@ -389,6 +407,7 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
@@ -396,6 +415,7 @@ class Tarjetas:
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
                 ,(reclamos+reiteraciones) DESC
@@ -455,11 +475,13 @@ class Tarjetas:
                     when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
                     else 0
                 end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.logfin=0  
                 )
                 order by
                 estado DESC
+                ,reclamo_reciente DESC
                 ,prioridad DESC
                 ,(reclamos+reiteraciones) DESC
                 ,(fae+ami+ge_propio)

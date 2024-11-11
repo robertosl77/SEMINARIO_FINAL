@@ -259,6 +259,18 @@ class Datos:
             print(f"Fail: Error al insertar datos en la tabla 'afectaciones_reclamos'. Detalle: {e}")
             return [0,0]
 
+    def reclamos_reiteraciones(self):
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()
+        try:
+            afectaciones= self.cursor.execute('select a.idafectacion from afectaciones a where a.restitucion is null and (select count(1) from afectaciones_elementos where idafectacion=a.idafectacion and restitucion is null)>0;').fetchall()
+            for afectacion in afectaciones:
+                self.nueva_afectacion_reclamos(afectacion[0])
+        except sqlite3.Error as e:        
+            print(f"Error al obtener afectaciones activas: {e}")
+        finally:
+            self.cursor.close
+
     def cambia_gestion(self, cuenta,idafectacion, nueva_solucion):
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()        

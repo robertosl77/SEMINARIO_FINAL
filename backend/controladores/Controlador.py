@@ -85,7 +85,13 @@ class Controlador:  # Cambié el nombre de la clase a 'ServiciosHandler'
         a = ServicioAfectaciones()
         json = a.nuevo_corte_at(ssee)
         return json, 200
-    
+
+    @app.route('/API/AF/GeneraReclamos', methods=['POST'])
+    def GeneraReclamos():
+        a = ServicioAfectaciones()
+        json = a.reclamos_reiteraciones()
+        return json, 200  
+
     @app.route('/API/AF/NormalizarSinAfectaciones', methods=['POST'])
     def NormalizarNoAfectados():
         a = ServicioAfectaciones()
