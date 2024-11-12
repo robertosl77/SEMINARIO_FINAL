@@ -26,26 +26,45 @@ const ModalPanelControl = ({ isVisible, onClose }) => {
     }
 }, [rol, onClose]);
 
-  const handleNuevaAfectacion = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/API/AF/NuevaAfectacionAT/0', {
-        method: 'POST',
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Nueva Afectación creada:', data);
-        alert('Nueva Afectación creada con éxito.');
-        window.location.reload();
-      } else {
-        alert('Error al crear la nueva afectación.');
-      }
-    } catch (error) {
-      console.error('Error al crear una nueva afectación:', error);
-      alert('Hubo un error al crear la nueva afectación.');
+const handleNuevaBD = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/API/BD/CreaTablas', {
+      method: 'POST',
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Nueva Base de Datos creada:', data);
+      alert('Nueva Base de Datos creada con éxito.');
+      window.location.reload();
+    } else {
+      alert('Error al crear la Base de Datos.');
     }
-  };
+  } catch (error) {
+    console.error('Error al crear la Base de Datos:', error);
+    alert('Hubo un error al crear la Base de Datos.');
+  }
+};
 
-  const handleNuevosReclamos = async () => {
+const handleNuevaAfectacion = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/API/AF/NuevaAfectacionAT/0', {
+      method: 'POST',
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Nueva Afectación creada:', data);
+      alert('Nueva Afectación creada con éxito.');
+      window.location.reload();
+    } else {
+      alert('Error al crear la nueva afectación.');
+    }
+  } catch (error) {
+    console.error('Error al crear una nueva afectación:', error);
+    alert('Hubo un error al crear la nueva afectación.');
+  }
+};
+
+const handleNuevosReclamos = async () => {
     try {
       const response = await fetch('http://localhost:5000/API/AF/GeneraReclamos', {
         method: 'POST',
@@ -91,6 +110,7 @@ const ModalPanelControl = ({ isVisible, onClose }) => {
     <div className={`panel-control ${isVisibleLocal ? 'visible' : 'hidden'}`}>
       <div className="panel-content">
         <h2>Panel de Control</h2>
+        <button className="control-button danger" title="Crea la base de datos, junto con tablas y el poblado de datos simulados. " onClick={handleNuevaBD}>Nueva BD SQLite</button>
         <button className="control-button" title="Crea una nueva afectación aleatoria. " onClick={handleNuevaAfectacion}>Nueva Afectación</button>
         <button className="control-button" title="Crea reclamos unicamente en afectaciones existentes. " onClick={handleNuevosReclamos}>Nuevos Reclamos</button>
         <button className="control-button" title="Normaliza afectaciones aleatorias. " onClick={handleNormalizaAfectaciones}>Normaliza Afectaciones</button>

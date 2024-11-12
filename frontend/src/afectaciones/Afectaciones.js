@@ -19,6 +19,8 @@ import './css/objeto_boton.css'
 import './css/objeto_SwitchStyle.css'
 
 function Afectaciones() {
+  // const username = sessionStorage.getItem('username');
+  const rol = sessionStorage.getItem('rol');
   const [data, setData] = useState(null);
   const [selectedView, setSelectedView] = useState(null);
   const [gestionData, setGestionData] = useState(null);
@@ -43,6 +45,7 @@ function Afectaciones() {
       <ModalPanel isVisible={visible} onClose={() => setVisible(false)}>
         <div>
           <div>
+            {rol!=='consulta' && (
             <div className="solucionContacto">
               <GestionContacto 
                 {...gestionData}
@@ -58,6 +61,7 @@ function Afectaciones() {
                 
               />
             </div>
+            )}
 
           </div>
           <div>

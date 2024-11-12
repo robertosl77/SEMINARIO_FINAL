@@ -109,7 +109,7 @@ function Dashboard({ setData }) {
           <div 
             className={`dashboard-card ${selectedCard === 'nuevos' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('nuevos')}
-            title="Clientes sin llamar."
+            title="Clientes sin ningun tipo de gestion."
           >
             <div className="dashboard-title">NUEVOS</div>
             <div className="dashboard-number">{dashboardData.nuevos}</div>
