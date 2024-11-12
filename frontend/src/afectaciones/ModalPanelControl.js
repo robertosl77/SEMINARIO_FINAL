@@ -27,6 +27,12 @@ const ModalPanelControl = ({ isVisible, onClose }) => {
 }, [rol, onClose]);
 
 const handleNuevaBD = async () => {
+  const confirmacion = window.confirm('¿Estás seguro de que deseas crear una nueva base de datos?');
+
+  if (!confirmacion) {
+    return; // Si el usuario cancela, no se ejecuta el código
+  }
+  
   try {
     const response = await fetch('http://localhost:5000/API/BD/CreaTablas', {
       method: 'POST',
