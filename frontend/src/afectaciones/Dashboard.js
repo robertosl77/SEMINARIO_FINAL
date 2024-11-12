@@ -48,7 +48,7 @@ function Dashboard({ setData }) {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }, [setData]);
+  }, [setData, setSelectedCard]);
 
   useEffect(() => {
     handleCardClick('afectados'); // Llama al endpoint 'todos' al cargar el componente
