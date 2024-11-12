@@ -1,7 +1,7 @@
 # 726e87aa626942da836185317242108
 import requests
 
-class ServiciosTormentas:
+class ServicioTormentas:
     def __init__(self, api_key):
         self.api_key = api_key
         self.base_url = "http://api.weatherapi.com/v1/forecast.json"

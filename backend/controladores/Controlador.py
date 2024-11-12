@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from jsons.JsonValidador import JsonValidador
+from servicios.ServicioClientes import ServicioClientes
 from servicios.ServicioCreaTablas import ServicioCreaTablas
 from servicios.ServicioAfectaciones import ServicioAfectaciones
-from servicios.ServiciosManager import ServiciosManager
+from servicios.ServicioManager import ServicioManager
 from servicios.ServicioGestor import ServicioGestor
 import re
 
@@ -110,10 +111,10 @@ class Controlador:  # Cambié el nombre de la clase a 'ServiciosHandler'
         json = a.normalizar_afectacion(idafectacion)
         return json, 200  
 
-    @app.route('/API/MN/GestionaTarjeta/<tarjeta>', methods=['POST'])
+    @app.route('/API/MN/GestionaTarjeta/<tarjeta>', methods=['GET'])
     def GestionaTarjeta(tarjeta):
         # Crear un diccionario para el JSON de éxito
-        m = ServiciosManager(tarjeta)
+        m = ServicioManager(tarjeta)
         json= m.gestiona_tarjeta()
         # Devolver el JSON de éxito
         return jsonify(json)
@@ -157,8 +158,12 @@ class Controlador:  # Cambié el nombre de la clase a 'ServiciosHandler'
         # Devolver el JSON de éxito
         return jsonify(json)
 
-
-
+    @app.route('/API/CL/ObtieneClientes', methods=['GET'])
+    def ObtieneClientes():
+        c = ServicioClientes()
+        json= c.obtiene_clientes()
+        # Devolver el JSON de éxito
+        return jsonify(json) 
 
 
     @app.route('/API/ME/ProximasTormentas', methods=['POST'])

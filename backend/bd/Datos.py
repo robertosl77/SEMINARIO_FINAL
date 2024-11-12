@@ -330,7 +330,59 @@ class Datos:
             self.conn.rollback()
             print(f"Fail: Error al actualizar la gestion en la tabla 'afectaciones_contactos'. Detalle: {e}")
             return False         
-            
+
+    def obtiene_clientes(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            clientes= self.cursor.execute('''
+                select * from (
+                select 
+                c.cuenta
+                ,c.nombre_cliente
+                ,c.calle
+                ,c.numero
+                ,c.piso_dpto
+                ,g.localidad
+                ,g.partido
+                ,c.ct
+                ,al.alim
+                ,se.ssee
+                ,c.x
+                ,c.y
+                ,(select fecha from log where idlog=c.logini) fecha_in_sistema
+                ,(select fecha from log where idlog=c.logfin) fecha_out_sistema
+                ,p.inicio_recs
+                ,p.fin_recs
+                ,CASE 
+                    WHEN p.fin_recs <> '' THEN 100
+                    ELSE CAST(ROUND(((julianday('now') - julianday(p.inicio_recs)) / 730) * 100) AS INTEGER)
+                END AS vigencia
+                from 
+                clientes c
+                ,geografico g
+                ,ct ct
+                ,alim al
+                ,ssee se
+                ,clientes_pacientes p
+                where
+                c.idlocalidad=g.idlocalidad
+                and c.ct=ct.ct
+                and ct.alim=al.alim
+                and al.idssee=se.idssee
+                and c.cuenta=p.cuenta
+                )
+                order by 
+                fin_recs
+                ,vigencia desc
+            ''').fetchall()
+            return clientes
+        except sqlite3.Error as e:        
+            print(f"Error al obtener los clientes: {e}")
+            return []
+        finally:
+            self.cursor.close            
 
 # # Ejemplo de uso
 # if __name__ == "__main__":
