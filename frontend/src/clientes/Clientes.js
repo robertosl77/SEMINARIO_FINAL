@@ -72,7 +72,7 @@ function Clientes() {
   return (
     <div>
       <Navbar />
-      <div className="content">
+      <div className="clientes-content">
         <h3>Clientes</h3>
         <table {...getTableProps()}>
           <thead>

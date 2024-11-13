@@ -11,7 +11,7 @@ function Afectados({ data, onCardClick }) {
   };
 
   return (
-    <div id="content">
+    <div id="afectados-content">
       {data && data.afectados && data.afectados.length > 0 ? (
         <div>
           {data.afectados.map((afectado, index) => (

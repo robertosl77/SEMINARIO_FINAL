@@ -47,11 +47,11 @@ function Login() {
               />
               <button type="submit">Login</button>
             </form>
-            <div className="version-info">
-              <p>Frontend Version: 1.5.3</p>
-              <p>Backend Version: 1.5.2</p>
+            <div className="login-version-info">
+              <p>Frontend Version: 1.5.4</p>
+              <p>Backend Version: 1.5.3</p>
             </div>
-            <div className="additional-info">
+            <div className="login-additional-info">
               <p>Autor: Roberto Sanchez Leiva</p>
               <p>Legajo: VINF012641</p>
               <p>Carrera: Licenciatura en Informática - Siglo 21</p>

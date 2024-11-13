@@ -81,14 +81,14 @@
 }
 
 /* Estilo para la información de versión */
-.version-info {
+.login-version-info {
   margin-top: 15px;
   font-size: 12px;
   color: #666;
 }
 
 /* Información adicional */
-.additional-info {
+.login-additional-info {
   margin-top: 10px;
   font-size: 12px;
   color: #666;

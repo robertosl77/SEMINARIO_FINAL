@@ -1,15 +1,15 @@
 /* Estilo general para la página de Clientes */
-.content {
-    width: calc(100vh-20px);
+.clientes-content {
+    max-height: 90vh;
+    width: 100vv;
     margin: 0 auto;
-    padding: 20px;
+    margin-top: 40px; /* Ajusta según la altura de tu navbar */
+    padding: 40px;
     font-family: 'Roboto', sans-serif;
     background-color: #f4f7fc;
-    max-height: 100vh;
     overflow-y: auto;
     scrollbar-width: thin; /* Ajusta el grosor de la barra de desplazamiento (Firefox) */
-    padding-right: 10px;
-  }
+}
 
 /* Encabezado de la página */
 h3 {
