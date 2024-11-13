@@ -45,36 +45,6 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
       .catch(error => console.error('Error:', error));
   };
 
-  const handleNormalizarSubmit = () =>{
-    const normalizaData = {
-      "cuenta": cuenta,
-      "idafectacion": idafectacion,
-      "usuario": sessionStorage.getItem('username'),
-    };
-
-    fetch(`http://localhost:5000/API/AF/NormalizaAfectado/${cuenta}/${idafectacion}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(normalizaData),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          setContacto('');
-          setSelectedTelefono('');
-          setEfectivo(0); 
-          setShowSuccess(true);
-
-          setTimeout(() => {
-            setShowSuccess(false);
-          }, 3000);
-        }
-      })
-      .catch(error => console.error('Error:', error));
-  };
-
   // Función para manejar el cambio de la solución provisoria
   const handleSolucionChange = (event) => {
     const nuevaSolucion = event.target.value;
@@ -164,8 +134,6 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
 
         {/* Botón para enviar el contacto */}
         <button id="boton" onClick={handleContactoSubmit}>Guardar Contacto</button>
-        {/* Botón para Normalizar */}
-        <button id="boton" onClick={handleNormalizarSubmit}>Normalizar</button>
 
         {/* Mostrar el mensaje de éxito */}
         {showSuccess && (
