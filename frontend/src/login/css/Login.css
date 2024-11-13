@@ -1,37 +1,57 @@
-/* Estilo básico para el cuerpo */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  margin: 0;
-  padding: 0;
+/* Contenedor principal */
+.login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f0f2f5; /* Fondo de página */
 }
 
-/* Estilo del contenedor principal */
+/* Contenedor principal del login */
 .login-container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  max-width: 400px;
-  margin-top: -200px; /* Ajuste del margen superior */
+  max-width: 900px;
 }
 
-/* Estilo del título */
-.login-container h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
+/* Imagen de fondo del panel */
+.login-background {
+  background-image: url('../../img/edp_panel.jpg'); /* Ruta correcta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenido del login */
+.login-content {
+  background-color: rgba(255, 255, 255, 0.95); /* Fondo semitransparente */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 300px;
   text-align: center;
 }
 
+/* Estilo del título */
+.login-content h1 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #333;
+}
+
 /* Estilo de los inputs */
-.login-container input[type="text"],
-.login-container input[type="password"] {
+.login-content input[type="text"],
+.login-content input[type="password"] {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -42,7 +62,7 @@ body {
 }
 
 /* Estilo del botón */
-.login-container button {
+.login-content button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -55,6 +75,21 @@ body {
 }
 
 /* Efecto hover para el botón */
-.login-container button:hover {
+.login-content button:hover {
   background-color: #0056b3;
+}
+
+/* Estilo para la información de versión */
+.version-info {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Información adicional */
+.additional-info {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
 }
