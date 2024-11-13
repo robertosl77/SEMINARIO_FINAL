@@ -48,7 +48,7 @@ function Login() {
               <button type="submit">Login</button>
             </form>
             <div className="version-info">
-              <p>Frontend Version: 1.5.2</p>
+              <p>Frontend Version: 1.5.3</p>
               <p>Backend Version: 1.5.2</p>
             </div>
             <div className="additional-info">
