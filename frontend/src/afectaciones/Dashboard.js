@@ -21,7 +21,7 @@ function Dashboard({ setData }) {
   const handleCardClick = useCallback(async (endpoint) => {
     try {
       const response = await fetch(`http://localhost:5000/API/MN/GestionaTarjeta/${endpoint}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },

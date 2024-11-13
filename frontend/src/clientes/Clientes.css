@@ -1,0 +1,100 @@
+/* Estilo general para la página de Clientes */
+.content {
+    width: calc(100vh-20px);
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fc;
+    max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin; /* Ajusta el grosor de la barra de desplazamiento (Firefox) */
+    padding-right: 10px;
+  }
+
+/* Encabezado de la página */
+h3 {
+    font-size: 24px; /* Ajustamos el tamaño del encabezado */
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilo para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    font-size: 14px; /* Ajustamos el tamaño de la fuente en la tabla */
+    table-layout: auto;
+    border-radius: 10px; /* Añadimos bordes redondeados */
+    overflow: hidden;
+}
+
+/* Estilo para las celdas y encabezados */
+th, td {
+    padding: 12px 15px; /* Ajustamos el padding */
+    text-align: left;
+    border: 1px solid #e1e4e8;
+}
+
+/* Encabezado de las columnas */
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Fila de datos */
+td {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Fila al pasar el mouse por encima */
+tr:hover {
+    background-color: #f1f9ff;
+}
+
+/* Fila activa */
+tr:active {
+    background-color: #d3e7ff;
+}
+
+/* Añadir un fondo sutil al contenido de la tabla */
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+/* Semaforización de la vigencia (gradiente continuo de verde a rojo, con colores más pasteles) */
+.vigencia {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.vigencia[data-percent] {
+    /* Gradiente de verde a rojo, con colores pastel */
+    background-color: hsl(calc((100 - clamp(attr(data-percent number), 0, 100)) * 1.2), 70%, 80%);
+    color: #020202;
+}
+
+/* Valores extremos específicos con colores más pastel */
+.vigencia[data-percent='0'] {
+    background-color: hsl(120, 60%, 80%); /* Verde pastel */
+    color: #020202;
+}
+.vigencia[data-percent='100'] {
+    background-color: hsl(0, 70%, 80%); /* Rojo pastel */
+    color: #dee0e2;
+}
