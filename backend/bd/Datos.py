@@ -368,8 +368,7 @@ class Datos:
                     LEFT JOIN clientes_pacientes p ON c.cuenta = p.cuenta  -- Reemplazo del (+) por LEFT JOIN
                 )
                 ORDER BY 
-                fin_recs,
-                vigencia DESC
+                    nombre_cliente
             ''').fetchall()
             return clientes
         except sqlite3.Error as e:        
