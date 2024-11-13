@@ -366,6 +366,8 @@ class Datos:
                     LEFT JOIN alim al ON ct.alim = al.alim
                     LEFT JOIN ssee se ON al.idssee = se.idssee
                     LEFT JOIN clientes_pacientes p ON c.cuenta = p.cuenta  -- Reemplazo del (+) por LEFT JOIN
+                WHERE
+                    p.fin_recs = ''
                 )
                 ORDER BY 
                     nombre_cliente
