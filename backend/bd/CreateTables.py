@@ -369,6 +369,9 @@ class CreateTables:
     def crear_tabla_pacientes(self):
         try:
             self.cursor.execute('''
+                DROP TABLE clientes_pacientes
+                                ''')
+            self.cursor.execute('''
                 CREATE TABLE IF NOT EXISTS clientes_pacientes (
                     idpaciente INTEGER PRIMARY KEY AUTOINCREMENT,  -- ID autonumérico
                     cuenta INTEGER NOT NULL,  -- Número de cuenta, clave foránea de la tabla clientes
