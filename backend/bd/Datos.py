@@ -337,45 +337,39 @@ class Datos:
         try:
             # Ejecutar la consulta para obtener el resultado
             clientes= self.cursor.execute('''
-                select * from (
-                select 
-                c.cuenta
-                ,c.nombre_cliente
-                ,c.calle
-                ,c.numero
-                ,c.piso_dpto
-                ,g.localidad
-                ,g.partido
-                ,c.ct
-                ,al.alim
-                ,se.ssee
-                ,c.x
-                ,c.y
-                ,(select fecha from log where idlog=c.logini) fecha_in_sistema
-                ,(select fecha from log where idlog=c.logfin) fecha_out_sistema
-                ,p.inicio_recs
-                ,p.fin_recs
-                ,CASE 
-                    WHEN p.fin_recs <> '' THEN 100
+                SELECT * FROM (
+                SELECT 
+                    c.cuenta,
+                    c.nombre_cliente,
+                    c.calle,
+                    c.numero,
+                    c.piso_dpto,
+                    g.localidad,
+                    g.partido,
+                    c.ct,
+                    al.alim,
+                    se.ssee,
+                    c.x,
+                    c.y,
+                    (SELECT fecha FROM log WHERE idlog = c.logini) AS fecha_in_sistema,
+                    (SELECT fecha FROM log WHERE idlog = c.logfin) AS fecha_out_sistema,
+                    p.inicio_recs,
+                    p.fin_recs,
+                    CASE 
+                        WHEN p.fin_recs <> '' THEN 100
                     ELSE CAST(ROUND(((julianday('now') - julianday(p.inicio_recs)) / 730) * 100) AS INTEGER)
-                END AS vigencia
-                from 
-                clientes c
-                ,geografico g
-                ,ct ct
-                ,alim al
-                ,ssee se
-                ,clientes_pacientes p
-                where
-                c.idlocalidad=g.idlocalidad
-                and c.ct=ct.ct
-                and ct.alim=al.alim
-                and al.idssee=se.idssee
-                and c.cuenta=p.cuenta
+                    END AS vigencia
+                FROM 
+                    clientes c
+                    LEFT JOIN geografico g ON c.idlocalidad = g.idlocalidad
+                    LEFT JOIN ct ct ON c.ct = ct.ct
+                    LEFT JOIN alim al ON ct.alim = al.alim
+                    LEFT JOIN ssee se ON al.idssee = se.idssee
+                    LEFT JOIN clientes_pacientes p ON c.cuenta = p.cuenta  -- Reemplazo del (+) por LEFT JOIN
                 )
-                order by 
-                fin_recs
-                ,vigencia desc
+                ORDER BY 
+                fin_recs,
+                vigencia DESC
             ''').fetchall()
             return clientes
         except sqlite3.Error as e:        
