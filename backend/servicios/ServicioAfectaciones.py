@@ -122,6 +122,18 @@ class ServicioAfectaciones:
             # Devolver False en caso de error
             return json.dumps({"success": False, "error": str(e)})
 
+    def normalizar_afectado(self, cuenta, idafectacion):
+        try:
+            datos= Datos()
+            datos.normalizar_afectado(cuenta, idafectacion)
+            # 
+            return json.dumps({"success": True})
+        
+        except Exception as e:
+            # Devolver False en caso de error
+            return json.dumps({"success": False, "error": str(e)})
+
+
 
 # Ejemplo de uso
 # if __name__ == "__main__":

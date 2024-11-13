@@ -135,6 +135,41 @@ class Datos:
         finally:
             self.cursor.close
 
+    def normalizar_afectado(self, cuenta, idafectacion):
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()
+        try:
+            afectado= self.cursor.execute('select idafectado from afectaciones_afectados where cuenta = ? and idafectacion = ?',(cuenta, idafectacion,)).fetchall()
+            # 
+            logfin= self.insertar_datos_log(f"Normaliza Afectado - idafectado: {afectado[0][0]}.")
+            if logfin==0:
+                print("logfin es 0, operación cancelada.")
+                self.conn.rollback()  # Deshacer cualquier operación pendiente
+                return  # Salir de la función para evitar más operaciones                
+
+            sql= '''
+                UPDATE afectaciones_afectados SET gestion=?, logfin= ? WHERE idafectado = ?
+            '''
+            self.cursor.execute(sql, (
+                'NORMALIZADO',
+                logfin,
+                afectado[0][0]))  
+            # 
+            sql= '''
+                UPDATE afectaciones_reclamos SET logfin= ? WHERE idafectacion = ? and cuenta = ?
+            '''
+            self.cursor.execute(sql, (
+                logfin,
+                idafectacion,
+                cuenta
+                ))  
+            # 
+            self.conn.commit()                      
+        except sqlite3.Error as e:        
+            print(f"Error al obtener subestación: {e}")
+        finally:
+            self.cursor.close
+
     def generar_nro_afectacion(self, id):
         # Constante
         constante = 'A'
