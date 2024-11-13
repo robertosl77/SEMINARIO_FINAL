@@ -6,17 +6,32 @@ class JsonValidador:
         None
 
     def obtiene_usuario(self, username, password):
-        json_path = os.path.join('jsons', 'usuarios.json')
-        with open(json_path, 'r') as file:
-            users = json.load(file)
-        
-        for user_id, user_data in users.items():
-            if user_data['username'].lower() == username.lower() and user_data['password'] == password:
-                return user_data  # Devuelve todos los datos del usuario si es válido
-        return None  # Devuelve None si la validación falla
+        try:
+            json_path = os.path.join('backend', 'jsons', 'usuarios.json')
+            if not os.path.exists(json_path):
+                json_path = os.path.join('jsons', 'usuarios.json')  # Cambiar a la segunda opción si el primero no existe
+
+            if not os.path.exists(json_path):
+                raise FileNotFoundError(f"No se encontró el archivo usuarios.json en ninguna ruta conocida.")
+            
+            with open(json_path, 'r') as file:
+                users = json.load(file)
+            
+            for user_id, user_data in users.items():
+                if user_data['username'].lower() == username.lower() and user_data['password'] == password:
+                    return user_data  # Devuelve todos los datos del usuario si es válido
+        except FileNotFoundError as e:
+            print(e)
+            return None  # Devuelve None si el archivo no se encuentra
+        except json.JSONDecodeError as e:
+            print(f"Error al decodificar el archivo JSON: {e}")
+            return None
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+            return None
     
     def obtiene_rol(self,username):
-        json_path = os.path.join('jsons', 'usuarios.json')
+        json_path = os.path.join('backend', 'jsons', 'usuarios.json')
         with open(json_path, 'r') as file:
             users = json.load(file)
         # 
