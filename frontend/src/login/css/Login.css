@@ -13,12 +13,13 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 /* Imagen de fondo del panel */
 .login-background {
   background-image: url('../../img/edp_panel.jpg'); /* Ruta correcta */
+  height: 500px; /* Ajusta el valor para cambiar el alto */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
