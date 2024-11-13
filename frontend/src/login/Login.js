@@ -48,8 +48,8 @@ function Login() {
               <button type="submit">Login</button>
             </form>
             <div className="login-version-info">
-              <p>Frontend Version: 1.5.4</p>
-              <p>Backend Version: 1.5.3</p>
+              <p>Frontend Version: 1.6.2</p>
+              <p>Backend Version: 1.6.1</p>
             </div>
             <div className="login-additional-info">
               <p>Autor: Roberto Sanchez Leiva</p>
