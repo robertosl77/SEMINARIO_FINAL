@@ -65,18 +65,18 @@ class Controlador:  # Cambié el nombre de la clase a 'ServiciosHandler'
     def CreaTablas():
         try:
             crea_tablas= ServicioCreaTablas()
-            # crea_tablas.CreaTablaGeografico()
-            # crea_tablas.CreaTablaRed()
-            # crea_tablas.CreaTablaLog()
-            # crea_tablas.CreaTablaClientes()
-            # crea_tablas.CreaTablaPacientes()
-            # crea_tablas.CreaTablaArtefactos()
-            # crea_tablas.CreaTablaTelefonos()
-            # crea_tablas.CreaTablaContactos()
-            # crea_tablas.CreaTablaAfectaciones()
-            # crea_tablas.CreaTablaMarcas()
-            # crea_tablas.CreaTablaAfectados()
-            # crea_tablas.CreaTablaReclamos()
+            crea_tablas.CreaTablaGeografico()
+            crea_tablas.CreaTablaRed()
+            crea_tablas.CreaTablaLog()
+            crea_tablas.CreaTablaClientes()
+            crea_tablas.CreaTablaPacientes()
+            crea_tablas.CreaTablaArtefactos()
+            crea_tablas.CreaTablaTelefonos()
+            crea_tablas.CreaTablaContactos()
+            crea_tablas.CreaTablaAfectaciones()
+            crea_tablas.CreaTablaMarcas()
+            crea_tablas.CreaTablaAfectados()
+            crea_tablas.CreaTablaReclamos()
             return jsonify({"success": True}), 200
         except Exception as e:
             return jsonify({f"Error {e}: ": False}), 401
