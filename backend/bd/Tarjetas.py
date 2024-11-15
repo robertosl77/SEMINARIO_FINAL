@@ -107,7 +107,20 @@ class Tarjetas:
                     else 0
                 end as prioridad
                 , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
-                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
+                FROM 
+                    afectaciones a, 
+                    afectaciones_afectados af, 
+                    afectaciones_elementos e, (
+                                                SELECT ar.*
+                                                FROM afectaciones_reclamos ar
+                                                INNER JOIN (
+                                                    SELECT idafectacion, cuenta, MAX(fecha_sysdate) AS max_fecha_sysdate
+                                                    FROM afectaciones_reclamos
+                                                    GROUP BY idafectacion, cuenta
+                                                ) AS sub
+                                                ON ar.idafectacion = sub.idafectacion 
+                                                AND ar.cuenta = sub.cuenta 
+                                                AND ar.fecha_sysdate = sub.max_fecha_sysdate) r
                 where a.idafectacion=af.idafectacion 
 				and af.idafectacion=e.idafectacion 
 				and af.ct=e.ct 
@@ -707,7 +720,22 @@ class Tarjetas:
             # Reclamos
             tarjeta = self.cursor.execute('''
                 SELECT count(1)
-                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e, afectaciones_reclamos r
+                FROM 
+					afectaciones a, 
+					afectaciones_afectados af, 
+					afectaciones_elementos e, 
+					(
+						SELECT ar.*
+						FROM afectaciones_reclamos ar
+						INNER JOIN (
+							SELECT idafectacion, cuenta, MAX(fecha_sysdate) AS max_fecha_sysdate
+							FROM afectaciones_reclamos
+							GROUP BY idafectacion, cuenta
+						) AS sub
+						ON ar.idafectacion = sub.idafectacion 
+						AND ar.cuenta = sub.cuenta 
+						AND ar.fecha_sysdate = sub.max_fecha_sysdate					
+					) r
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and af.cuenta=r.cuenta and a.idafectacion=r.idafectacion and e.logfin=0 and af.logfin=0 and r.logfin=0;
             ''').fetchone()
             dashboard.append(tarjeta[0])
@@ -745,12 +773,13 @@ class Tarjetas:
                 ;
             ''').fetchone()
             dashboard.append(tarjeta[0])
-            # Sin Contacto
+            # Nuevos
             tarjeta = self.cursor.execute(''' 
                 SELECT count(1)
                 FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
                 and (select count(1) from afectaciones_contactos where cuenta=af.cuenta and idafectacion=af.idafectacion)=0
+				and af.gestion='NUEVO'
                 ;
             ''').fetchone()
             dashboard.append(tarjeta[0])            

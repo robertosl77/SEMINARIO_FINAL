@@ -21,7 +21,7 @@ function Dashboard({ setData }) {
   const handleCardClick = useCallback(async (endpoint) => {
     try {
       const response = await fetch(`http://localhost:5000/API/MN/GestionaTarjeta/${endpoint}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -48,7 +48,7 @@ function Dashboard({ setData }) {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }, [setData]);
+  }, [setData, setSelectedCard]);
 
   useEffect(() => {
     handleCardClick('afectados'); // Llama al endpoint 'todos' al cargar el componente
@@ -109,7 +109,7 @@ function Dashboard({ setData }) {
           <div 
             className={`dashboard-card ${selectedCard === 'nuevos' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('nuevos')}
-            title="Clientes sin llamar."
+            title="Clientes sin ningun tipo de gestion."
           >
             <div className="dashboard-title">NUEVOS</div>
             <div className="dashboard-number">{dashboardData.nuevos}</div>

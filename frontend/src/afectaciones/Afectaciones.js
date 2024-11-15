@@ -11,20 +11,20 @@ import ListaContactos from './detalles/ListaContactos';
 import ListaPacientes from './detalles/ListaPacientes';
 import ListaMarcas from './detalles/ListaMarcas';
 import ListaTelefonos from './detalles/ListaTelefonos';
-import GestionSolucion from './gestiones/GestionSolucion';
-import GestionNota from './gestiones/GestionNota';
 import GestionContacto from './gestiones/GestionContacto';
+import ModalPanelControl from './ModalPanelControl'; // Importa el componente si no está importado
 import './css/Listas.css';
 import './css/Gestion.css'
 import './css/objeto_boton.css'
 import './css/objeto_SwitchStyle.css'
 
 function Afectaciones() {
+  // const username = sessionStorage.getItem('username');
+  const rol = sessionStorage.getItem('rol');
   const [data, setData] = useState(null);
   const [selectedView, setSelectedView] = useState(null);
   const [gestionData, setGestionData] = useState(null);
   const [visible, setVisible] = useState(false);
-  const [showContacto, setShowContacto] = useState(3); // Estado para controlar la pestaña activa
 
   const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria) => {
     setVisible(false);
@@ -36,105 +36,62 @@ function Afectaciones() {
     }, 300);
   };
 
-  // Función para manejar el cambio de pestaña
-  const handleTabClick = (tabIndex) => {
-    setShowContacto(tabIndex); // Actualizar el estado para cambiar entre Solución Provisoria y Contacto
-  };
-
   return (
     <div>
       <Navbar />  
       <Dashboard setData={setData} />
       <Afectados data={data} onCardClick={handleCardClick} />
-
-        <ModalPanel isVisible={visible} onClose={() => setVisible(false)}>
+      <ModalPanelControl isVisible={visible} onClose={() => setVisible(false)} />
+      <ModalPanel isVisible={visible} onClose={() => setVisible(false)}>
+        <div>
           <div>
-            {/* Los botones se muestran solo cuando un afectado está seleccionado */}
-            {visible && false && (
-              <div className="boton-container">
-                <div id="boton" onClick={() => handleTabClick(1)}>Solución Provisoria</div>
-                <div id="boton" onClick={() => handleTabClick(2)}>Nota</div>
-                <div id="boton" onClick={() => handleTabClick(3)}>Contacto</div>
-              </div>
+            {rol!=='consulta' && (
+            <div className="solucionContacto">
+              <GestionContacto 
+                {...gestionData}
+                solucion_provisoria={data?.solucion_provisoria || []} 
+                onGestionChange={(nuevaGestion) => {
+                  const updatedData = data.afectados.map(afectado =>
+                    afectado.cuenta === gestionData.cuenta
+                      ? { ...afectado, gestion: nuevaGestion } // Asegúrate de que se actualice `gestion`
+                      : afectado
+                  );
+                  setData({ ...data, afectados: updatedData });
+                }}
+                
+              />
+            </div>
             )}
-            <div>
-              <div className="solucionProvisoria">
-                {showContacto === 1 && gestionData && (
-                  <GestionSolucion
-                    {...gestionData}
-                    solucion_provisoria={data?.solucion_provisoria || []} 
-                    onGestionChange={(nuevaGestion) => {
-                      const updatedData = data.afectados.map(afectado =>
-                        afectado.cuenta === gestionData.cuenta
-                          ? { ...afectado, gestion: nuevaGestion } // Asegúrate de que se actualice `gestion`
-                          : afectado
-                      );
-                      setData({ ...data, afectados: updatedData });
-                    }}
-                    
-                  />
-                )}
-              </div>
 
-              {showContacto === 2 && (
-                <div className="solucionNota">
-                  <GestionNota {...gestionData} />
-                </div>
-              )}
-
-              {showContacto === 3 && (
-                <div className="solucionContacto">
-                  <GestionContacto 
-                    {...gestionData}
-                    solucion_provisoria={data?.solucion_provisoria || []} 
-                    onGestionChange={(nuevaGestion) => {
-                      const updatedData = data.afectados.map(afectado =>
-                        afectado.cuenta === gestionData.cuenta
-                          ? { ...afectado, gestion: nuevaGestion } // Asegúrate de que se actualice `gestion`
-                          : afectado
-                      );
-                      setData({ ...data, afectados: updatedData });
-                    }}
-                    
-                  />
-                </div>
-              )}
-
-              {showContacto === 4 && (
-                <div className="solucionOtros">
-                  contacto testing
-                </div>
-              )}
-
-            </div>
-            <div>
-              <div className={`vista ${visible && selectedView?.telefonos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.1s' }}>
-                <ListaTelefonos telefonos={selectedView?.telefonos} />
-              </div>
-              <div className={`vista ${visible && selectedView?.marcas ? 'mostrar' : ''}`} style={{ transitionDelay: '0.2s' }}>
-                <ListaMarcas marcas={selectedView?.marcas} />
-              </div>
-              <div className={`vista ${visible && selectedView?.contactos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.3s' }}>
-                <ListaContactos contactos={selectedView?.contactos} />
-              </div>
-              <div className={`vista ${visible && selectedView?.aparatologias ? 'mostrar' : ''}`} style={{ transitionDelay: '0.4s' }}>
-                <ListaAparatologias aparatologias={selectedView?.aparatologias} />
-              </div>
-              <div className={`vista ${visible && selectedView?.pacientes ? 'mostrar' : ''}`} style={{ transitionDelay: '0.5s' }}>
-                <ListaPacientes pacientes={selectedView?.pacientes} />
-              </div>
-              <div className={`vista ${visible && selectedView?.afectaciones ? 'mostrar' : ''}`} style={{ transitionDelay: '0.6s' }}>
-                <ListaAfectaciones afectaciones={selectedView?.afectaciones} />
-              </div>
-              <div className={`vista ${visible && selectedView?.reclamos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.7s' }}>
-                <ListaReclamos reclamos={selectedView?.reclamos} />
-              </div>
-            </div>
-            <br></br>
-            <br></br>
-            <br></br>
           </div>
-        </ModalPanel>
+          <div>
+            <div className={`vista ${visible && selectedView?.telefonos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.1s' }}>
+              <ListaTelefonos telefonos={selectedView?.telefonos} />
+            </div>
+            <div className={`vista ${visible && selectedView?.marcas ? 'mostrar' : ''}`} style={{ transitionDelay: '0.2s' }}>
+              <ListaMarcas marcas={selectedView?.marcas} />
+            </div>
+            <div className={`vista ${visible && selectedView?.contactos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.3s' }}>
+              <ListaContactos contactos={selectedView?.contactos} />
+            </div>
+            <div className={`vista ${visible && selectedView?.aparatologias ? 'mostrar' : ''}`} style={{ transitionDelay: '0.4s' }}>
+              <ListaAparatologias aparatologias={selectedView?.aparatologias} />
+            </div>
+            <div className={`vista ${visible && selectedView?.pacientes ? 'mostrar' : ''}`} style={{ transitionDelay: '0.5s' }}>
+              <ListaPacientes pacientes={selectedView?.pacientes} />
+            </div>
+            <div className={`vista ${visible && selectedView?.afectaciones ? 'mostrar' : ''}`} style={{ transitionDelay: '0.6s' }}>
+              <ListaAfectaciones afectaciones={selectedView?.afectaciones} />
+            </div>
+            <div className={`vista ${visible && selectedView?.reclamos ? 'mostrar' : ''}`} style={{ transitionDelay: '0.7s' }}>
+              <ListaReclamos reclamos={selectedView?.reclamos} />
+            </div>
+          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+        </div>
+      </ModalPanel>
       <Footer /> 
     </div>
   );

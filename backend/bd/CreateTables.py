@@ -1,6 +1,6 @@
 import sqlite3
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class CreateTables:
     def __init__(self, db_name='sgedatabase.db'):
@@ -404,7 +404,13 @@ class CreateTables:
                 paciente= self.generar_nombre_completo()
                 dni= random.randint(7000000, 50000000)
                 lote+= 1 if random.randint(1,9)>7 else 0
-                inicio_recs= datetime.today().strftime('%Y-%m-%d')
+                # 
+                hoy = datetime.today()
+                # Rango para restar hasta 2 años (730 días)
+                rango_dias = random.randint(0, 730)
+                fecha_aleatoria = hoy - timedelta(days=rango_dias)
+                inicio_recs = fecha_aleatoria.strftime('%Y-%m-%d')
+                # inicio_recs= datetime.today().strftime('%Y-%m-%d')
                 fin_recs= datetime.today().strftime('%Y-%m-%d') if row[1]>0 else ''
                 # Diagnóstico aleatorio (solo el texto del diagnóstico)
                 diagnostico = random.choice(json_diagnostico['diagnosticos'])['diagnostico']

@@ -135,6 +135,41 @@ class Datos:
         finally:
             self.cursor.close
 
+    def normalizar_afectado(self, cuenta, idafectacion):
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()
+        try:
+            afectado= self.cursor.execute('select idafectado from afectaciones_afectados where cuenta = ? and idafectacion = ?',(cuenta, idafectacion,)).fetchall()
+            # 
+            logfin= self.insertar_datos_log(f"Normaliza Afectado - idafectado: {afectado[0][0]}.")
+            if logfin==0:
+                print("logfin es 0, operación cancelada.")
+                self.conn.rollback()  # Deshacer cualquier operación pendiente
+                return  # Salir de la función para evitar más operaciones                
+
+            sql= '''
+                UPDATE afectaciones_afectados SET gestion=?, logfin= ? WHERE idafectado = ?
+            '''
+            self.cursor.execute(sql, (
+                'NORMALIZADO',
+                logfin,
+                afectado[0][0]))  
+            # 
+            sql= '''
+                UPDATE afectaciones_reclamos SET logfin= ? WHERE idafectacion = ? and cuenta = ?
+            '''
+            self.cursor.execute(sql, (
+                logfin,
+                idafectacion,
+                cuenta
+                ))  
+            # 
+            self.conn.commit()                      
+        except sqlite3.Error as e:        
+            print(f"Error al obtener subestación: {e}")
+        finally:
+            self.cursor.close
+
     def generar_nro_afectacion(self, id):
         # Constante
         constante = 'A'
@@ -330,7 +365,54 @@ class Datos:
             self.conn.rollback()
             print(f"Fail: Error al actualizar la gestion en la tabla 'afectaciones_contactos'. Detalle: {e}")
             return False         
-            
+
+    def obtiene_clientes(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            clientes= self.cursor.execute('''
+                SELECT * FROM (
+                SELECT 
+                    c.cuenta,
+                    c.nombre_cliente,
+                    c.calle,
+                    c.numero,
+                    c.piso_dpto,
+                    g.localidad,
+                    g.partido,
+                    c.ct,
+                    al.alim,
+                    se.ssee,
+                    c.x,
+                    c.y,
+                    (SELECT fecha FROM log WHERE idlog = c.logini) AS fecha_in_sistema,
+                    (SELECT fecha FROM log WHERE idlog = c.logfin) AS fecha_out_sistema,
+                    p.inicio_recs,
+                    p.fin_recs,
+                    CASE 
+                        WHEN p.fin_recs <> '' THEN 100
+                    ELSE CAST(ROUND(((julianday('now') - julianday(p.inicio_recs)) / 730) * 100) AS INTEGER)
+                    END AS vigencia
+                FROM 
+                    clientes c
+                    LEFT JOIN geografico g ON c.idlocalidad = g.idlocalidad
+                    LEFT JOIN ct ct ON c.ct = ct.ct
+                    LEFT JOIN alim al ON ct.alim = al.alim
+                    LEFT JOIN ssee se ON al.idssee = se.idssee
+                    LEFT JOIN clientes_pacientes p ON c.cuenta = p.cuenta  -- Reemplazo del (+) por LEFT JOIN
+                WHERE
+                    p.fin_recs = ''
+                )
+                ORDER BY 
+                    nombre_cliente
+            ''').fetchall()
+            return clientes
+        except sqlite3.Error as e:        
+            print(f"Error al obtener los clientes: {e}")
+            return []
+        finally:
+            self.cursor.close            
 
 # # Ejemplo de uso
 # if __name__ == "__main__":

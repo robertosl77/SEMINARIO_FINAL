@@ -4,7 +4,7 @@ import '../css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
 function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange }) {
   const [contacto, setContacto] = useState('');
   const [selectedTelefono, setSelectedTelefono] = useState('');
-  const [efectivo, setEfectivo] = useState(0);  // Estado para contacto efectivo
+  const [efectivo, setEfectivo] = useState(1);  // Estado para contacto efectivo
   const [selectedSolucion, setSelectedSolucion] = useState(solucion_provisoria[0] || '');
   const [showSuccess, setShowSuccess] = useState(false);  
   const [showSuccessSP, setShowSuccessSP] = useState(false);  

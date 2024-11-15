@@ -56,3 +56,18 @@
 #boton-container {
   width: 70%;
 }
+
+#boton-normalizar {
+  background-color: #a72048; /* Color específico */
+  color: white;
+  font-weight: bold;
+  border-radius: 12px; /* Si quieres bordes más redondeados */
+}
+
+#boton-normalizar:hover {
+  background-color: #cc335e; /* Color diferente al pasar el mouse */
+}
+
+#boton.especial {
+  background-color: #a72048; /* Propiedades específicas */
+}
