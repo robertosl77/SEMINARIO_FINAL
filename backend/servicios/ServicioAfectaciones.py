@@ -1,4 +1,3 @@
-import sqlite3
 from bd.Datos import Datos
 import json
 from flask import jsonify
