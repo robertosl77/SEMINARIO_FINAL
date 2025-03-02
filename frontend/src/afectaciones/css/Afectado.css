@@ -1,7 +1,7 @@
 .afectado-card {
-  width: 850px;
+  max-width: 910px;
   margin: 15px auto;
-  padding: 15px;
+  padding: 5px;
   border: 2px solid #1e88e5;
   border-radius: 12px;
   background-color: #ffffff;
@@ -68,16 +68,22 @@
 
 .afectado-header {
   display: flex;
-  /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
+  flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 5px;
-  /* font-size: 1rem; */
   font-weight: bold;
   color: #333;
-  /* background-color: #f9f9f9; */
-  /* padding: 10px; */
+  margin-bottom: 5px;
+}
+
+.afectado-datos{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
   border-radius: 8px;
+  color: #00796b;
 }
 
 .afectado-regionzona,
@@ -85,12 +91,8 @@
 .afectado-origen,
 .afectado-ct,
 .afectado-cuenta {
-  margin-right: 12px;
-  margin-bottom: 6px;
   padding: 4px 8px;
-  /* background-color: #e0f7fa; */
-  border-radius: 4px;
-  color: #00796b;
+  margin-right: 12px;
 }
 
 .afectado-estado {
@@ -114,37 +116,51 @@
 
 .afectado-body {
   display: flex;
-  align-items: flex-start;
-  padding-top: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px; /* Aumentamos el padding superior */
   border-top: 1px solid #ddd;
-  /* background-color: #1b33ba; */
+  gap: 10px; /* Agrega espacio entre elementos */
 }
 
 .afectado-etiquetas {
-  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Espacio uniforme entre etiquetas */
+  justify-content: flex-start; /* Alineación más natural */
 }
 
 .afectado-opciones {
-  width: 20%;
   display: flex;
   justify-content: flex-end;
 }
 
-.afectado-afectaciones,
 .afectado-reclamos,
 .afectado-reiteraciones, 
 .afectado-aparatologias,
 .afectado-telefonos,
 .afectado-duracion {
-  font-size: 0.7rem;
-  color: #eee7e7;
-  border-radius: 15px;
+  font-size: 0.65rem; /* Un poco más grande para mejor lectura */
+  color: #ffffff; /* Texto blanco para mejor contraste */
+  background-color: #6d6d6d; /* Un gris más estilizado */
+  border-radius: 20px; /* Bordes más redondeados */
   text-align: center;
-  display: inline-block;
-  padding: 5px;
-  margin-right: 5px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  background-color: rgb(124, 121, 123);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px; /* Más espacio interno */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.afectado-reclamos:hover,
+.afectado-reiteraciones:hover, 
+.afectado-aparatologias:hover,
+.afectado-telefonos:hover,
+.afectado-duracion:hover {
+  transform: scale(1.05); /* Pequeño efecto al pasar el mouse */
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 .afectado-icono {
@@ -190,4 +206,57 @@
   color: #666;
   margin-top: 10px;
   text-align: center;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .afectado-card {
+    max-width: 90%; /* Ajustar ancho en tablets */
+    padding: 8px; /* Reducir padding para más espacio */
+  }
+
+  .afectado-datos {
+    font-size: 0.85rem; /* Ajuste leve para mejor lectura */
+  }
+
+  .afectado-etiquetas {
+    gap: 5px; /* Reduce el espacio entre etiquetas */
+  }
+
+  .afectado-reclamos,
+  .afectado-reiteraciones, 
+  .afectado-aparatologias,
+  .afectado-telefonos,
+  .afectado-duracion {
+    font-size: 0.6rem; /* Reduce la fuente en etiquetas */
+    padding: 4px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .afectado-card {
+    max-width: 95%; /* Permite más espacio */
+    padding: 5px; /* Reduce padding */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Sombra más sutil */
+  }
+
+  .afectado-datos {
+    font-size: 0.75rem; /* Reduce tamaño del texto */
+  }
+
+  .afectado-etiquetas {
+    gap: 3px; /* Compacta más las etiquetas */
+    justify-content: center; /* Mantiene alineación */
+  }
+
+  .afectado-reclamos,
+  .afectado-reiteraciones, 
+  .afectado-aparatologias,
+  .afectado-telefonos,
+  .afectado-duracion {
+    font-size: 0.55rem; /* Más compacto en móviles */
+    padding: 3px 8px;
+  }
 }
