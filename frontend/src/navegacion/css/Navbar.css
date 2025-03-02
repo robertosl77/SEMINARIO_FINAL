@@ -24,7 +24,12 @@
   font-family: 'Poppins', sans-serif;  /* Una fuente moderna y estilizada */
   font-size: 24px;
   color: #fff;
-  margin-left: 0px;  /* Espacio entre el logo y el título */
+  margin: 0 20px 0 10px;
+}
+
+.navbar-title-group{
+  display: flex;
+  align-items: center;
 }
 
 .navbar-links {
