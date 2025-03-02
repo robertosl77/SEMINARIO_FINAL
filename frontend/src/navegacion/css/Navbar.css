@@ -24,7 +24,12 @@
   font-family: 'Poppins', sans-serif;  /* Una fuente moderna y estilizada */
   font-size: 24px;
   color: #fff;
-  margin-left: 0px;  /* Espacio entre el logo y el título */
+  /* margin: 0 20px 0 10px; */
+}
+
+.navbar-title-group{
+  display: flex;
+  align-items: center;
 }
 
 .navbar-links {
@@ -126,4 +131,39 @@
 
 .dropdown-menu li:hover {
   background-color: #444;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* Estilo del botón de hamburguesa */
+.hamburger-menu {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+/* Ocultar el menú en pantallas pequeñas */
+@media (max-width: 520px) {
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Ajusta según el navbar */
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 10px 0;
+  }
+
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .hamburger-menu {
+    display: block; /* Mostrar el botón de hamburguesa */
+  }
 }
