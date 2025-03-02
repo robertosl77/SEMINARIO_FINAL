@@ -182,8 +182,8 @@
 
 /* Campo de Observaciones */
 #observaciones {
-  width: 90%;
-  padding: 12px 0;
+  width: 100%;
+  padding: 0px 0 0px;
   border: 1.5px solid rgba(255, 255, 255, 0.5);
   border-radius: 5px;
   background: var(--fondo-controles-normal);
@@ -217,4 +217,134 @@
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+
+
+
+
+/* 📌 Contenedor principal de Gestión */
+
+/* 📌 Ajuste en pantallas pequeñas */
+@media (max-width: 768px) {
+  .container-superior {
+      width: 95%;
+      padding: 10px;
+      font-size: 12px; /* Reduce el tamaño de fuente */
+  }
+}
+
+/* 📌 Ajuste en móviles */
+@media (max-width: 480px) {
+  .container-superior {
+      width: 98%;
+      padding: 8px;
+  }
+}
+
+/* 📌 Label de los controles */
+.container-superior label {
+  display: block;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 5px;
+}
+
+/* 📌 Selectores y campos de entrada */
+.container-superior select,
+.container-superior textarea {
+  width: 50%;
+  padding: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: var(--fondo-controles-normal);
+  color: var(--color-texto-normal);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  resize: vertical;
+  min-height: 40px;
+}
+
+/* 📌 Mejora de interacciones */
+.container-superior select:focus,
+.container-superior textarea:focus {
+  border-color: var(--color-borde-foco);
+  box-shadow: 0 0 8px rgba(133, 165, 255, 0.6);
+  background: var(--fondo-controles-foco);
+  outline: none;
+}
+
+/* 📌 Selectores en móviles */
+@media (max-width: 480px) {
+  .container-superior select,
+  .container-superior textarea {
+      font-size: 12px;
+      padding: 6px;
+      min-height: 35px;
+  }
+}
+
+/* 📌 Contenedor del selector de teléfono y checkbox */
+.telefono-contacto-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 📌 Ajuste de la caja del selector */
+.telefono-select-wrapper {
+  flex-grow: 1; /* Ocupar el espacio disponible */
+  min-width: 150px;
+}
+
+/* 📌 Checkbox para contacto efectivo */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%; /* Asegura que ocupa toda la fila */
+}
+
+/* 📌 Botón de enviar */
+#boton {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+#boton:hover {
+  background: #0056b3;
+}
+
+/* 📌 Ajuste de botón en móviles */
+@media (max-width: 480px) {
+  #boton {
+      font-size: 12px;
+      padding: 8px;
+  }
+}
+
+/* 📌 Mensajes de éxito */
+.success-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* 📌 Animación */
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
