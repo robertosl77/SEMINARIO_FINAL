@@ -36,6 +36,12 @@ function Afectaciones() {
     }, 300);
   };
 
+  if (visible) {
+    document.body.classList.add("panel-abierto");
+  } else {
+    document.body.classList.remove("panel-abierto");
+  }
+  
   return (
     <div>
       <Navbar />  

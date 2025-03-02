@@ -1,5 +1,13 @@
+body.panel-abierto #afectados-content {
+  align-items: flex-start; /* Mantiene alineación a la izquierda */
+  margin-left: 10px; /* Reduce el margen izquierdo */
+  width: calc(100% - 420px); /* Ajusta el ancho dinámicamente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra los afectados en el espacio restante */
+}
+
 .afectado-card {
-  max-width: 910px;
   margin: 15px auto;
   padding: 5px;
   border: 2px solid #1e88e5;
@@ -259,4 +267,32 @@
     font-size: 0.55rem; /* Más compacto en móviles */
     padding: 3px 8px;
   }
+}
+
+/* Contenedor de afectados */
+.afectados-container {
+  display: flex;
+  justify-content: center; /* Centrado por defecto */
+  transition: margin-left 0.3s ease; /* Suaviza el desplazamiento */
+}
+
+/* Cuando el panel está activo */
+.afectados-container.panel-activo {
+  justify-content: flex-start; /* Alinea los afectados a la izquierda */
+  margin-left: 20px; /* Ajusta el margen para compensar el panel */
+}
+
+
+#afectados-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: margin-left 0.3s ease;
+}
+
+/* Cuando el panel está activo */
+body.panel-abierto #afectados-content {
+  align-items: flex-start; /* Mueve los afectados a la izquierda */
+  margin-left: 20px;
+  width: calc(100% - 400px); /* Ajusta el ancho en función del panel */
 }
