@@ -39,7 +39,6 @@ const handleNuevaBD = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log('Nueva Base de Datos creada:', data);
       alert('Nueva Base de Datos creada con éxito.');
       window.location.reload();
     } else {
@@ -58,7 +57,6 @@ const handleNuevaAfectacion = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log('Nueva Afectación creada:', data);
       alert('Nueva Afectación creada con éxito.');
       window.location.reload();
     } else {
@@ -75,14 +73,11 @@ const handleNuevosReclamos = async () => {
       const response = await fetch('http://localhost:5000/API/AF/GeneraReclamos', {
         method: 'POST',
       });
-      console.log(response);
       if (response.ok) {
         const data = await response.json();
-        console.log('Nueva Afectación creada:', data);
         alert('Nueva Afectación creada con éxito.');
         window.location.reload();
       } else {
-        console.log('Error al crear nueva afectación:', response.status, response.statusText);
         alert('Error al crear la nueva afectación.');
       }
     } catch (error) {
@@ -96,14 +91,11 @@ const handleNuevosReclamos = async () => {
       const response = await fetch('http://localhost:5000/API/AF/NormalizarElementosAleatorios', {
         method: 'POST',
       });
-      console.log(response);
       if (response.ok) {
         const data = await response.json();
-        console.log('Se han normalizado afectaciones:', data);
         alert('Afectaciones normalizadas con extio.');
         window.location.reload();
       } else {
-        console.log('Error al normalizar afectaciones:', response.status, response.statusText);
         alert('Error al normalizar afectaciones.');
       }
     } catch (error) {

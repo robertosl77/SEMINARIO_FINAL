@@ -61,7 +61,6 @@ function Afectado({
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         if (data.success) { // Asegúrate de ajustar esta condición según la respuesta de tu API
           setVisible(false); // Oculta el componente
         }
