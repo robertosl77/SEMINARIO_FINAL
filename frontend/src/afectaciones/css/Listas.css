@@ -1,8 +1,7 @@
 :root {
-  --container-width: 650px;
-  --container-margin: 10px;
-  --container-padding: 15px;
-  --container-font-size: 11px; /* Tamaño de letra reducido */
+  --container-margin: auto 10px;
+  --container-padding: 0 10px 10px;
+  --container-font-size: 11px;
   --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   --container-border-radius: 10px;
   --container-background-color: #d8d6d6;
@@ -20,7 +19,7 @@
   --header-cell-color: #ffffff; /* Blanco para el texto */
 
   --cell-border-bottom: 1px solid #e0e0e0;
-  --cell-padding: 8px 8px;
+  --cell-padding: 0px 0px;
   --cell-text-align: left;
   --cell-color: #555555;
 
@@ -35,12 +34,27 @@
   --row-odd-background-color: #f9f9f9; /* Gris muy claro para filas impares */
   --row-even-background-color: #ffffff; /* Blanco para filas pares */
 
-  --h3-font-size: 15px;
+  --h3-font-size: 22px;
   --h3-font-weight: bold;
   --h3-color: #333;
   --h3-margin-bottom: 10px;
   --h3-border-bottom: 2px solid #4B9CD3; /* Línea debajo del título en azul suave */
   --h3-padding-bottom: 5px;
+
+  --fondo-controles-normal: #9d9ea1;
+  --fondo-controles-foco: #868b9c;
+
+}
+
+.container-superior {
+  width: var(--container-width);
+  margin: var(--container-margin);
+  padding: var(--container-padding);
+  font-size: var(--container-font-size);
+  box-shadow: var(--container-box-shadow);
+  border-radius: var(--container-border-radius);
+  background: linear-gradient(135deg, #4a516b, #4a516b);
+  color: white;
 }
 
 .container {
@@ -53,23 +67,24 @@
   background-color: var(--container-background-color);
 }
 
-.container-superior {
-  width: var(--container-width);
-  margin: var(--container-margin);
-  padding: var(--container-padding);
-  font-size: var(--container-font-size);
-  box-shadow: var(--container-box-shadow);
-  border-radius: var(--container-border-radius);
-  background-color: rgb(204, 199, 134);
+.container-superior h3 {
+  color: white;
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  margin-bottom: var(--h3-margin-bottom);
+  border-bottom: var(--h3-border-bottom);
+  padding-bottom: var(--h3-padding-bottom);  
+  text-align: center;
 }
 
-h3 {
+.container-title, .container h3 {
   font-size: var(--h3-font-size);
   font-weight: var(--h3-font-weight);
   color: var(--h3-color);
   margin-bottom: var(--h3-margin-bottom);
   border-bottom: var(--h3-border-bottom);
   padding-bottom: var(--h3-padding-bottom);
+  text-align: center;
 }
 
 .table {
@@ -116,3 +131,90 @@ h3 {
   color: var(--noafectaciones-color);
 }
 
+
+/* Label */
+.container-superior label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Select */
+.container-superior select {
+  max-width: 100%;
+  padding: 5px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: var(--fondo-controles-normal);
+  color: var(--color-texto-normal);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}
+
+.container-superior select:focus {
+  border-color: var(--color-borde-foco);
+  box-shadow: 0 0 8px rgba(133, 165, 255, 0.6);
+  background: var(--fondo-controles-foco);
+  outline: none;
+}
+
+.container-superior select:hover {
+  border-color: var(--color-borde-hover);
+}
+
+
+/* Contenedor del checkbox */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.checkbox-container label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Campo de Observaciones */
+#observaciones {
+  width: 90%;
+  padding: 12px 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: var(--fondo-controles-normal);
+  color: var(--color-texto-normal);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+  resize: vertical;
+  min-height: 60px;
+  margin-bottom: 10px;
+}
+
+#observaciones:focus {
+  border-color: var(--color-borde-foco);
+  box-shadow: 0 0 8px rgba(133, 165, 255, 0.6);
+  background: var(--fondo-controles-foco);
+  outline: none;
+}
+
+#observaciones:hover {
+  border-color: var(--color-borde-hover);
+}
+
+#observaciones::placeholder {
+  color: var(--color-texto-normal);
+  font-style: italic;
+}
+
+/* Contenedor para alinear el selector de teléfono y el contacto efectivo */
+.telefono-contacto-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
