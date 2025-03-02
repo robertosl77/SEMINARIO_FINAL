@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './css/Navbar.css';
 import logo from './img/logo.png';
@@ -26,6 +27,20 @@ function Navbar() {
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
+
+  useEffect(() => {
+    const titleElement = document.querySelector('.navbar-title');
+    if (!titleElement) return;
+  
+    const updateTitle = () => {
+      titleElement.textContent = window.innerWidth <= 965 ? "SGE" : "Sistema de Gestión para Electrodependientes";
+    };
+  
+    updateTitle(); // Ejecuta al cargar
+    window.addEventListener('resize', updateTitle); // Detecta cambios de tamaño
+  
+    return () => window.removeEventListener('resize', updateTitle); // Limpieza
+  }, []);  
 
   return (
     <nav className="navbar">

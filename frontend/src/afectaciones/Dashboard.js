@@ -27,7 +27,7 @@ function Dashboard({ setData }) {
         },
       });
       const result = await response.json();
-      console.log(result); 
+      // console.log(result); 
 
       setDashboardData({
         afectados: result.dashboard[0] || 0,
