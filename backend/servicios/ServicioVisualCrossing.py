@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+import json
+import numpy as np
 from bd.Datos import Datos
 
 class ServicioVisualCrossing:
@@ -43,43 +45,47 @@ class ServicioVisualCrossing:
         servicio_clientes = Datos()
         clientes_df = pd.DataFrame(servicio_clientes.obtiene_clientes())
         
-        # Ajustar acceso a los datos según el índice correcto y filtrar solo clientes afectados
-        clientes_pronosticados = []
+        # Diccionario para almacenar la condición más severa por cliente
+        clientes_dict = {}
+        
         for _, cliente in clientes_df.iterrows():
             for _, clima in clima_riesgoso.iterrows():
-                if clima["conditions"].lower() not in ["clear", "partly cloudy"]:  # Excluir condiciones no relevantes
-                    # Calcular prioridad basada en múltiples factores
-                    prioridad = 1
-                    if clima["precipprob"] > 80: prioridad += 1
-                    if clima["windgust"] > 60: prioridad += 1
-                    if clima["severerisk"] > 5: prioridad += 1
-                    if clima["precipprob"] > 90 or clima["windgust"] > 80 or clima["severerisk"] > 8:
-                        prioridad = 5  # Nivel máximo de riesgo
+                if clima["conditions"].lower() not in ["clear", "partially cloudy", "rain, partially cloudy"]:
+                    prioridad = min(5, 
+                        (1 if clima["precipprob"] > 70 else 0) +
+                        (1 if clima["precipprob"] > 80 else 0) +
+                        (1 if clima["windgust"] > 50 else 0) +
+                        (1 if clima["windgust"] > 60 else 0) +
+                        (1 if clima["severerisk"] > 3 else 0) +
+                        (1 if clima["severerisk"] > 5 else 0)
+                    )
                     
-                    clientes_pronosticados.append({
-                        "cuenta": cliente[0],
-                        "nombre_cliente": cliente[1],
-                        "calle": cliente[2],
-                        "numero": cliente[3],
-                        "piso_dpto": cliente[4],
-                        "localidad": cliente[5],
-                        "partido": cliente[6],
-                        "ct": cliente[7],
-                        "alim": cliente[8],
-                        "ssee": cliente[9],
-                        "x": cliente[10],
-                        "y": cliente[11],
-                        "fecha_in_sistema": cliente[12],
-                        "fecha_out_sistema": cliente[13],
-                        "inicio_recs": cliente[14],
-                        "fin_recs": cliente[15],
-                        "vigencia": cliente[16],
-                        "fecha_pronostico": clima["datetime"].date().isoformat(),
-                        "condicion": clima["conditions"],
-                        "probabilidad_lluvia": clima["precipprob"],
-                        "viento_max": clima["windgust"],
-                        "riesgo_severo": clima["severerisk"],
-                        "prioridad": prioridad
-                    })
+                    cuenta = cliente[0]
+                    if cuenta not in clientes_dict or clientes_dict[cuenta]["prioridad"] < prioridad:
+                        clientes_dict[cuenta] = {
+                            "cuenta": cliente[0],
+                            "nombre_cliente": cliente[1],
+                            "calle": cliente[2],
+                            "numero": cliente[3],
+                            "piso_dpto": cliente[4],
+                            "localidad": cliente[5],
+                            "partido": cliente[6],
+                            "ct": cliente[7],
+                            "alim": None if isinstance(cliente[8], float) and np.isnan(cliente[8]) else cliente[8],
+                            "ssee": None if isinstance(cliente[9], float) and np.isnan(cliente[9]) else cliente[9],
+                            "x": cliente[10],
+                            "y": cliente[11],
+                            "fecha_in_sistema": cliente[12],
+                            "fecha_out_sistema": cliente[13],
+                            "inicio_recs": cliente[14],
+                            "fin_recs": cliente[15],
+                            "vigencia": cliente[16],
+                            "fecha_pronostico": clima["datetime"].date().isoformat(),
+                            "condicion": clima["conditions"],
+                            "probabilidad_lluvia": clima["precipprob"],
+                            "viento_max": clima["windgust"],
+                            "riesgo_severo": clima["severerisk"],
+                            "prioridad": prioridad
+                        }
         
-        return clientes_pronosticados
+        return json.loads(json.dumps(list(clientes_dict.values()), default=lambda x: None if isinstance(x, float) and np.isnan(x) else x))
