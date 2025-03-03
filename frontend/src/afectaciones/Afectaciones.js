@@ -11,10 +11,10 @@ import ListaContactos from './detalle/ListaContactos';
 import ListaPacientes from './detalle/ListaPacientes';
 import ListaMarcas from './detalle/ListaMarcas';
 import ListaTelefonos from './detalle/ListaTelefonos';
-import GestionContacto from './gestiones/GestionContacto';
+import Gestion from './Gestion';
 import ModalPanelControl from './ModalPanelControl'; // Importa el componente si no está importado
 import './css/Listas.css';
-import './css/Gestion.css'
+// import './css/Gestion.css'
 import './css/objeto_boton.css'
 import './css/objeto_SwitchStyle.css'
 
@@ -36,6 +36,12 @@ function Afectaciones() {
     }, 300);
   };
 
+  if (visible) {
+    document.body.classList.add("panel-abierto");
+  } else {
+    document.body.classList.remove("panel-abierto");
+  }
+  
   return (
     <div>
       <Navbar />  
@@ -47,7 +53,7 @@ function Afectaciones() {
           <div>
             {rol!=='consulta' && (
             <div className="solucionContacto">
-              <GestionContacto 
+              <Gestion 
                 {...gestionData}
                 solucion_provisoria={data?.solucion_provisoria || []} 
                 onGestionChange={(nuevaGestion) => {
@@ -58,6 +64,7 @@ function Afectaciones() {
                   );
                   setData({ ...data, afectados: updatedData });
                 }}
+                onClose={() => setVisible(false)} // 🔹 Pasamos la función para cerrar el modal
                 
               />
             </div>

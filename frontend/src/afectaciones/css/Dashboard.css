@@ -2,21 +2,21 @@
 #header {
   width: 100%;
   margin-top: 65px;
-  background-color: #ffffff; /* Color de fondo para referencia */
+  background-color: #ffffff;
   color: white;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
-  z-index: 1000; /* Asegura que esté encima de otros elementos */
+  z-index: 1000; /* Asegura que esté sobre otros elementos */
 }
 
 .dashboard {
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
-  padding: 10px 0;
   background-color: #2c3e50;
-  /* border-radius: 15px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrar las tarjetas cuando haya espacio */
+  gap: 10px; /* Espacio entre las tarjetas */
+  padding: 10px 20px; /* Ajuste para que no queden pegadas a los bordes */
 }
 
 .dashboard-card {
@@ -24,15 +24,14 @@
   padding: 10px;
   border-radius: 12px;
   text-align: center;
-  font-size: 14px;
-  font-weight: bold;
   color: #ecf0f1;
-  flex: 1;
-  margin: 0 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid #16a085;
-  height: 60%;
   position: relative; /* Para el sombreado en la parte inferior */
+  align-items: stretch;
+  min-width: 100px; /* Evita que las tarjetas se achiquen demasiado */
+  max-width: 150px; /* Opcional, si queremos un límite máximo */
+  margin: 0 auto;
 }
 
 /* Efecto hover */
@@ -50,10 +49,15 @@
 }
 
 .dashboard-title {
-  font-size: 12px;
+  font-size: 11px; /* Reducimos ligeramente la fuente */
   font-weight: 400;
-  margin-bottom: 8px;
   color: #bdc3c7;
+  white-space: nowrap; /* Evita saltos de línea */
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+  max-width: 95%; /* Limita el ancho para evitar expansión excesiva */
+  display: block;
+  text-align: center;
 }
 
 .dashboard-number {
@@ -68,4 +72,74 @@
   margin: 0 20px 0 10px;
 }
 
+
+@media (max-width: 1485px) {
+  .dashboard {
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Crea filas de burbujas */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px; /* Reducimos el espacio entre tarjetas */
+  }
+
+  .dashboard-card {
+    transform: scale(0.85); /* Reduce el tamaño total sin modificar el diseño */
+  }
+
+  .dashboard-title {
+    font-size: 10px; /* Leve reducción del texto */
+  }
+
+  .dashboard-number {
+    font-size: 22px; /* Se ajusta para mantener proporción */
+  }
+}
+
+
+@media (max-width: 472px) {
+  .dashboard {
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Crea filas de burbujas */
+    justify-content: center;
+  }
+  
+  .dashboard-card {
+    width: 40px; /* Tamaño más compacto */
+    height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    border-radius: 50%; /* Hace que sean completamente redondas */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #16a085; /* Color base */
+    color: white;
+    font-size: 8px;
+    text-align: center;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .dashboard-card:hover {
+    transform: scale(1.1); /* Pequeño efecto al pasar el cursor */
+  }
+
+  .dashboard-title {
+    font-size: 0.9em;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+  }
+
+  .dashboard-number {
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
 

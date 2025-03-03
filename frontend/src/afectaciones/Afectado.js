@@ -90,11 +90,13 @@ function Afectado({
     >
       {isSelected && <div className="indicador-seleccion"></div>} {/* Indicador visual de selección */}
       <div className="afectado-header" onClick={handleclick}>
-        <div className="afectado-regionzona">{cliente[0].region + '-' + cliente[0].sector}</div>
-        <div className="afectado-afectacion">{afectacion}</div>
-        <div className="afectado-origen">{tipo}</div>
-        <div className="afectado-ct">CT {ct}</div>
-        <div className="afectado-cuenta">Cuenta: {cuenta}</div>
+        <div className="afectado-datos">
+          <div className="afectado-regionzona">Zona: {cliente[0].region + '-' + cliente[0].sector}</div>
+          <div className="afectado-afectacion">ID: {afectacion}</div>
+          <div className="afectado-origen">Tipo: {tipo}</div>
+          <div className="afectado-ct">CT: {ct}</div>
+          <div className="afectado-cuenta">Cuenta: {cuenta}</div>
+        </div>
         <div className="afectado-estado">Estado: {estado}</div>
         <div className="afectado-gestion">{gestion}</div>
       </div>

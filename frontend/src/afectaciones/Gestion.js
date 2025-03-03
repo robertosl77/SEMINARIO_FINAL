@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
+import './css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
 
-function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange }) {
+function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange, onClose }) {
   const [contacto, setContacto] = useState('');
   const [selectedTelefono, setSelectedTelefono] = useState('');
   const [efectivo, setEfectivo] = useState(1);  // Estado para contacto efectivo
@@ -39,6 +39,7 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
 
           setTimeout(() => {
             setShowSuccess(false);
+            if (onClose) onClose(); // 🔹 Cierra el modal después de 3 segundos
           }, 3000);
         }
       })
@@ -77,9 +78,10 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
   return (
     <div>
       <div className="container-superior">
-        <h3>Contacto</h3>
-
+        <h3 className="container-title">Contacto</h3>
+        <label htmlFor="solucionSelect">Solucion Provisoria:</label>
         <select id="solucionSelect" value={selectedSolucion} onChange={handleSolucionChange}> 
+          <option value="">Seleccione una Opción</option>
           {solucion_provisoria.map((solucion, index) => (
             <option key={index} value={solucion}>
               {solucion}
@@ -90,13 +92,14 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
         <div id="contenedorTelefono" className="telefono-contacto-container">
           {/* Selector de teléfonos */}
           <div className="telefono-select-wrapper">
+            <label htmlFor="telefonoSelect">Seleccione Telefono:</label>
             <select
               id="telefonoSelect"
               value={selectedTelefono}
               onChange={(e) => setSelectedTelefono(e.target.value)}
               className="telefonoSelect"
             >
-              <option value="">Selecciona un teléfono</option>
+              <option value="">Seleccione una Opción</option>
               {telefonosOrdenados.map((telefono) => (
                 <option key={telefono.idtelefono} value={telefono.idtelefono}>
                   {telefono.telefono} (Efectividad: {isNaN(telefono.efectivas / telefono.llamadas * 100)
@@ -124,6 +127,7 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
 
         {/* Campo de texto para observaciones */}
         <div>
+          <label htmlFor="observaciones">Observaciones:</label>
           <textarea
             id="observaciones"
             value={contacto}
@@ -168,4 +172,4 @@ function GestionContacto({ cuenta, idafectacion, telefonos = [], solucion_provis
   );
 }
 
-export default GestionContacto;
+export default Gestion;

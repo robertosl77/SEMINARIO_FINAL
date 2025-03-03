@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Afectado from './Afectado';
-import './css/Afectados.css';
 
 function Afectados({ data, onCardClick }) {
   const [selectedId, setSelectedId] = useState(null);

@@ -1,8 +1,7 @@
 :root {
-  --container-width: 650px;
-  --container-margin: 10px;
-  --container-padding: 15px;
-  --container-font-size: 11px; /* Tamaño de letra reducido */
+  --container-margin: auto 10px;
+  --container-padding: 0 10px 10px;
+  --container-font-size: 11px;
   --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   --container-border-radius: 10px;
   --container-background-color: #d8d6d6;
@@ -20,7 +19,7 @@
   --header-cell-color: #ffffff; /* Blanco para el texto */
 
   --cell-border-bottom: 1px solid #e0e0e0;
-  --cell-padding: 8px 8px;
+  --cell-padding: 0px 0px;
   --cell-text-align: left;
   --cell-color: #555555;
 
@@ -35,12 +34,27 @@
   --row-odd-background-color: #f9f9f9; /* Gris muy claro para filas impares */
   --row-even-background-color: #ffffff; /* Blanco para filas pares */
 
-  --h3-font-size: 15px;
+  --h3-font-size: 22px;
   --h3-font-weight: bold;
   --h3-color: #333;
   --h3-margin-bottom: 10px;
   --h3-border-bottom: 2px solid #4B9CD3; /* Línea debajo del título en azul suave */
   --h3-padding-bottom: 5px;
+
+  --fondo-controles-normal: #9d9ea1;
+  --fondo-controles-foco: #868b9c;
+
+}
+
+.container-superior {
+  width: var(--container-width);
+  margin: var(--container-margin);
+  padding: var(--container-padding);
+  font-size: var(--container-font-size);
+  box-shadow: var(--container-box-shadow);
+  border-radius: var(--container-border-radius);
+  background: linear-gradient(135deg, #4a516b, #4a516b);
+  color: white;
 }
 
 .container {
@@ -53,23 +67,24 @@
   background-color: var(--container-background-color);
 }
 
-.container-superior {
-  width: var(--container-width);
-  margin: var(--container-margin);
-  padding: var(--container-padding);
-  font-size: var(--container-font-size);
-  box-shadow: var(--container-box-shadow);
-  border-radius: var(--container-border-radius);
-  background-color: rgb(204, 199, 134);
+.container-superior h3 {
+  color: white;
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  margin-bottom: var(--h3-margin-bottom);
+  border-bottom: var(--h3-border-bottom);
+  padding-bottom: var(--h3-padding-bottom);  
+  text-align: center;
 }
 
-h3 {
+.container-title, .container h3 {
   font-size: var(--h3-font-size);
   font-weight: var(--h3-font-weight);
   color: var(--h3-color);
   margin-bottom: var(--h3-margin-bottom);
   border-bottom: var(--h3-border-bottom);
   padding-bottom: var(--h3-padding-bottom);
+  text-align: center;
 }
 
 .table {
@@ -116,3 +131,220 @@ h3 {
   color: var(--noafectaciones-color);
 }
 
+
+/* Label */
+.container-superior label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Select */
+.container-superior select {
+  max-width: 100%;
+  padding: 5px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: var(--fondo-controles-normal);
+  color: var(--color-texto-normal);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}
+
+.container-superior select:focus {
+  border-color: var(--color-borde-foco);
+  box-shadow: 0 0 8px rgba(133, 165, 255, 0.6);
+  background: var(--fondo-controles-foco);
+  outline: none;
+}
+
+.container-superior select:hover {
+  border-color: var(--color-borde-hover);
+}
+
+
+/* Contenedor del checkbox */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.checkbox-container label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Campo de Observaciones */
+#observaciones {
+  width: 100%;
+  padding: 0px 0 0px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: var(--fondo-controles-normal);
+  color: var(--color-texto-normal);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+  resize: vertical;
+  min-height: 60px;
+  margin-bottom: 10px;
+}
+
+#observaciones:focus {
+  border-color: var(--color-borde-foco);
+  box-shadow: 0 0 8px rgba(133, 165, 255, 0.6);
+  background: var(--fondo-controles-foco);
+  outline: none;
+}
+
+#observaciones:hover {
+  border-color: var(--color-borde-hover);
+}
+
+#observaciones::placeholder {
+  color: var(--color-texto-normal);
+  font-style: italic;
+}
+
+/* Contenedor para alinear el selector de teléfono y el contacto efectivo */
+.telefono-contacto-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+
+
+
+/* 📌 Contenedor principal de Gestión */
+
+/* 📌 Ajuste en pantallas pequeñas */
+@media (max-width: 768px) {
+  .container-superior {
+      width: 95%;
+      padding: 10px;
+      font-size: 12px; /* Reduce el tamaño de fuente */
+  }
+}
+
+/* 📌 Ajuste en móviles */
+@media (max-width: 480px) {
+  .container-superior {
+      width: 98%;
+      padding: 8px;
+  }
+}
+
+/* 📌 Label de los controles */
+.container-superior label {
+  display: block;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 5px;
+}
+
+/* 📌 Selectores y campos de entrada */
+.container-superior select,
+.container-superior textarea {
+  width: 50%;
+  padding: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background: var(--fondo-controles-normal);
+  color: var(--color-texto-normal);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  resize: vertical;
+  min-height: 40px;
+}
+
+/* 📌 Mejora de interacciones */
+.container-superior select:focus,
+.container-superior textarea:focus {
+  border-color: var(--color-borde-foco);
+  box-shadow: 0 0 8px rgba(133, 165, 255, 0.6);
+  background: var(--fondo-controles-foco);
+  outline: none;
+}
+
+/* 📌 Selectores en móviles */
+@media (max-width: 480px) {
+  .container-superior select,
+  .container-superior textarea {
+      font-size: 12px;
+      padding: 6px;
+      min-height: 35px;
+  }
+}
+
+/* 📌 Contenedor del selector de teléfono y checkbox */
+.telefono-contacto-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 📌 Ajuste de la caja del selector */
+.telefono-select-wrapper {
+  flex-grow: 1; /* Ocupar el espacio disponible */
+  min-width: 150px;
+}
+
+/* 📌 Checkbox para contacto efectivo */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%; /* Asegura que ocupa toda la fila */
+}
+
+/* 📌 Botón de enviar */
+#boton {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+#boton:hover {
+  background: #0056b3;
+}
+
+/* 📌 Ajuste de botón en móviles */
+@media (max-width: 480px) {
+  #boton {
+      font-size: 12px;
+      padding: 8px;
+  }
+}
+
+/* 📌 Mensajes de éxito */
+.success-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* 📌 Animación */
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

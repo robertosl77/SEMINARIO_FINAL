@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navegacion/Navbar'; // Ajusta la ruta según la estructura de tu proyecto
 import { useTable, useSortBy } from 'react-table'; // Importa useSortBy
-import './Clientes.css'; // Asegúrate de que la ruta sea correcta según la ubicación del archivo CSS
+import './css/Clientes.css'; // Asegúrate de que la ruta sea correcta según la ubicación del archivo CSS
 
 function Clientes() {
   const [clientes, setClientes] = useState([]);

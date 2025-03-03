@@ -6,6 +6,7 @@ from servicios.ServicioCreaTablas import ServicioCreaTablas
 from servicios.ServicioAfectaciones import ServicioAfectaciones
 from servicios.ServicioManager import ServicioManager
 from servicios.ServicioGestor import ServicioGestor
+from servicios.ServicioVisualCrossing import ServicioVisualCrossing
 import re
 
 app = Flask(__name__)  # Cambié el nombre de la instancia Flask a 'app'
@@ -173,11 +174,17 @@ class Controlador:  # Cambié el nombre de la clase a 'ServiciosHandler'
 
 
 
-    @app.route('/API/ME/ProximasTormentas', methods=['POST'])
-    def ProximasTormentas():
-        a = ServicioAfectaciones()
+    # @app.route('/API/ME/ProximasTormentas', methods=['POST'])
+    # def ProximasTormentas():
+    #     a = ServicioAfectaciones()
         # json = a.normalizar_afectacion()
         # return json, 200  
+
+    @app.route('/API/ME/ProximasTormentas', methods=['POST'])
+    def ProximasTormentasVisualCrossing():
+        servicio = ServicioVisualCrossing()
+        clientes = servicio.obtener_clientes_pronosticados()
+        return jsonify(clientes), 200    
 
 
 
