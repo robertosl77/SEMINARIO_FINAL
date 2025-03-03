@@ -66,6 +66,14 @@ function Dashboard({ setData }) {
             <div className="dashboard-number">{dashboardData.afectados}</div>
           </div>
           <div 
+            className={`dashboard-card ${selectedCard === 'nuevos' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('nuevos')}
+            title="Clientes sin ningun tipo de gestion."
+          >
+            <div className="dashboard-title">NUEVOS</div>
+            <div className="dashboard-number">{dashboardData.nuevos}</div>
+          </div>
+          <div 
             className={`dashboard-card ${selectedCard === 'normalizados' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('normalizados')}
             title="Queda pendiente confirmar si estan con suministro."
@@ -104,14 +112,6 @@ function Dashboard({ setData }) {
           >
             <div className="dashboard-title">SIN AUTONOMÍA</div>
             <div className="dashboard-number">{dashboardData.sin_autonomia}</div>
-          </div>
-          <div 
-            className={`dashboard-card ${selectedCard === 'nuevos' ? 'selected' : ''}`} 
-            onClick={() => handleCardClick('nuevos')}
-            title="Clientes sin ningun tipo de gestion."
-          >
-            <div className="dashboard-title">NUEVOS</div>
-            <div className="dashboard-number">{dashboardData.nuevos}</div>
           </div>
           <div 
             className={`dashboard-card ${selectedCard === 'fae' ? 'selected' : ''}`} 

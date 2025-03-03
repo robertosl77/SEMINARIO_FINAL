@@ -64,6 +64,7 @@ function Afectaciones() {
                   );
                   setData({ ...data, afectados: updatedData });
                 }}
+                onClose={() => setVisible(false)} // 🔹 Pasamos la función para cerrar el modal
                 
               />
             </div>

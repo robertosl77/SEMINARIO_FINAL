@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
 
-function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange }) {
+function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange, onClose }) {
   const [contacto, setContacto] = useState('');
   const [selectedTelefono, setSelectedTelefono] = useState('');
   const [efectivo, setEfectivo] = useState(1);  // Estado para contacto efectivo
@@ -39,6 +39,7 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
 
           setTimeout(() => {
             setShowSuccess(false);
+            if (onClose) onClose(); // 🔹 Cierra el modal después de 3 segundos
           }, 3000);
         }
       })
