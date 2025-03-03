@@ -11,7 +11,7 @@ class ServicioVisualCrossing:
 
     def obtener_clientes_pronosticados(self):
         """
-        Obtiene el pronóstico de los próximos 7 días y devuelve la lista de clientes con sus ubicaciones y la condición climática que los afecta.
+        Obtiene el pronóstico y devuelve la lista de clientes con sus ubicaciones y la condición climática relevante.
         """
         ciudad = "buenos%20aires"  # Puedes modificar esto según necesidad
         url = f"{self.base_url}{ciudad}?unitGroup=metric&key={self.api_key}&contentType=json"
@@ -22,70 +22,61 @@ class ServicioVisualCrossing:
             return []
         
         data = response.json()
-        hoy = pd.to_datetime("today").date()
         pronostico_df = pd.DataFrame(data.get("days", []))
         
-        # Filtrar solo los próximos 7 días desde hoy
-        pronostico_df["datetime"] = pd.to_datetime(pronostico_df["datetime"])
-        pronostico_df = pronostico_df[(pronostico_df["datetime"].dt.date > hoy) &
-                                      (pronostico_df["datetime"].dt.date <= hoy + pd.Timedelta(days=7))]
-        
-        # Detectar condiciones adversas
+        # Filtrar condiciones meteorológicas más exigentes con AND
+        # clima_riesgoso = pronostico_df[
+        #     (pronostico_df["precipprob"] > 80) |  # Probabilidad de lluvia muy alta
+        #     (pronostico_df["windgust"] > 70) |  # Fuertes ráfagas de viento
+        #     (pronostico_df["severerisk"] > 15)  # Alto riesgo severo
+        # ]
+
+        # clima_riesgoso = pronostico_df[
+        #     (pronostico_df["severerisk"] >= 15) &  # Alto riesgo severo
+        #     (pronostico_df["windgust"] > 50)   # Fuertes ráfagas de viento
+        # ]
+
         clima_riesgoso = pronostico_df[
-            (pronostico_df["precipprob"] > 70) |  # Alta probabilidad de lluvia
-            (pronostico_df["windgust"] > 50) |  # Fuertes ráfagas de viento
-            (pronostico_df["severerisk"] > 3)  # Riesgo severo alto
+            (pronostico_df["severerisk"] >= 15)   # Alto riesgo severo
         ]
-        
+
         if clima_riesgoso.empty:
-            print("No hay eventos climáticos adversos en los próximos 7 días")
+            print("No hay eventos climáticos adversos relevantes en los datos recibidos")
             return []
         
         # Obtener la lista de todos los clientes con ubicación
         servicio_clientes = Datos()
         clientes_df = pd.DataFrame(servicio_clientes.obtiene_clientes())
         
-        # Diccionario para almacenar la condición más severa por cliente
-        clientes_dict = {}
-        
+        clientes_pronosticados = []
         for _, cliente in clientes_df.iterrows():
+            if pd.isna(cliente[6]) or cliente[6] == "":  # Filtrar si no tiene partido
+                continue
+            
             for _, clima in clima_riesgoso.iterrows():
-                if clima["conditions"].lower() not in ["clear", "partially cloudy", "rain, partially cloudy"]:
-                    prioridad = min(5, 
-                        (1 if clima["precipprob"] > 70 else 0) +
-                        (1 if clima["precipprob"] > 80 else 0) +
-                        (1 if clima["windgust"] > 50 else 0) +
-                        (1 if clima["windgust"] > 60 else 0) +
-                        (1 if clima["severerisk"] > 3 else 0) +
-                        (1 if clima["severerisk"] > 5 else 0)
-                    )
-                    
-                    cuenta = cliente[0]
-                    if cuenta not in clientes_dict or clientes_dict[cuenta]["prioridad"] < prioridad:
-                        clientes_dict[cuenta] = {
-                            "cuenta": cliente[0],
-                            "nombre_cliente": cliente[1],
-                            "calle": cliente[2],
-                            "numero": cliente[3],
-                            "piso_dpto": cliente[4],
-                            "localidad": cliente[5],
-                            "partido": cliente[6],
-                            "ct": cliente[7],
-                            "alim": None if isinstance(cliente[8], float) and np.isnan(cliente[8]) else cliente[8],
-                            "ssee": None if isinstance(cliente[9], float) and np.isnan(cliente[9]) else cliente[9],
-                            "x": cliente[10],
-                            "y": cliente[11],
-                            "fecha_in_sistema": cliente[12],
-                            "fecha_out_sistema": cliente[13],
-                            "inicio_recs": cliente[14],
-                            "fin_recs": cliente[15],
-                            "vigencia": cliente[16],
-                            "fecha_pronostico": clima["datetime"].date().isoformat(),
-                            "condicion": clima["conditions"],
-                            "probabilidad_lluvia": clima["precipprob"],
-                            "viento_max": clima["windgust"],
-                            "riesgo_severo": clima["severerisk"],
-                            "prioridad": prioridad
-                        }
+                clientes_pronosticados.append({
+                    "cuenta": cliente[0],
+                    "nombre_cliente": cliente[1],
+                    "calle": cliente[2],
+                    "numero": cliente[3],
+                    "piso_dpto": cliente[4],
+                    "localidad": cliente[5],
+                    "partido": cliente[6],
+                    "ct": cliente[7],
+                    "alim": None if isinstance(cliente[8], float) and np.isnan(cliente[8]) else cliente[8],
+                    "ssee": None if isinstance(cliente[9], float) and np.isnan(cliente[9]) else cliente[9],
+                    "x": cliente[10],
+                    "y": cliente[11],
+                    "fecha_in_sistema": cliente[12],
+                    "fecha_out_sistema": cliente[13],
+                    "inicio_recs": cliente[14],
+                    "fin_recs": cliente[15],
+                    "vigencia": cliente[16],
+                    "fecha_pronostico": clima["datetime"],
+                    "condicion": clima["conditions"],
+                    "probabilidad_lluvia": clima["precipprob"],
+                    "viento_max": clima["windgust"],
+                    "riesgo_severo": clima["severerisk"]
+                })
         
-        return json.loads(json.dumps(list(clientes_dict.values()), default=lambda x: None if isinstance(x, float) and np.isnan(x) else x))
+        return json.loads(json.dumps(clientes_pronosticados, default=lambda x: None if isinstance(x, float) and np.isnan(x) else x))
