@@ -77,7 +77,7 @@ function Navbar() {
         {/* Menú para pantallas grandes */}
         <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
           {['admin', 'operador', 'consulta'].includes(rol) && <li><Link to="/SGE/Afectaciones">Afectaciones</Link></li>}
-          {['admin', 'operador'].includes(rol) && <li><Link to="/SGE/Climatica">Climatica</Link></li>}
+          {['admin', 'operador'].includes(rol) && <li><Link to="/SGE/Climatica">Pronosticos Meteorologicos</Link></li>}
           {['admin'].includes(rol) && <li><Link to="/SGE/Clientes">Clientes</Link></li>}
           <li className="user-dropdown" onClick={toggleDropdown}>
             {username}

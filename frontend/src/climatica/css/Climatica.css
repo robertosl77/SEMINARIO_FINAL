@@ -1,0 +1,81 @@
+/* Estilos generales para la página de Climatica */
+.content {
+    margin-top: 60px;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para la tabla */
+  .climatica-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 16px;
+  }
+  
+  .climatica-table th, .climatica-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .climatica-table th {
+    background-color: #007bff;
+    font-weight: bold;
+  }
+  
+  /* Ocultar la columna de prioridad */
+  .hidden {
+    display: none;
+  }
+  
+  /* Estilos para los colores de prioridad */
+  .climatica-table tr {
+    transition: background-color 0.3s ease;
+  }
+  
+  .climatica-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+
+
+
+  /* Estilos para la tabla de referencia */
+.reference-table {
+  width: 30%;
+  margin: 0 auto 20px;
+  font-size: 14px;
+  border-collapse: collapse;
+  background-color: #f4f4f4;
+}
+
+.reference-table th, 
+.reference-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.reference-table th {
+  background-color: #e0e0e0;
+  font-weight: normal;
+}
+
+.reference-table td {
+  color: #333;
+  font-size: 12px;
+}
+
+.reference-table tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+/* Reducir margen entre tablas */
+.climatica-table {
+  margin-top: 10px;
+}
