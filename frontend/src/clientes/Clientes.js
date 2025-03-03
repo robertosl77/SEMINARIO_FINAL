@@ -76,12 +76,12 @@ function Clientes() {
         <h3>Clientes</h3>
         <table {...getTableProps()}>
           <thead>
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
+            {headerGroups.map((headerGroup, index) => (
+              <tr {...headerGroup.getHeaderGroupProps()} key={index}>
+                {headerGroup.headers.map((column, colIndex) => (
                   <th
-                    key={column.id} // Agrega key aquí
                     {...column.getHeaderProps(column.getSortByToggleProps())}
+                    key={colIndex}
                   >
                     {column.render('Header')}
                     <span>
@@ -97,12 +97,12 @@ function Clientes() {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map(row => {
+            {rows.map((row, rowIndex) => {
               prepareRow(row);
               return (
-                <tr key={row.id} {...row.getRowProps()}> {/* Agrega key aquí */}
-                  {row.cells.map(cell => (
-                    <td key={cell.column.id} {...cell.getCellProps()}> {/* Agrega key aquí */}
+                <tr {...row.getRowProps()} key={rowIndex}>
+                  {row.cells.map((cell, cellIndex) => (
+                    <td {...cell.getCellProps()} key={cellIndex}>
                       {cell.render('Cell')}
                     </td>
                   ))}
