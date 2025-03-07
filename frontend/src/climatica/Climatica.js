@@ -1,22 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navegacion/Navbar';
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useSortBy, usePagination } from 'react-table';
 import './css/Climatica.css';
 
 function Climatica() {
   const [clientes, setClientes] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [riskValues, setRiskValues] = useState({
+    precipprob: 70,
+    windgust: 60,
+    severerisk: 40
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRiskChange = (e) => {
+    const { name, value } = e.target;
+    const parsedValue = parseInt(value) || 0;
+    if (name === "precipprob" && (parsedValue < 0 || parsedValue > 100)) return;
+    if (name === "windgust" && (parsedValue < 0 || parsedValue > 150)) return;
+    if (name === "severerisk" && (parsedValue < 0 || parsedValue > 100)) return;
+
+    setRiskValues((prev) => ({
+      ...prev,
+      [name]: parsedValue
+    }));
+  };
 
   useEffect(() => {
-    fetch("http://localhost:5000/API/ME/ProximasTormentas", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(response => response.json())
-      .then(data => setClientes(data))
-      .catch(error => console.error("Error al obtener los datos climáticos", error));
-  }, []);
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://localhost:5000/API/ME/ProximasTormentas", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(riskValues)
+        });
+
+        if (!response.ok) {
+          throw new Error('Error en la solicitud al servidor');
+        }
+
+        const data = await response.json();
+
+        if (data.error) {
+          setErrorMessage(data.error);
+          setClientes([]);
+        } else {
+          setClientes(data);
+          setErrorMessage(null);
+        }
+      } catch (error) {
+        setErrorMessage("No se pudo conectar al servidor. Verifica tu conexión.");
+        setClientes([]);
+        console.error("Error al obtener los datos climáticos", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [riskValues]);
 
   const columns = React.useMemo(
     () => [
@@ -35,49 +80,99 @@ function Climatica() {
 
   const data = React.useMemo(() => clientes, [clientes]);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data },
-    useSortBy
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0, pageSize: 30 },
+    },
+    useSortBy,
+    usePagination
   );
 
   return (
     <div>
       <Navbar />
       <div className="content">
-        <h1>Condiciones Climáticas</h1>
-        
-        <table className="reference-table">
-          <thead>
-            <tr>
-              <th>Parámetro</th>
-              <th>Mínimo</th>
-              <th>Máximo</th>
-              <th>Riesgo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Probabilidad de lluvia (%)</td>
-              <td>5</td>
-              <td>95</td>
-              <td>80</td>
-            </tr>
-            <tr>
-              <td>Viento máximo (km/h)</td>
-              <td>30</td>
-              <td>80</td>
-              <td>50</td>
-            </tr>
-            <tr>
-              <td>Riesgo severo</td>
-              <td>3</td>
-              <td>20</td>
-              <td>15</td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <div style={{ marginTop: '20px' }}>
+        <div className="reference-table-container">
+          <table className="reference-table">
+            <thead>
+              <tr>
+                <th>Parámetro</th>
+                <th>Mínimo</th>
+                <th>Máximo</th>
+                <th>Riesgo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Probabilidad de lluvia (%)</td>
+                <td>30</td>
+                <td>100</td>
+                <td>
+                  <input
+                    type="number"
+                    name="precipprob"
+                    value={riskValues.precipprob}
+                    onChange={handleRiskChange}
+                    min="0"
+                    max="100"
+                    step="5"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Viento máximo (km/h)</td>
+                <td>40</td>
+                <td>150</td>
+                <td>
+                  <input
+                    type="number"
+                    name="windgust"
+                    value={riskValues.windgust}
+                    onChange={handleRiskChange}
+                    min="0"
+                    max="150"
+                    step="10"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Riesgo severo</td>
+                <td>30</td>
+                <td>100</td>
+                <td>
+                  <input
+                    type="number"
+                    name="severerisk"
+                    value={riskValues.severerisk}
+                    onChange={handleRiskChange}
+                    min="0"
+                    max="100"
+                    step="5"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="table-container">
           <table {...getTableProps()} className="climatica-table">
             <thead>
               {headerGroups.map((headerGroup, index) => (
@@ -92,10 +187,20 @@ function Climatica() {
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {rows.length === 0 ? (
-                <tr><td colSpan="9">No hay datos climáticos disponibles</td></tr>
+              {isLoading ? (
+                <tr>
+                  <td colSpan="9" style={{ textAlign: 'center' }}>
+                    <div className="spinner">Cargando...</div>
+                  </td>
+                </tr>
+              ) : page.length === 0 ? (
+                <tr>
+                  <td colSpan="9">
+                    {errorMessage || "No hay datos climáticos disponibles"}
+                  </td>
+                </tr>
               ) : (
-                rows.map((row, rowIndex) => {
+                page.map((row, rowIndex) => {
                   prepareRow(row);
                   return (
                     <tr {...row.getRowProps()} key={rowIndex}>
@@ -111,6 +216,30 @@ function Climatica() {
               )}
             </tbody>
           </table>
+
+          <div className="pagination">
+            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              {'<<'}
+            </button>{' '}
+            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+              {'<'}
+            </button>{' '}
+            <button onClick={() => nextPage()} disabled={!canNextPage}>
+              {'>'}
+            </button>{' '}
+            <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+              {'>>'}
+            </button>{' '}
+            <span>
+              Página{' '}
+              <strong>
+                {pageIndex + 1} de {pageOptions.length}
+              </strong>{' '}
+            </span>
+            <span>
+              | Total de registros: <strong>{data.length}</strong>
+            </span>
+          </div>
         </div>
       </div>
     </div>

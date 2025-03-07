@@ -180,13 +180,19 @@ class Controlador:  # Cambié el nombre de la clase a 'ServiciosHandler'
         # json = a.normalizar_afectacion()
         # return json, 200  
 
+    # @app.route('/API/ME/ProximasTormentas', methods=['POST'])
+    # def ProximasTormentasVisualCrossing():
+    #     servicio = ServicioVisualCrossing()
+    #     clientes = servicio.obtener_clientes_pronosticados()
+    #     return jsonify(clientes), 200    
+
     @app.route('/API/ME/ProximasTormentas', methods=['POST'])
     def ProximasTormentasVisualCrossing():
         servicio = ServicioVisualCrossing()
-        clientes = servicio.obtener_clientes_pronosticados()
-        return jsonify(clientes), 200    
-
-
+        # Obtener los valores de riesgo del cuerpo de la solicitud
+        risk_values = request.get_json() or None
+        clientes = servicio.obtener_clientes_pronosticados(risk_values)
+        return jsonify(clientes), 200
 
 
 def validar_contrasena(password):

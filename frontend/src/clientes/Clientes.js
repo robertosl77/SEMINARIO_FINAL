@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../navegacion/Navbar'; // Ajusta la ruta según la estructura de tu proyecto
-import { useTable, useSortBy } from 'react-table'; // Importa useSortBy
-import './css/Clientes.css'; // Asegúrate de que la ruta sea correcta según la ubicación del archivo CSS
+import Navbar from '../navegacion/Navbar';
+import { useTable, useSortBy, usePagination } from 'react-table';
+import './css/Clientes.css';
 
 function Clientes() {
   const [clientes, setClientes] = useState([]);
@@ -61,19 +61,35 @@ function Clientes() {
 
   const data = React.useMemo(() => clientes, [clientes]);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
     {
       columns,
       data,
+      initialState: { pageIndex: 0, pageSize: 30 },
     },
-    useSortBy
+    useSortBy,
+    usePagination
   );
 
   return (
     <div>
       <Navbar />
       <div className="clientes-content">
-        <h3>Clientes</h3>
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, index) => (
@@ -97,7 +113,7 @@ function Clientes() {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row, rowIndex) => {
+            {page.map((row, rowIndex) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()} key={rowIndex}>
@@ -111,6 +127,29 @@ function Clientes() {
             })}
           </tbody>
         </table>
+        <div className="pagination">
+          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+            {'<<'}
+          </button>{' '}
+          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+            {'<'}
+          </button>{' '}
+          <button onClick={() => nextPage()} disabled={!canNextPage}>
+            {'>'}
+          </button>{' '}
+          <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+            {'>>'}
+          </button>{' '}
+          <span>
+            Página{' '}
+            <strong>
+              {pageIndex + 1} de {pageOptions.length}
+            </strong>{' '}
+          </span>
+          <span>
+            | Total de registros: <strong>{data.length}</strong>
+          </span>
+        </div>
       </div>
     </div>
   );
