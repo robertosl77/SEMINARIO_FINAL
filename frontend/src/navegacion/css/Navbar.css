@@ -167,3 +167,24 @@
     display: block; /* Mostrar el botón de hamburguesa */
   }
 }
+
+
+.navbar-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Estilo para el enlace activo */
+.navbar-links li a.active {
+  text-decoration: underline;
+  text-decoration-color: white;
+  text-decoration-thickness: 3px; /* Grosor del subrayado */
+  text-underline-offset: 5px; /* Espacio entre el texto y el subrayado */
+}
+
+/* Hover sigue funcionando para los enlaces no activos */
+.navbar-links li a:hover:not(.active) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px; /* Subrayado más fino para el hover */
+}
