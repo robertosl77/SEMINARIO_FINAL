@@ -11,7 +11,7 @@ function Climatica() {
     windgust: 60,
     severerisk: 40
   });
-  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para el spinner
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRiskChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +28,7 @@ function Climatica() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true); // Activar el spinner al iniciar la carga
+      setIsLoading(true);
       try {
         const response = await fetch("http://localhost:5000/API/ME/ProximasTormentas", {
           method: 'POST',
@@ -56,7 +56,7 @@ function Climatica() {
         setClientes([]);
         console.error("Error al obtener los datos climáticos", error);
       } finally {
-        setIsLoading(false); // Desactivar el spinner cuando termine (éxito o error)
+        setIsLoading(false);
       }
     };
 
@@ -99,7 +99,7 @@ function Climatica() {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 30 },
+      initialState: { pageIndex: 0, pageSize: 50 },
     },
     useSortBy,
     usePagination
@@ -111,66 +111,68 @@ function Climatica() {
       <div className="content">
         <h1>Condiciones Climáticas</h1>
 
-        <table className="reference-table">
-          <thead>
-            <tr>
-              <th>Parámetro</th>
-              <th>Mínimo</th>
-              <th>Máximo</th>
-              <th>Riesgo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Probabilidad de lluvia (%)</td>
-              <td>30</td>
-              <td>100</td>
-              <td>
-                <input
-                  type="number"
-                  name="precipprob"
-                  value={riskValues.precipprob}
-                  onChange={handleRiskChange}
-                  min="0"
-                  max="100"
-                  step="5"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Viento máximo (km/h)</td>
-              <td>40</td>
-              <td>150</td>
-              <td>
-                <input
-                  type="number"
-                  name="windgust"
-                  value={riskValues.windgust}
-                  onChange={handleRiskChange}
-                  min="0"
-                  max="150"
-                  step="10"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Riesgo severo</td>
-              <td>30</td>
-              <td>100</td>
-              <td>
-                <input
-                  type="number"
-                  name="severerisk"
-                  value={riskValues.severerisk}
-                  onChange={handleRiskChange}
-                  min="0"
-                  max="100"
-                  step="5"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="reference-table-container">
+          <table className="reference-table">
+            <thead>
+              <tr>
+                <th>Parámetro</th>
+                <th>Mínimo</th>
+                <th>Máximo</th>
+                <th>Riesgo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Probabilidad de lluvia (%)</td>
+                <td>30</td>
+                <td>100</td>
+                <td>
+                  <input
+                    type="number"
+                    name="precipprob"
+                    value={riskValues.precipprob}
+                    onChange={handleRiskChange}
+                    min="0"
+                    max="100"
+                    step="5"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Viento máximo (km/h)</td>
+                <td>40</td>
+                <td>150</td>
+                <td>
+                  <input
+                    type="number"
+                    name="windgust"
+                    value={riskValues.windgust}
+                    onChange={handleRiskChange}
+                    min="0"
+                    max="150"
+                    step="10"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Riesgo severo</td>
+                <td>30</td>
+                <td>100</td>
+                <td>
+                  <input
+                    type="number"
+                    name="severerisk"
+                    value={riskValues.severerisk}
+                    onChange={handleRiskChange}
+                    min="0"
+                    max="100"
+                    step="5"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div className="table-container">
           <table {...getTableProps()} className="climatica-table">
