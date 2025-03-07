@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navegacion/Navbar';
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useSortBy, usePagination } from 'react-table';
 import './css/Climatica.css';
 
 function Climatica() {
   const [clientes, setClientes] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [riskValues, setRiskValues] = useState({
-    precipprob: 20, // Por defecto: 20%
-    windgust: 30,  // Por defecto: 30 km/h
-    severerisk: 10 // Por defecto: 10
+    precipprob: 70,
+    windgust: 60,
+    severerisk: 40
   });
 
   const handleRiskChange = (e) => {
     const { name, value } = e.target;
+    const parsedValue = parseInt(value) || 0; // Valor por defecto 0 si no es un número válido
+    // Validación basada en mínimos lógicos y máximos permitidos
+    if (name === "precipprob" && (parsedValue < 0 || parsedValue > 100)) return;
+    if (name === "windgust" && (parsedValue < 0 || parsedValue > 150)) return;
+    if (name === "severerisk" && (parsedValue < 0 || parsedValue > 100)) return;
+
     setRiskValues((prev) => ({
       ...prev,
-      [name]: parseInt(value) || prev[name] // Aseguramos que sea un número
+      [name]: parsedValue
     }));
   };
 
@@ -52,7 +58,7 @@ function Climatica() {
     };
 
     fetchData();
-  }, [riskValues]); // Se ejecuta cuando cambian los valores de riesgo
+  }, [riskValues]);
 
   const columns = React.useMemo(
     () => [
@@ -71,9 +77,29 @@ function Climatica() {
 
   const data = React.useMemo(() => clientes, [clientes]);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
-    { columns, data },
-    useSortBy
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0, pageSize: 50 },
+    },
+    useSortBy,
+    usePagination
   );
 
   return (
@@ -94,60 +120,54 @@ function Climatica() {
           <tbody>
             <tr>
               <td>Probabilidad de lluvia (%)</td>
-              <td>5</td>
-              <td>95</td>
+              <td>30</td>
+              <td>100</td>
               <td>
                 <input
                   type="number"
                   name="precipprob"
                   value={riskValues.precipprob}
                   onChange={handleRiskChange}
-                  min="5"
-                  max="95"
+                  min="0"
+                  max="100"
                   step="5"
                 />
               </td>
             </tr>
             <tr>
               <td>Viento máximo (km/h)</td>
-              <td>30</td>
-              <td>80</td>
+              <td>40</td>
+              <td>150</td>
               <td>
                 <input
                   type="number"
                   name="windgust"
                   value={riskValues.windgust}
                   onChange={handleRiskChange}
-                  min="30"
-                  max="80"
-                  step="5"
+                  min="0"
+                  max="150"
+                  step="10"
                 />
               </td>
             </tr>
             <tr>
               <td>Riesgo severo</td>
-              <td>3</td>
-              <td>20</td>
+              <td>30</td>
+              <td>100</td>
               <td>
                 <input
                   type="number"
                   name="severerisk"
                   value={riskValues.severerisk}
                   onChange={handleRiskChange}
-                  min="1"
-                  max="20"
-                  step="1"
+                  min="0"
+                  max="100"
+                  step="5"
                 />
               </td>
             </tr>
           </tbody>
         </table>
-
-        {errorMessage && (
-          <div className="error-message">
-            <strong>Error:</strong> {errorMessage}
-          </div>
-        )}
 
         <div className="table-container">
           <table {...getTableProps()} className="climatica-table">
@@ -164,10 +184,14 @@ function Climatica() {
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {rows.length === 0 && !errorMessage ? (
-                <tr><td colSpan="9">No hay datos climáticos disponibles</td></tr>
+              {page.length === 0 ? (
+                <tr>
+                  <td colSpan="9">
+                    {errorMessage || "No hay datos climáticos disponibles"}
+                  </td>
+                </tr>
               ) : (
-                rows.map((row, rowIndex) => {
+                page.map((row, rowIndex) => {
                   prepareRow(row);
                   return (
                     <tr {...row.getRowProps()} key={rowIndex}>
@@ -183,6 +207,30 @@ function Climatica() {
               )}
             </tbody>
           </table>
+
+          <div className="pagination">
+            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              {'<<'}
+            </button>{' '}
+            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+              {'<'}
+            </button>{' '}
+            <button onClick={() => nextPage()} disabled={!canNextPage}>
+              {'>'}
+            </button>{' '}
+            <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+              {'>>'}
+            </button>{' '}
+            <span>
+              Página{' '}
+              <strong>
+                {pageIndex + 1} de {pageOptions.length}
+              </strong>{' '}
+            </span>
+            <span>
+              | Total de registros: <strong>{data.length}</strong>
+            </span>
+          </div>
         </div>
       </div>
     </div>

@@ -79,3 +79,37 @@
 .climatica-table {
   margin-top: 10px;
 }
+
+
+
+
+/* Estilos para la paginación */
+.pagination {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.pagination span {
+  font-size: 14px;
+}
