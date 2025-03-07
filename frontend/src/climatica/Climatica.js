@@ -109,8 +109,6 @@ function Climatica() {
     <div>
       <Navbar />
       <div className="content">
-        <h1>Condiciones Climáticas</h1>
-
         <div className="reference-table-container">
           <table className="reference-table">
             <thead>

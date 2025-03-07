@@ -80,7 +80,7 @@ function Navbar() {
           )}
           {['admin', 'operador'].includes(rol) && (
             <li>
-              <NavLink to="/SGE/Climatica">Pronosticos Meteorologicos</NavLink>
+              <NavLink to="/SGE/Climatica">Condiciones Climaticas</NavLink>
             </li>
           )}
           {['admin'].includes(rol) && (
