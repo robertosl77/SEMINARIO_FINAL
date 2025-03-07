@@ -4,6 +4,7 @@ import { useTable, useSortBy, usePagination } from 'react-table';
 import './css/Climatica.css';
 
 function Climatica() {
+  const rol = sessionStorage.getItem('rol');
   const [clientes, setClientes] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [riskValues, setRiskValues] = useState({
@@ -11,7 +12,7 @@ function Climatica() {
     windgust: 60,
     severerisk: 40
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); 
 
   const handleRiskChange = (e) => {
     const { name, value } = e.target;
@@ -125,15 +126,19 @@ function Climatica() {
                 <td>30</td>
                 <td>100</td>
                 <td>
-                  <input
-                    type="number"
-                    name="precipprob"
-                    value={riskValues.precipprob}
-                    onChange={handleRiskChange}
-                    min="0"
-                    max="100"
-                    step="5"
-                  />
+                  {['admin'].includes(rol) ? (
+                    <input
+                      type="number"
+                      name="precipprob"
+                      value={riskValues.precipprob}
+                      onChange={handleRiskChange}
+                      min="0"
+                      max="100"
+                      step="5"
+                    />
+                  ) : (
+                    <span>{riskValues.precipprob}</span>
+                  )}
                 </td>
               </tr>
               <tr>
@@ -141,6 +146,7 @@ function Climatica() {
                 <td>40</td>
                 <td>150</td>
                 <td>
+                {['admin'].includes(rol) ? (
                   <input
                     type="number"
                     name="windgust"
@@ -150,6 +156,9 @@ function Climatica() {
                     max="150"
                     step="10"
                   />
+                ) : (
+                  <span>{riskValues.windgust}</span>
+                )}
                 </td>
               </tr>
               <tr>
@@ -157,15 +166,19 @@ function Climatica() {
                 <td>30</td>
                 <td>100</td>
                 <td>
-                  <input
-                    type="number"
-                    name="severerisk"
-                    value={riskValues.severerisk}
-                    onChange={handleRiskChange}
-                    min="0"
-                    max="100"
-                    step="5"
-                  />
+                  {['admin'].includes(rol) ? (
+                    <input
+                      type="number"
+                      name="severerisk"
+                      value={riskValues.severerisk}
+                      onChange={handleRiskChange}
+                      min="0"
+                      max="100"
+                      step="5"
+                    />
+                  ) : (
+                    <span>{riskValues.severerisk}</span>
+                  )}
                 </td>
               </tr>
             </tbody>
