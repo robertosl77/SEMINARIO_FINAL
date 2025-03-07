@@ -93,7 +93,7 @@ h1 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .climatica-table tr {
@@ -208,7 +208,7 @@ h1 {
   .climatica-table th,
   .climatica-table td {
     padding: 4px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   /* Ajustes para la paginación */
@@ -267,7 +267,7 @@ h1 {
   .climatica-table th,
   .climatica-table td {
     padding: 3px;
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .pagination button {

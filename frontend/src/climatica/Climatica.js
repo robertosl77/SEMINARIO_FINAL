@@ -99,7 +99,7 @@ function Climatica() {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 50 },
+      initialState: { pageIndex: 0, pageSize: 30 },
     },
     useSortBy,
     usePagination
