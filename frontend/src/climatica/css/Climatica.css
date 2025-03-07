@@ -113,3 +113,33 @@
 .pagination span {
   font-size: 14px;
 }
+
+
+
+
+/* Estilos para el spinner */
+.spinner {
+  font-size: 18px;
+  color: #007bff;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Opcional: Un spinner animado con CSS */
+.spinner::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -11,11 +11,11 @@ function Climatica() {
     windgust: 60,
     severerisk: 40
   });
+  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para el spinner
 
   const handleRiskChange = (e) => {
     const { name, value } = e.target;
-    const parsedValue = parseInt(value) || 0; // Valor por defecto 0 si no es un número válido
-    // Validación basada en mínimos lógicos y máximos permitidos
+    const parsedValue = parseInt(value) || 0;
     if (name === "precipprob" && (parsedValue < 0 || parsedValue > 100)) return;
     if (name === "windgust" && (parsedValue < 0 || parsedValue > 150)) return;
     if (name === "severerisk" && (parsedValue < 0 || parsedValue > 100)) return;
@@ -28,13 +28,14 @@ function Climatica() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true); // Activar el spinner al iniciar la carga
       try {
         const response = await fetch("http://localhost:5000/API/ME/ProximasTormentas", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(riskValues) // Enviamos los valores de riesgo
+          body: JSON.stringify(riskValues)
         });
 
         if (!response.ok) {
@@ -54,6 +55,8 @@ function Climatica() {
         setErrorMessage("No se pudo conectar al servidor. Verifica tu conexión.");
         setClientes([]);
         console.error("Error al obtener los datos climáticos", error);
+      } finally {
+        setIsLoading(false); // Desactivar el spinner cuando termine (éxito o error)
       }
     };
 
@@ -96,7 +99,7 @@ function Climatica() {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 50 },
+      initialState: { pageIndex: 0, pageSize: 30 },
     },
     useSortBy,
     usePagination
@@ -184,7 +187,13 @@ function Climatica() {
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {page.length === 0 ? (
+              {isLoading ? (
+                <tr>
+                  <td colSpan="9" style={{ textAlign: 'center' }}>
+                    <div className="spinner">Cargando...</div>
+                  </td>
+                </tr>
+              ) : page.length === 0 ? (
                 <tr>
                   <td colSpan="9">
                     {errorMessage || "No hay datos climáticos disponibles"}
