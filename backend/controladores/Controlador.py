@@ -12,6 +12,10 @@ import re
 app = Flask(__name__)  # Cambié el nombre de la instancia Flask a 'app'
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def health_check():
+    return jsonify({"status": "Backend is running"}), 200
+
 # Configurar una clave secreta para manejar sesiones
 app.secret_key = "\x8d~+\x88H\xba\xb1\xbf\xbb\x1e\xb2\xc8w\x80\xd4e\x87Q\xdfU'#\xd0\xc7"  # Asegúrate de usar una clave secreta segura
 
