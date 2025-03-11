@@ -9,7 +9,7 @@ function Clientes() {
   useEffect(() => {
     const obtenerClientes = async () => {
       try {
-        const response = await fetch('http://localhost:5000/API/CL/ObtieneClientes');
+        const response = await fetch('https://seminario-final.onrender.com:10000/API/CL/ObtieneClientes');
         const data = await response.json();
         const clientesConCalleCompleta = data.map(cliente => ({
           ...cliente,

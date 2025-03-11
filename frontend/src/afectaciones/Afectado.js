@@ -52,7 +52,7 @@ function Afectado({
       usuario: sessionStorage.getItem('username'),
     };
 
-    fetch(`http://localhost:5000/API/AF/NormalizaAfectado/${cuenta}/${idafectacion}`, {
+    fetch(`https://seminario-final.onrender.com:10000/API/AF/NormalizaAfectado/${cuenta}/${idafectacion}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

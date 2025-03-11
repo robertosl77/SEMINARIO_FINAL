@@ -12,7 +12,7 @@ function Navbar() {
   const rol = sessionStorage.getItem('rol');
 
   const handleLogout = async () => {
-    const response = await fetch('http://localhost:5000/SGE/Logout', {
+    const response = await fetch('https://seminario-final.onrender.com:10000/SGE/Logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

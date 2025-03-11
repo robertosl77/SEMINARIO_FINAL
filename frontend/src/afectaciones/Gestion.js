@@ -22,7 +22,7 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
       "contacto": contacto,
     };
 
-    fetch(`http://localhost:5000/API/GE/AgregaContacto`, {
+    fetch(`https://seminario-final.onrender.com:10000/API/GE/AgregaContacto`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
     const nuevaSolucion = event.target.value;
     setSelectedSolucion(nuevaSolucion);
 
-    fetch(`http://localhost:5000/API/GE/CambiaGestion/${cuenta}/${idafectacion}/${nuevaSolucion}`, {
+    fetch(`https://seminario-final.onrender.com:10000/API/GE/CambiaGestion/${cuenta}/${idafectacion}/${nuevaSolucion}`, {
       method: 'POST',
     })
       .then(response => response.json())
