@@ -34,7 +34,7 @@ const handleNuevaBD = async () => {
   }
   
   try {
-    const response = await fetch('https://seminario-final.onrender.com/API/BD/CreaTablas', {
+    const response = await fetch('${process.env.REACT_APP_API_URL}/API/BD/CreaTablas', {
       method: 'POST',
     });
     if (response.ok) {
@@ -52,7 +52,7 @@ const handleNuevaBD = async () => {
 
 const handleNuevaAfectacion = async () => {
   try {
-    const response = await fetch('https://seminario-final.onrender.com/API/AF/NuevaAfectacionAT/0', {
+    const response = await fetch('${process.env.REACT_APP_API_URL}/API/AF/NuevaAfectacionAT/0', {
       method: 'POST',
     });
     if (response.ok) {
@@ -70,7 +70,7 @@ const handleNuevaAfectacion = async () => {
 
 const handleNuevosReclamos = async () => {
     try {
-      const response = await fetch('https://seminario-final.onrender.com/API/AF/GeneraReclamos', {
+      const response = await fetch('${process.env.REACT_APP_API_URL}/API/AF/GeneraReclamos', {
         method: 'POST',
       });
       if (response.ok) {
@@ -88,7 +88,7 @@ const handleNuevosReclamos = async () => {
 
   const handleNormalizaAfectaciones = async () => {
     try {
-      const response = await fetch('https://seminario-final.onrender.com/API/AF/NormalizarElementosAleatorios', {
+      const response = await fetch('${process.env.REACT_APP_API_URL}/API/AF/NormalizarElementosAleatorios', {
         method: 'POST',
       });
       if (response.ok) {

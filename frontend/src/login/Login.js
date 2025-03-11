@@ -9,7 +9,7 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch('https://seminario-final.onrender.com/SGE/Login', {
+    const response = await fetch('${process.env.REACT_APP_API_URL}/SGE/Login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
