@@ -109,7 +109,7 @@
 
     <h2>4. Acceso a la Aplicación</h2>
     <ul>
-        <li>El backend debería estar corriendo en un puerto específico (por ejemplo, <code>https://seminario-final.onrender.com:10000</code>).</li>
+        <li>El backend debería estar corriendo en un puerto específico (por ejemplo, <code>https://seminario-final.onrender.com</code>).</li>
         <li>El frontend normalmente correrá en <code>http://localhost:3000</code> (a menos que esté configurado de manera diferente).</li>
         <li>Asegúrate de que ambos servicios estén activos y que el frontend pueda comunicarse con el backend correctamente.</li>
     </ul>

@@ -20,7 +20,7 @@ function Dashboard({ setData }) {
 
   const handleCardClick = useCallback(async (endpoint) => {
     try {
-      const response = await fetch(`https://seminario-final.onrender.com:10000/API/MN/GestionaTarjeta/${endpoint}`, {
+      const response = await fetch(`https://seminario-final.onrender.com/API/MN/GestionaTarjeta/${endpoint}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
