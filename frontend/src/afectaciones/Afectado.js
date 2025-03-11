@@ -109,8 +109,8 @@ function Afectado({
           <div className="afectado-duracion">Duración (hs): {calcularDuracion(inicio, restitucion)}</div>
         </div>
         <div>
-          {/* Botón para Normalizar */}
-          {restitucion !== null && (
+          {/* Botón para Normalizar */}         
+          {['admin'].includes(rol) && restitucion !== null && (
             <button id="boton-normalizar" onClick={(e) => { e.stopPropagation(); handleNormalizarSubmit(); }}>Normalizar</button>
           )}
         </div>        
