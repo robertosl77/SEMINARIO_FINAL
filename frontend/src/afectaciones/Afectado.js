@@ -30,6 +30,7 @@ function Afectado({
   onCardClick,
   isSelected // Indica si el afectado está seleccionado
 }) {
+  const rol = sessionStorage.getItem('rol');
   const [visible, setVisible] = useState(true); // Nuevo estado para controlar la visibilidad
 
   const calcularDuracion = (inicio, restitucion) => {
