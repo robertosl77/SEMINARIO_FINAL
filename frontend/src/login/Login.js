@@ -42,6 +42,7 @@ function Login() {
               <input 
                 type="password" 
                 placeholder="Password" 
+                autocomplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} 
               />
