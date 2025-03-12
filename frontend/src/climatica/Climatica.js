@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../navegacion/Navbar';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import './css/Climatica.css';
 
 function Climatica() {
+  const navigate = useNavigate();
   const rol = sessionStorage.getItem('rol');
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('rol'); // O usa la clave que almacena la sesión
+    if (!token) {
+      navigate('/SGE/Login'); // Redirige al login si no está autenticado
+    }
+  }, [navigate]);
+  
   const [clientes, setClientes] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [riskValues, setRiskValues] = useState({

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../navegacion/Navbar';
 import Dashboard from './Dashboard';
 import Afectados from './Afectados';
@@ -20,7 +21,16 @@ import './css/objeto_SwitchStyle.css'
 
 function Afectaciones() {
   // const username = sessionStorage.getItem('username');
+  const navigate = useNavigate();
   const rol = sessionStorage.getItem('rol');
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('rol'); // O usa la clave que almacena la sesión
+    if (!token) {
+      navigate('/SGE/Login'); // Redirige al login si no está autenticado
+    }
+  }, [navigate]); 
+
   const [data, setData] = useState(null);
   const [selectedView, setSelectedView] = useState(null);
   const [gestionData, setGestionData] = useState(null);
