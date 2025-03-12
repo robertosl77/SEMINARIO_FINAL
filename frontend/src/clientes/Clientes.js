@@ -9,7 +9,7 @@ function Clientes() {
   useEffect(() => {
     const obtenerClientes = async () => {
       try {
-        const response = await fetch('${process.env.REACT_APP_API_URL}/API/CL/ObtieneClientes');
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/API/CL/ObtieneClientes`);
         const data = await response.json();
         const clientesConCalleCompleta = data.map(cliente => ({
           ...cliente,

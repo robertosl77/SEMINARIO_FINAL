@@ -30,6 +30,7 @@ function Afectado({
   onCardClick,
   isSelected // Indica si el afectado está seleccionado
 }) {
+
   const rol = sessionStorage.getItem('rol');
   const [visible, setVisible] = useState(true); // Nuevo estado para controlar la visibilidad
 
@@ -110,8 +111,8 @@ function Afectado({
           <div className="afectado-duracion">Duración (hs): {calcularDuracion(inicio, restitucion)}</div>
         </div>
         <div>
-          {/* Botón para Normalizar */}         
-          {['admin'].includes(rol) && restitucion !== null && (
+          {/* Botón para Normalizar */}
+          {['admin','operador'].includes(rol) && restitucion !== null && (
             <button id="boton-normalizar" onClick={(e) => { e.stopPropagation(); handleNormalizarSubmit(); }}>Normalizar</button>
           )}
         </div>        
