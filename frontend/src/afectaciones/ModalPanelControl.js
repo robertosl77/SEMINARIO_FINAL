@@ -34,7 +34,6 @@ const handleNuevaBD = async () => {
   }
   
   try {
-    console.log(process.env.REACT_APP_API_URL);
     const response = await fetch(`${process.env.REACT_APP_API_URL}/API/BD/CreaTablas`, {
       method: 'POST',
     });
