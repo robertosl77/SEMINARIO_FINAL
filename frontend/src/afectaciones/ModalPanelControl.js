@@ -34,11 +34,12 @@ const handleNuevaBD = async () => {
   }
   
   try {
+    console.log(process.env.REACT_APP_API_URL);
     const response = await fetch(`${process.env.REACT_APP_API_URL}/API/BD/CreaTablas`, {
       method: 'POST',
     });
     if (response.ok) {
-      const data = await response.json();
+      // const data = await response.json();
       alert('Nueva Base de Datos creada con éxito.');
       window.location.reload();
     } else {
@@ -56,7 +57,7 @@ const handleNuevaAfectacion = async () => {
       method: 'POST',
     });
     if (response.ok) {
-      const data = await response.json();
+      // const data = await response.json();
       alert('Nueva Afectación creada con éxito.');
       window.location.reload();
     } else {
@@ -74,7 +75,7 @@ const handleNuevosReclamos = async () => {
         method: 'POST',
       });
       if (response.ok) {
-        const data = await response.json();
+        // const data = await response.json();
         alert('Nueva Afectación creada con éxito.');
         window.location.reload();
       } else {
@@ -92,7 +93,7 @@ const handleNuevosReclamos = async () => {
         method: 'POST',
       });
       if (response.ok) {
-        const data = await response.json();
+        // const data = await response.json();
         alert('Afectaciones normalizadas con extio.');
         window.location.reload();
       } else {
