@@ -30,6 +30,8 @@ function Afectado({
   onCardClick,
   isSelected // Indica si el afectado está seleccionado
 }) {
+
+  const rol = sessionStorage.getItem('rol');
   const [visible, setVisible] = useState(true); // Nuevo estado para controlar la visibilidad
 
   const calcularDuracion = (inicio, restitucion) => {
@@ -52,7 +54,7 @@ function Afectado({
       usuario: sessionStorage.getItem('username'),
     };
 
-    fetch(`http://localhost:5000/API/AF/NormalizaAfectado/${cuenta}/${idafectacion}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/API/AF/NormalizaAfectado/${cuenta}/${idafectacion}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -110,7 +112,7 @@ function Afectado({
         </div>
         <div>
           {/* Botón para Normalizar */}
-          {restitucion !== null && (
+          {['admin','operador'].includes(rol) && restitucion !== null && (
             <button id="boton-normalizar" onClick={(e) => { e.stopPropagation(); handleNormalizarSubmit(); }}>Normalizar</button>
           )}
         </div>        

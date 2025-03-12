@@ -9,7 +9,8 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch('http://localhost:5000/SGE/Login', {
+    console.log(process.env.REACT_APP_API_URL);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/SGE/Login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +49,7 @@ function Login() {
               <button type="submit">Login</button>
             </form>
             <div className="login-version-info">
-              <p>Frontend Version: 1.9.12</p>
+              <p>Frontend Version: 1.9.13</p>
               <p>Backend Version: 1.7.5</p>
             </div>
             <div className="login-additional-info">
