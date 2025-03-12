@@ -1,45 +1,44 @@
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    /* overflow-y: unset; */
-    /* height: 100vh; */
-  }
-  
-  .modal-content {
-    height: 80vh;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 50px; /* Ajustalo según la altura exacta del navbar */
+  right: 0;
+  width: 100%;
+  height: calc(100vh - 50px); /* Restando el tamaño del navbar */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start; /* Asegura que inicie desde arriba */
+}
+
+.modal-content {
+  height: 90vh;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  animation: slide-in 0.3s forwards;
+  overflow-y: auto;
+  margin-top: 0; /* No debe haber margen extra */
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+@keyframes slide-in {
+  from {
     transform: translateX(100%);
-    animation: slide-in 0.3s forwards;
-    overflow-y: auto;
-    margin-top: 150px;
   }
-  
-  .close-button {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    visibility: hidden;
+  to {
+    transform: translateX(0);
   }
-  
-  @keyframes slide-in {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-  
-  .no-scroll {
-    overflow: hidden;
-  }
+}
+
+.no-scroll {
+  overflow: hidden;
+}
