@@ -306,32 +306,6 @@
   width: 100%; /* Asegura que ocupa toda la fila */
 }
 
-/* 📌 Botón de enviar */
-#boton {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 10px;
-}
-
-#boton:hover {
-  background: #0056b3;
-}
-
-/* 📌 Ajuste de botón en móviles */
-@media (max-width: 480px) {
-  #boton {
-      font-size: 12px;
-      padding: 8px;
-  }
-}
-
 /* 📌 Mensajes de éxito */
 .success-message {
   margin-top: 10px;

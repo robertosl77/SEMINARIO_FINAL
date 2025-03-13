@@ -15,7 +15,6 @@ import ListaTelefonos from './detalle/ListaTelefonos';
 import Gestion from './Gestion';
 import ModalPanelControl from './ModalPanelControl'; // Importa el componente si no está importado
 import './css/Listas.css';
-// import './css/Gestion.css'
 import './css/objeto_boton.css'
 import './css/objeto_SwitchStyle.css'
 
@@ -38,12 +37,22 @@ function Afectaciones() {
 
   const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria) => {
     setVisible(false);
-
     setTimeout(() => {
       setSelectedView({ telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
       setGestionData({ cuenta, solucion_provisoria, telefonos, idafectacion });
       setVisible(true);
     }, 300);
+  };
+
+  const handleContactoAgregado = (nuevoContacto) => {
+    setSelectedView((prev) => {
+      const updatedView = {
+        ...prev,
+        contactos: prev.contactos ? [...prev.contactos, nuevoContacto] : [nuevoContacto],
+      };
+      console.log('Nuevo selectedView:', updatedView); // Depuración
+      return updatedView;
+    });
   };
 
   if (visible) {
@@ -75,7 +84,7 @@ function Afectaciones() {
                   setData({ ...data, afectados: updatedData });
                 }}
                 onClose={() => setVisible(false)} // 🔹 Pasamos la función para cerrar el modal
-                
+                onContactoAgregado={handleContactoAgregado}
               />
             </div>
             )}

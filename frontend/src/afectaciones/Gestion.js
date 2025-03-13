@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
 
-function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange, onClose }) {
+function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange, onClose, onContactoAgregado }) {
   const [contacto, setContacto] = useState('');
   const [selectedTelefono, setSelectedTelefono] = useState('');
   const [efectivo, setEfectivo] = useState(1);  // Estado para contacto efectivo
@@ -14,14 +14,14 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
 
   const handleContactoSubmit = () => {
     const contactoData = {
-      "cuenta": cuenta,
-      "idafectacion": idafectacion,
-      "idtelefono": selectedTelefono, 
-      "efectivo": efectivo, 
-      "usuario": sessionStorage.getItem('username'),
-      "contacto": contacto,
+      cuenta,
+      idafectacion,
+      idtelefono: selectedTelefono,
+      efectivo,
+      usuario: sessionStorage.getItem('username'),
+      contacto,
     };
-
+  
     fetch(`${process.env.REACT_APP_API_URL}/API/GE/AgregaContacto`, {
       method: 'POST',
       headers: {
@@ -31,15 +31,37 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
     })
       .then(response => response.json())
       .then(data => {
+        console.log('Respuesta de la API:', data);
         if (data) {
+          // Convertimos selectedTelefono a número
+          const telefonoId = parseInt(selectedTelefono, 10);
+          // Buscamos el teléfono correspondiente
+          const telefonoSeleccionado = telefonos.find(t => t.idtelefono === telefonoId);
+  
+          const nuevoContacto = {
+            idcontacto: data.idcontacto || 'N/A',
+            idtelefonos: telefonoId, // Ahora es un número
+            cuenta,
+            usuario: sessionStorage.getItem('username'),
+            fechahora: new Date().toLocaleString(),
+            telefono: telefonoSeleccionado?.telefono || 'Desconocido',
+            tipo: telefonoSeleccionado?.tipo || 'N/A', // Obtenemos el tipo del teléfono
+            efectivo: efectivo === 1 ? 1 : 0,
+            observaciones: contacto,
+          };
+  
           setContacto('');
           setSelectedTelefono('');
-          setEfectivo(0); 
+          setEfectivo(0);
           setShowSuccess(true);
-
+  
+          if (onContactoAgregado) {
+            onContactoAgregado(nuevoContacto);
+          }
+  
           setTimeout(() => {
             setShowSuccess(false);
-            if (onClose) onClose(); // 🔹 Cierra el modal después de 3 segundos
+            // if (onClose) onClose();
           }, 3000);
         }
       })
