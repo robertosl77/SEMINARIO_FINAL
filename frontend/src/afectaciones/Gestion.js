@@ -10,12 +10,32 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
   const [showSuccess, setShowSuccess] = useState(false);  
   const [showSuccessSP, setShowSuccessSP] = useState(false);  
   const [isLoading, setIsLoading] = useState(false); // Nuevo estado para la carga
+  const [warningMessage, setWarningMessage] = useState(''); // Estado para mensajes de advertencia
 
   // Ordenar teléfonos por efectividad (llamadas efectivas / total de llamadas)
   const telefonosOrdenados = [...telefonos].sort((a, b) => (b.efectivas / b.llamadas) - (a.efectivas / a.llamadas));
 
   // Maneja el envío de datos de contacto a la API y actualiza el estado.
   const handleContactoSubmit = () => {
+    // Validación: Verificar si se seleccionó un teléfono
+    if (!selectedTelefono) {
+      setWarningMessage('Por favor, seleccione un teléfono.');
+      setTimeout(() => {
+        setWarningMessage('');
+      }, 3000);
+      return; // Detener la ejecución si no hay teléfono seleccionado
+    }
+
+    // Validación: Verificar si el campo de observaciones está vacío
+    if (!contacto.trim()) {
+      setWarningMessage('Por favor, ingrese observaciones.');
+      setTimeout(() => {
+        setWarningMessage('');
+      }, 3000);
+      return; // Detener la ejecución si no hay observaciones
+    }
+
+    // Si pasa las validaciones, proceder con la solicitud
     setIsLoading(true); // Activa la carga inmediatamente
 
     const contactoData = {
@@ -173,7 +193,7 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
           ></textarea>
         </div>
 
-        {/* Botón para enviar el contacto, deshabilitado durante showSuccess o showSuccessSP */}
+        {/* Botón para enviar el contacto, deshabilitado durante isLoading, showSuccess o showSuccessSP */}
         <button 
           id="boton" 
           onClick={handleContactoSubmit} 
@@ -181,6 +201,13 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
         >
           Guardar Contacto
         </button>
+        
+        {/* Mostrar el mensaje de advertencia */}
+        {warningMessage && (
+          <div className="warning-message">
+            {warningMessage}
+          </div>
+        )}
 
         {/* Mostrar el mensaje de éxito */}
         {showSuccess && (
@@ -188,6 +215,7 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
             ¡Contacto guardado con éxito!
           </div>
         )}
+
         {/* Mostrar el mensaje de éxito fuera del <select> */}
         {showSuccessSP && (
           <div className="success-message">

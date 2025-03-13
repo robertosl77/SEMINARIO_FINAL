@@ -44,7 +44,8 @@
 
   --fondo-controles-normal: #9d9ea1;
   --fondo-controles-foco: #868b9c;
-
+  --fondo-warning-message: #c46a16;
+  --fondo-success-message: #d4edda;
 }
 
 .container-superior {
@@ -304,9 +305,20 @@
 .success-message {
   margin-top: 10px;
   padding: 10px;
-  background-color: #d4edda;
+  background-color: var(--fondo-success-message);
   color: #155724;
-  border: 1px solid #c3e6cb;
+  border: 1px solid var(--fondo-success-message);
+  border-radius: 5px;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* 📌 Mensajes de Fallos */
+.warning-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--fondo-warning-message);
+  color: #ffffff;
+  border: 1px solid var(--fondo-warning-message);
   border-radius: 5px;
   animation: fade-in 0.5s ease-in-out;
 }

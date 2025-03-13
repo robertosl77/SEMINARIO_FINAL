@@ -26,7 +26,7 @@
   background-position: right center;
   box-shadow: 0 8px 20px rgba(50, 80, 130, 0.4); /* Sombra más intensa en hover */
   /* transform: translateY(-2px) scale(1.05);  */
-  background: #28c041;
+  background: #3639e4;
 }
 
 #boton:active {
@@ -74,7 +74,6 @@
 #boton.especial {
   background-color: #a72048; /* Propiedades específicas */
 }
-
 
 /* 📌 Ajuste de botón en móviles */
 @media (max-width: 480px) {
