@@ -30,15 +30,43 @@ function Afectado({
   onCardClick,
   isSelected // Indica si el afectado está seleccionado
 }) {
-
   const rol = sessionStorage.getItem('rol');
   const [visible, setVisible] = useState(true); // Nuevo estado para controlar la visibilidad
 
   const calcularDuracion = (inicio, restitucion) => {
     const fechaInicio = new Date(inicio);
     const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
-    const diferenciaMs = fechaRestitucion - fechaInicio;
-    return Math.floor(diferenciaMs / (1000 * 60 * 60))+3; // Convierte ms a horas
+    const diferenciaMs = fechaRestitucion - fechaInicio; // Diferencia en milisegundos
+
+    // Convertir diferencias de tiempo
+    const segundos = Math.floor(diferenciaMs / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+    const semanas = Math.floor(dias / 7);
+    const meses = Math.floor(dias / 30); // Aproximado
+
+    // Devolver en el formato correcto
+    if (segundos < 60) return `${segundos} seg`;
+    if (minutos < 60) return `${minutos} min`;
+    if (horas < 24) return `${horas} hs`;
+    if (dias < 7) return `${dias} días`;
+    if (dias < 30) return `${semanas} semanas`;
+    return `${meses} meses`;
+  };
+
+  const formatearFecha = (fecha) => {
+    const fechaObj = new Date(fecha);
+
+    // Obtener día de la semana, día, mes y año en formato largo
+    const opcionesFecha = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+    const fechaFormateada = fechaObj.toLocaleDateString('es-ES', opcionesFecha);
+
+    // Obtener hora en formato 24h
+    const opcionesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const horaFormateada = fechaObj.toLocaleTimeString('es-ES', opcionesHora);
+
+    return `${fechaFormateada} a las ${horaFormateada}`;
   };
 
   const handleclick = () => {
@@ -104,22 +132,76 @@ function Afectado({
       </div>
       <div className="afectado-body" onClick={handleclick}>
         <div className="afectado-etiquetas">
-          <div className="afectado-reclamos">Reclamos: {cant_reclamos}</div>
-          <div className="afectado-reiteraciones">Reiteraciones: {cant_reiteraciones}</div>
-          <div className="afectado-aparatologias">Aparatologias: {aparatologias.length}</div>
-          <div className="afectado-telefonos">Telefonos: {telefonos.length}</div>
-          <div className="afectado-duracion">Duración (hs): {calcularDuracion(inicio, restitucion)}</div>
+          {/* RECLAMOS */}
+          <div 
+            className="afectado-reclamos"
+            title={cant_reclamos > 0 
+              ? `Cliente gestionó ${cant_reclamos} reclamos en la afectación ${afectacion}` 
+              : "Sin reclamos"
+            }
+          >Reclamos: {cant_reclamos}</div>
+          {/* REITERACIONES */}
+          <div 
+            className="afectado-reiteraciones"
+            title={cant_reiteraciones > 0 
+              ? `Cliente reitero en ${cant_reiteraciones} oportunidades` 
+              : "Sin reiteraciones"
+            }
+          >Reiteraciones: {cant_reiteraciones}</div>
+          {/* APARATOLOGIAS */}
+          <div 
+            className="afectado-aparatologias"
+            title={aparatologias.length > 0 
+              ? `Aparatologías registradas: ${aparatologias.map(a => a.aparato).join(", ")}`
+              : "No posee aparatologías registradas para soporte de vida"
+            }
+          >
+            Aparatologías: {aparatologias.length}
+          </div>
+          {/* TELEFONOS */}
+          <div 
+            className="afectado-telefonos"
+            title={telefonos.length > 0 
+              ? `Teléfonos registrados: ${telefonos.map(a => {
+                  const indiceEfectividad = a.llamadas > 0 ? ((a.efectivas / a.llamadas) * 100).toFixed(1) + "%" : "N/A";
+                  return `${a.telefono} (Efectividad: ${indiceEfectividad})`;
+                }).join(", ")}`
+              : "No posee teléfonos registrados"
+            }
+          >
+            Teléfonos: {telefonos.length}
+          </div>
+          {/* TIEMPO DE AFECTACION */}
+          <div 
+            className="afectado-duracion"
+            title={`Inicio de corte: ${formatearFecha(inicio)}`}
+          >
+            Duración (hs): {calcularDuracion(inicio, restitucion)}
+          </div>
         </div>
+        
+        {/* Botón para Normalizar */}
         <div>
-          {/* Botón para Normalizar */}
           {['admin','operador'].includes(rol) && restitucion !== null && (
             <button id="boton-normalizar" onClick={(e) => { e.stopPropagation(); handleNormalizarSubmit(); }}>Normalizar</button>
           )}
         </div>        
         <div className="afectado-opciones">
-          <div className={fae === 0 ? "afectado-icono fae_off" : "afectado-icono fae"} title="FAE" onClick={(e) => e.stopPropagation()}>{fae ? 'FAE' : ''}</div>
-          <div className={ge_propio === 0 ? "afectado-icono ge_propio_off" : "afectado-icono ge_propio"} title="GE Propio" onClick={(e) => e.stopPropagation()}>{ge_propio ? 'GE' : ''}</div>
-          <div className={ami === 0 ? "afectado-icono ami_off" : "afectado-icono ami"} title="AMI" onClick={(e) => e.stopPropagation()}>{ami ? 'AMI' : ''}</div>
+          <div 
+            className={fae === 0 ? "afectado-icono fae_off" : "afectado-icono fae"} 
+            title={fae === 0 ? "No posee FAE (Fuente Alternativa de Eneriga simil UPS)" : "Posee FAE (Fuente Alternativa de Energia simil UPS)"} 
+            onClick={(e) => e.stopPropagation()}
+          >{fae ? 'FAE' : ''}</div>
+          <div 
+            className={ge_propio === 0 ? "afectado-icono ge_propio_off" : "afectado-icono ge_propio"} 
+            title={ge_propio === 0 ? "No posee Grupo Electrogeno Propio" : "Posee Grupo Electrogeno Propio"} 
+            onClick={(e) => e.stopPropagation()}
+          >{ge_propio ? 'GE' : ''}</div>
+          <div 
+            className={ami === 0 ? "afectado-icono ami_off" : "afectado-icono ami"} 
+            title={ami === 0 ? "No posee Medidor Inteligente con tecnologia GPS" : "Posee Medidor Inteligente con tecnologia GPS"} 
+            onClick={(e) => e.stopPropagation()}
+          >{ami ? 'AMI' : ''}</div>
         </div>
       </div>
     </div>
