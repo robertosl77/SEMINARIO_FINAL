@@ -50,7 +50,6 @@ function Afectaciones() {
         ...prev,
         contactos: prev.contactos ? [...prev.contactos, nuevoContacto] : [nuevoContacto],
       };
-      console.log('Nuevo selectedView:', updatedView); // Depuración
       return updatedView;
     });
   };

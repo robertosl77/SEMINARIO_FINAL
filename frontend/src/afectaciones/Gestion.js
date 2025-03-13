@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
+import './css/objeto_boton_cierre.css';
 
 function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange, onClose, onContactoAgregado }) {
   const [contacto, setContacto] = useState('');
@@ -8,11 +9,15 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
   const [selectedSolucion, setSelectedSolucion] = useState(solucion_provisoria[0] || '');
   const [showSuccess, setShowSuccess] = useState(false);  
   const [showSuccessSP, setShowSuccessSP] = useState(false);  
+  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para la carga
 
   // Ordenar teléfonos por efectividad (llamadas efectivas / total de llamadas)
   const telefonosOrdenados = [...telefonos].sort((a, b) => (b.efectivas / b.llamadas) - (a.efectivas / a.llamadas));
 
+  // Maneja el envío de datos de contacto a la API y actualiza el estado.
   const handleContactoSubmit = () => {
+    setIsLoading(true); // Activa la carga inmediatamente
+
     const contactoData = {
       cuenta,
       idafectacion,
@@ -31,7 +36,7 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Respuesta de la API:', data);
+        // console.log('Respuesta de la API:', data);
         if (data) {
           // Convertimos selectedTelefono a número
           const telefonoId = parseInt(selectedTelefono, 10);
@@ -61,12 +66,17 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
   
           setTimeout(() => {
             setShowSuccess(false);
-            // if (onClose) onClose();
+            setIsLoading(false); // Desactiva la carga cuando el mensaje desaparece
           }, 3000);
+        } else {
+          setIsLoading(false); // Desactiva la carga si falla la respuesta
         }
       })
-      .catch(error => console.error('Error:', error));
-  };
+      .catch(error => {
+        console.error('Error:', error);
+        setIsLoading(false); // Desactiva la carga en caso de error
+      });
+    };
 
   // Función para manejar el cambio de la solución provisoria
   const handleSolucionChange = (event) => {
@@ -99,6 +109,11 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
 
   return (
     <div>
+      {/* Botón de cierre en la esquina superior derecha */}
+      <button id="closeButton" onClick={onClose} className="objeto-close-button">
+        &times;
+      </button>
+
       <div className="container-superior">
         <h3 className="container-title">Contacto</h3>
         <label htmlFor="solucionSelect">Solucion Provisoria:</label>
@@ -158,8 +173,14 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
           ></textarea>
         </div>
 
-        {/* Botón para enviar el contacto */}
-        <button id="boton" onClick={handleContactoSubmit}>Guardar Contacto</button>
+        {/* Botón para enviar el contacto, deshabilitado durante showSuccess o showSuccessSP */}
+        <button 
+          id="boton" 
+          onClick={handleContactoSubmit} 
+          disabled={isLoading || showSuccess || showSuccessSP}
+        >
+          Guardar Contacto
+        </button>
 
         {/* Mostrar el mensaje de éxito */}
         {showSuccess && (
@@ -173,23 +194,7 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
             ¡Se cambió con éxito la Solución Provisoria!
           </div>
         )}        
-      </div>
-      <style>{`
-        .success-message {
-          margin-top: 10px;
-          padding: 10px;
-          background-color: #d4edda;
-          color: #155724;
-          border: 1px solid #c3e6cb;
-          border-radius: 5px;
-          animation: fade-in 0.5s ease-in-out;
-        }
-
-        @keyframes fade-in {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-      `}</style>      
+      </div>     
     </div>
   );
 }
