@@ -11,11 +11,11 @@ function ListaContactos({ contactos }) {
             <th className="hiddenColumn">ID Contacto</th>
             <th className="hiddenColumn">ID Telefono</th>
             <th className="hiddenColumn">Cuenta</th>
-            <th className="headerCell">Usuario</th>
-            <th className="headerCell">Fecha/Hora</th>
-            <th className="headerCell">Telefono</th>
-            <th className="headerCell">Tipo</th>
-            <th className="headerCell">Efectivo</th>
+            <th className="headerCell hiddenOnMobile2">Usuario</th>
+            <th className="headerCell hiddenOnMobile2">Fecha/Hora</th>
+            <th className="headerCell hiddenOnMobile1">Telefono</th>
+            <th className="headerCell hiddenOnMobile1">Tipo</th>
+            <th className="headerCell hiddenOnMobile1">Efectivo</th>
             <th className="headerCell">Observaciones</th>
           </tr>
         </thead>
@@ -26,11 +26,11 @@ function ListaContactos({ contactos }) {
                 <td className="hiddenColumn">{contacto.idcontacto}</td>
                 <td className="hiddenColumn">{contacto.idtelefonos}</td>
                 <td className="hiddenColumn">{contacto.cuenta}</td>
-                <td className="cell">{contacto.usuario}</td>
-                <td className="cell">{contacto.fechahora}</td>
-                <td className="cell">{contacto.telefono}</td>
-                <td className="cell">{contacto.tipo}</td>
-                <td className="cell">{contacto.efectivo === 1 ? 'Si' : 'No'}</td>
+                <td className="cell hiddenOnMobile2">{contacto.usuario}</td>
+                <td className="cell hiddenOnMobile2">{contacto.fechahora}</td>
+                <td className="cell hiddenOnMobile1">{contacto.telefono}</td>
+                <td className="cell hiddenOnMobile1">{contacto.tipo}</td>
+                <td className="cell hiddenOnMobile1">{contacto.efectivo === 1 ? 'Si' : 'No'}</td>
                 <td className="cell">{contacto.observaciones}</td>
               </tr>
             ))

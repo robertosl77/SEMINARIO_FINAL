@@ -75,7 +75,7 @@
   background-color: #a72048; /* Propiedades específicas */
 }
 
-/* 📌 Ajuste de botón en móviles */
+/* Ajuste de botón en móviles */
 @media (max-width: 480px) {
   #boton {
       font-size: 12px;

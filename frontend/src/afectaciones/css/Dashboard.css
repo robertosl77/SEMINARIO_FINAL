@@ -21,7 +21,7 @@
 
 .dashboard-card {
   background-color: #34495e;
-  padding: 10px;
+  padding: 5px;
   border-radius: 12px;
   text-align: center;
   color: #ecf0f1;
@@ -73,7 +73,7 @@
 }
 
 
-@media (max-width: 1485px) {
+@media (max-width: 768px) {
   .dashboard {
     padding-top: 10px;
     display: grid;
@@ -98,7 +98,7 @@
 }
 
 
-@media (max-width: 472px) {
+@media (max-width: 480px) {
   .dashboard {
     padding-top: 10px;
     display: grid;
@@ -131,16 +131,16 @@
   }
 
   .dashboard-title {
-    font-size: 0.9em;
+    font-size: 10px;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     color: #ffffff;
-    /* text-overflow: ellipsis; */
+    text-overflow: ellipsis;
   }
 
   .dashboard-number {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
   }
 }

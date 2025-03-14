@@ -10,13 +10,13 @@ function ListaPacientes({ pacientes }) {
           <tr>
             <th className="hiddenColumn">ID Paciente</th> 
             <th className="hiddenColumn">Cuenta</th> 
-            <th className="headerCell">Nombre Paciente</th>
-            <th className="headerCell">DNI</th>
-            <th className="headerCell">Lote</th>
-            <th className="headerCell">Inicio RECS</th>
-            <th className="headerCell">Fin RECS</th>
+            <th className="headerCell hiddenOnMobile2">Nombre Paciente</th>
+            <th className="headerCell hiddenOnMobile1">DNI</th>
+            <th className="headerCell hiddenOnMobile1">Lote</th>
+            <th className="headerCell hiddenOnMobile1">Inicio RECS</th>
+            <th className="headerCell hiddenOnMobile1">Fin RECS</th>
             <th className="headerCell">Diagnostico</th>
-            <th className="headerCell">Riesgo</th>
+            <th className="headerCell hiddenOnMobile2">Riesgo</th>
           </tr>
         </thead>
         <tbody>
@@ -25,13 +25,13 @@ function ListaPacientes({ pacientes }) {
               <tr key={index} className="row">
                 <td className="hiddenColumn">{paciente.idpaciente}</td> 
                 <td className="hiddenColumn">{paciente.cuenta}</td> 
-                <td className="cell">{paciente.nombre_paciente}</td>
-                <td className="cell">{paciente.dni}</td>
-                <td className="cell">{paciente.lote}</td>
-                <td className="cell">{paciente.inicio_recs}</td>
-                <td className="cell">{paciente.fin_recs}</td>
+                <td className="cell hiddenOnMobile2">{paciente.nombre_paciente}</td>
+                <td className="cell hiddenOnMobile1">{paciente.dni}</td>
+                <td className="cell hiddenOnMobile1">{paciente.lote}</td>
+                <td className="cell hiddenOnMobile1">{paciente.inicio_recs}</td>
+                <td className="cell hiddenOnMobile1">{paciente.fin_recs}</td>
                 <td className="cell">{paciente.diagnostico}</td>
-                <td className="cell">{paciente.riesgo}</td>
+                <td className="cell hiddenOnMobile2">{paciente.riesgo}</td>
 
               </tr>
             ))

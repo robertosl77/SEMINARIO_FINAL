@@ -11,10 +11,10 @@ function ListaReclamos({ reclamos }) {
             <th className="hiddenColumn">ID Reclamo</th> 
             <th className="hiddenColumn">ID Afectación</th> 
             <th className="hiddenColumn">Cuenta</th> 
-            <th className="headerCell">Reclamo</th>
+            <th className="headerCell hiddenOnMobile2">Reclamo</th>
             <th className="headerCell">Fecha</th>
             <th className="headerCell">Estado</th>
-            <th className="headerCell">Reiteraciones</th>
+            <th className="headerCell hiddenOnMobile1">Reiteraciones</th>
           </tr>
         </thead>
         <tbody>
@@ -24,10 +24,10 @@ function ListaReclamos({ reclamos }) {
                 <td className="hiddenColumn">{reclamo.idreclamo}</td> 
                 <td className="hiddenColumn">{reclamo.idafectacion}</td> 
                 <td className="hiddenColumn">{reclamo.cuenta}</td> 
-                <td className="cell">{reclamo.nro_reclamo}</td>
+                <td className="cell hiddenOnMobile2">{reclamo.nro_reclamo}</td>
                 <td className="cell">{reclamo.fecha}</td>
                 <td className="cell">{reclamo.estado}</td>
-                <td className="cell">{reclamo.reiteracion}</td>
+                <td className="cell hiddenOnMobile1">{reclamo.reiteracion}</td>
               </tr>
             ))
           ) : (
