@@ -73,7 +73,7 @@ class Datos:
         try:
             self.cursor.execute('''
                 INSERT INTO log (fecha, descripcion)
-                VALUES (CURRENT_TIMESTAMP, ?)
+                VALUES (datetime('now', 'localtime'), ?)
             ''', (descripcion,))
             idlog = self.cursor.lastrowid
             # Confirmar los cambios
@@ -95,7 +95,7 @@ class Datos:
                         logfin= self.insertar_datos_log(f"Normaliza CT {afectacion[0][1]} de la Afectacion {afectacion[0][0]}.")
                         # Normaliza Elementos
                         sql= '''
-                            UPDATE afectaciones_elementos SET restitucion=CURRENT_TIMESTAMP, logfin= ? WHERE idafectacion = ? AND ct = ?
+                            UPDATE afectaciones_elementos SET restitucion=datetime('now', 'localtime'), logfin= ? WHERE idafectacion = ? AND ct = ?
                         '''
                         self.cursor.execute(sql, (
                             logfin,
@@ -103,7 +103,7 @@ class Datos:
                             afectacion[0][1]))  
                         # Normaliza Reclamos
                         sql= '''
-                            UPDATE afectaciones_reclamos SET logfin= ?, fecha_sysdate=CURRENT_TIMESTAMP WHERE idafectacion = ? AND cuenta in (select cuenta from clientes where logfin=0 and ct= ?)
+                            UPDATE afectaciones_reclamos SET logfin= ?, fecha_sysdate=datetime('now', 'localtime') WHERE idafectacion = ? AND cuenta in (select cuenta from clientes where logfin=0 and ct= ?)
                         '''
                         self.cursor.execute(sql, (
                             logfin,
@@ -123,7 +123,7 @@ class Datos:
             for afectacion in afectaciones:
                 logfin= self.insertar_datos_log(f"Normaliza Documento {afectacion[0]}.")
                 sql= '''
-                    UPDATE afectaciones SET restitucion=CURRENT_TIMESTAMP, logfin= ?, estado= ? WHERE idafectacion = ?
+                    UPDATE afectaciones SET restitucion=datetime('now', 'localtime'), logfin= ?, estado= ? WHERE idafectacion = ?
                 '''
                 self.cursor.execute(sql, (
                     logfin,
@@ -197,7 +197,7 @@ class Datos:
             # 
             self.cursor.execute('''
                 INSERT INTO afectaciones (afectacion, tipo, estado, inicio, logini, logfin)
-                VALUES (?, ?, 'Pendiente', CURRENT_TIMESTAMP, ?, ?)
+                VALUES (?, ?, 'Pendiente', datetime('now', 'localtime'), ?, ?)
             ''', (afectacion, tipo,logini,logfin,))
             id = self.cursor.lastrowid
             # Valido el max_id con el id insertado, deben ser el mismo sino cancelo
@@ -225,7 +225,7 @@ class Datos:
                 # 
                 self.cursor.execute('''
                     INSERT INTO afectaciones_elementos (idafectacion, ct, inicio, logini, logfin)
-                    VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)
+                    VALUES (?, ?, datetime('now', 'localtime'), ?, ?)
                 ''', (idafectacion,ct[0],logini,logfin,))
                 # id = self.cursor.lastrowid
                 cant+= 1
@@ -281,7 +281,7 @@ class Datos:
                     # 
                     self.cursor.execute('''
                         INSERT INTO afectaciones_reclamos (idafectacion, cuenta, fecha, fecha_sysdate, reiteracion, logini, logfin)
-                        VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)
+                        VALUES (?, ?, datetime('now', 'localtime'), datetime('now', 'localtime'), ?, ?, ?)
                     ''', (idafectacion,cuenta[0],reiteracion,logini,logfin,))
                     cant+= 1
             # id = self.cursor.lastrowid
@@ -335,7 +335,7 @@ class Datos:
             self.cursor.execute('''
                 INSERT INTO afectaciones_contactos 
                 (idafectacion,cuenta,usuario,fechahora,observaciones,logini,logfin)
-                VALUES ( ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?)
+                VALUES ( ?, ?, ?, datetime('now', 'localtime'), ?, ?, ?)
             ''', (idafectacion, cuenta, usuario, nota, logini, logfin, ))
             # Confirmar los cambios
             self.conn.commit()
@@ -355,7 +355,7 @@ class Datos:
             self.cursor.execute('''
                 INSERT INTO afectaciones_contactos 
                 (idafectacion,cuenta,usuario,fechahora,observaciones,idtelefono,efectivo,logini,logfin)
-                VALUES ( ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?)
+                VALUES ( ?, ?, ?, datetime('now', 'localtime'), ?, ?, ?, ?, ?)
             ''', (idafectacion, cuenta, usuario, contacto, idtelefono, efectivo, logini, logfin, ))
             # Confirmar los cambios
             self.conn.commit()
