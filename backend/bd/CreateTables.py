@@ -202,7 +202,7 @@ class CreateTables:
         try:
             self.cursor.execute('''
                 INSERT INTO log (fecha, descripcion)
-                VALUES (CURRENT_TIMESTAMP, ?)
+                VALUES (datetime('now', 'localtime'), ?)
             ''', (descripcion,))
             idlog = self.cursor.lastrowid
             # Confirmar los cambios
