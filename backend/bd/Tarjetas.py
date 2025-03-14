@@ -468,6 +468,48 @@ class Tarjetas:
         finally:
             self.cursor.close
 
+    def tarjeta_sintelefonos(self):      
+        self.conn = sqlite3.connect(self.db_name)
+        self.cursor = self.conn.cursor()          
+        try:
+            # Ejecutar la consulta para obtener el resultado
+            sintelefonos= self.cursor.execute('''
+                SELECT * FROM (
+                SELECT a.idafectacion, a.afectacion, a.tipo, a.estado, e.ct, e.inicio, e.restitucion, af.cuenta, af.gestion
+				, (select count(1) from clientes_marcas where idmarca=6 and cuenta=af.cuenta and logfin=0) fae
+				, (select count(1) from clientes_marcas where idmarca=10 and cuenta=af.cuenta and logfin=0) ami
+				, (select count(1) from clientes_marcas where idmarca=5 and cuenta=af.cuenta and logfin=0) ge_propio
+                , (select count(1) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion) reclamos
+                , ifnull((select sum(reiteracion) from afectaciones_reclamos where cuenta=af.cuenta and idafectacion=a.idafectacion),0) reiteraciones
+                , (select count(1) from clientes_telefonos where cuenta=af.cuenta) telefonos
+                ,case 
+                    when af.gestion in ('CON SUMINISTRO', 'SE TRASLADA', 'CON AUTONOMÍA', 'GE INSTALADO') then 1
+                    when af.gestion = 'ATENDIDO' then 2
+                    when af.gestion = 'NUEVO' then 3
+                    when af.gestion in ('SEGUIMIENTO', 'RELLAMAR', 'REQUIERE GE') then 4
+                    else 0
+                end as prioridad
+                , (SELECT CASE WHEN (julianday('now') - julianday(fecha_sysdate)) * 1440 <= 5 THEN 1 ELSE null END FROM afectaciones_reclamos WHERE idafectacion = a.idafectacion AND cuenta = af.cuenta) AS reclamo_reciente
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct and e.logfin=0 and af.logfin=0
+                and (select count(1) from clientes_telefonos where cuenta=af.cuenta)=0
+                )
+                order by
+                estado DESC
+                ,reclamo_reciente DESC
+                ,prioridad DESC
+                ,ifnull((select min(autonomia) from clientes_artefactos ca, artefactos a where ca.idartefacto=a.idartefacto and ca.cuenta=cuenta),0) DESC
+                ,(reclamos+reiteraciones) DESC
+                ,(fae+ami+ge_propio)
+                ;
+            ''').fetchall()
+            return sintelefonos
+        except sqlite3.Error as e:        
+            print(f"Error al obtener cuentas sin autonomia: {e}")
+            return []
+        finally:
+            self.cursor.close
+
     def tarjeta_todos(self):      
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()          
@@ -820,6 +862,16 @@ class Tarjetas:
                 where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
                 and e.logfin=0 and af.logfin=0
                 and gestion in ('SEGUIMIENTO','RELLAMAR','REQUIERE GE')
+                ;
+            ''').fetchone()
+            dashboard.append(tarjeta[0])
+            # Sin Telefonos
+            tarjeta = self.cursor.execute(''' 
+                SELECT count(1)
+                FROM afectaciones a, afectaciones_afectados af, afectaciones_elementos e
+                where a.idafectacion=af.idafectacion and af.idafectacion=e.idafectacion and af.ct=e.ct
+                and e.logfin=0 and af.logfin=0
+                and (select count(1) from clientes_telefonos where cuenta=af.cuenta)=0
                 ;
             ''').fetchone()
             dashboard.append(tarjeta[0])

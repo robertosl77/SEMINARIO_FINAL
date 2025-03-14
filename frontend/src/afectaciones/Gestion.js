@@ -1,27 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import './css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
+import './css/objeto_boton_cierre.css';
 
-function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange, onClose }) {
+function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], gestion , onGestionChange, onClose, onContactoAgregado }) {
   const [contacto, setContacto] = useState('');
   const [selectedTelefono, setSelectedTelefono] = useState('');
   const [efectivo, setEfectivo] = useState(1);  // Estado para contacto efectivo
-  const [selectedSolucion, setSelectedSolucion] = useState(solucion_provisoria[0] || '');
+  const [selectedSolucion, setSelectedSolucion] = useState(gestion || '');
   const [showSuccess, setShowSuccess] = useState(false);  
   const [showSuccessSP, setShowSuccessSP] = useState(false);  
+  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para la carga
+  const [warningMessage, setWarningMessage] = useState(''); // Estado para mensajes de advertencia
 
   // Ordenar teléfonos por efectividad (llamadas efectivas / total de llamadas)
   const telefonosOrdenados = [...telefonos].sort((a, b) => (b.efectivas / b.llamadas) - (a.efectivas / a.llamadas));
 
+  // Maneja el envío de datos de contacto a la API y actualiza el estado.
   const handleContactoSubmit = () => {
-    const contactoData = {
-      "cuenta": cuenta,
-      "idafectacion": idafectacion,
-      "idtelefono": selectedTelefono, 
-      "efectivo": efectivo, 
-      "usuario": sessionStorage.getItem('username'),
-      "contacto": contacto,
-    };
+    // Validación: Verificar si se seleccionó un teléfono
+    if (!selectedTelefono) {
+      setWarningMessage('Por favor, seleccione un teléfono.');
+      setTimeout(() => {
+        setWarningMessage('');
+      }, 3000);
+      return; // Detener la ejecución si no hay teléfono seleccionado
+    }
 
+    // Validación: Verificar si el campo de observaciones está vacío
+    if (!contacto.trim()) {
+      setWarningMessage('Por favor, ingrese observaciones.');
+      setTimeout(() => {
+        setWarningMessage('');
+      }, 3000);
+      return; // Detener la ejecución si no hay observaciones
+    }
+
+    // Si pasa las validaciones, proceder con la solicitud
+    setIsLoading(true); // Activa la carga inmediatamente
+
+    const contactoData = {
+      cuenta,
+      idafectacion,
+      idtelefono: selectedTelefono,
+      efectivo,
+      usuario: sessionStorage.getItem('username'),
+      contacto,
+    };
+  
     fetch(`${process.env.REACT_APP_API_URL}/API/GE/AgregaContacto`, {
       method: 'POST',
       headers: {
@@ -32,19 +57,45 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
       .then(response => response.json())
       .then(data => {
         if (data) {
+          // Convertimos selectedTelefono a número
+          const telefonoId = parseInt(selectedTelefono, 10);
+          // Buscamos el teléfono correspondiente
+          const telefonoSeleccionado = telefonos.find(t => t.idtelefono === telefonoId);
+  
+          const nuevoContacto = {
+            idcontacto: data.idcontacto || 'N/A',
+            idtelefonos: telefonoId, // Ahora es un número
+            cuenta,
+            usuario: sessionStorage.getItem('username'),
+            fechahora: new Date().toLocaleString(),
+            telefono: telefonoSeleccionado?.telefono || 'Desconocido',
+            tipo: telefonoSeleccionado?.tipo || 'N/A', // Obtenemos el tipo del teléfono
+            efectivo: efectivo === 1 ? 1 : 0,
+            observaciones: contacto,
+          };
+  
           setContacto('');
           setSelectedTelefono('');
-          setEfectivo(0); 
+          setEfectivo(0);
           setShowSuccess(true);
-
+  
+          if (onContactoAgregado) {
+            onContactoAgregado(nuevoContacto);
+          }
+  
           setTimeout(() => {
             setShowSuccess(false);
-            if (onClose) onClose(); // 🔹 Cierra el modal después de 3 segundos
+            setIsLoading(false); // Desactiva la carga cuando el mensaje desaparece
           }, 3000);
+        } else {
+          setIsLoading(false); // Desactiva la carga si falla la respuesta
         }
       })
-      .catch(error => console.error('Error:', error));
-  };
+      .catch(error => {
+        console.error('Error:', error);
+        setIsLoading(false); // Desactiva la carga en caso de error
+      });
+    };
 
   // Función para manejar el cambio de la solución provisoria
   const handleSolucionChange = (event) => {
@@ -71,12 +122,17 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
 
   // Reiniciar el estado cuando `cuenta` o `idafectacion` cambien
   useEffect(() => {
-    setSelectedSolucion(solucion_provisoria[0] || '');
+    setSelectedSolucion(gestion || '');
     setShowSuccessSP(false);  // Ocultar el mensaje de éxito al cambiar de afectado
-  }, [cuenta, idafectacion, solucion_provisoria]);  
+  }, [cuenta, idafectacion, solucion_provisoria, gestion]);  
 
   return (
     <div>
+      {/* Botón de cierre en la esquina superior derecha */}
+      <button id="closeButton" onClick={onClose} className="objeto-close-button">
+        &times;
+      </button>
+
       <div className="container-superior">
         <h3 className="container-title">Contacto</h3>
         <label htmlFor="solucionSelect">Solucion Provisoria:</label>
@@ -136,8 +192,21 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
           ></textarea>
         </div>
 
-        {/* Botón para enviar el contacto */}
-        <button id="boton" onClick={handleContactoSubmit}>Guardar Contacto</button>
+        {/* Botón para enviar el contacto, deshabilitado durante isLoading, showSuccess o showSuccessSP */}
+        <button 
+          id="boton" 
+          onClick={handleContactoSubmit} 
+          disabled={isLoading || showSuccess || showSuccessSP}
+        >
+          Guardar Contacto
+        </button>
+        
+        {/* Mostrar el mensaje de advertencia */}
+        {warningMessage && (
+          <div className="warning-message">
+            {warningMessage}
+          </div>
+        )}
 
         {/* Mostrar el mensaje de éxito */}
         {showSuccess && (
@@ -145,29 +214,14 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
             ¡Contacto guardado con éxito!
           </div>
         )}
+
         {/* Mostrar el mensaje de éxito fuera del <select> */}
         {showSuccessSP && (
           <div className="success-message">
             ¡Se cambió con éxito la Solución Provisoria!
           </div>
         )}        
-      </div>
-      <style>{`
-        .success-message {
-          margin-top: 10px;
-          padding: 10px;
-          background-color: #d4edda;
-          color: #155724;
-          border: 1px solid #c3e6cb;
-          border-radius: 5px;
-          animation: fade-in 0.5s ease-in-out;
-        }
-
-        @keyframes fade-in {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-      `}</style>      
+      </div>     
     </div>
   );
 }

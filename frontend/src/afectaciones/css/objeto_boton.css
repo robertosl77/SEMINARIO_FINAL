@@ -2,10 +2,9 @@
   display: inline-block;
   padding: 12px 28px; /* Espaciado interno ajustado */
   background: linear-gradient(135deg, #4a7bdf, #3eb2ff); /* Degradado en tonos de azul */
-  color: white; /* Texto blanco para un contraste limpio */
   border: none;
   border-radius: 8px; /* Bordes redondeados */
-  font-size: 1em; /* Tamaño de fuente moderado */
+  font-size: 1.6em; /* Tamaño de fuente moderado */
   font-weight: bold;
   text-align: center;
   cursor: pointer;
@@ -15,15 +14,19 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
-  width: 160px;
+  width: 100%;
   margin-top: 5px;
   margin-left: 0px;
+  background: #007bff;
+  color: white; /* Texto blanco para un contraste limpio */
+  border: none;
 }
 
 #boton:hover {
   background-position: right center;
   box-shadow: 0 8px 20px rgba(50, 80, 130, 0.4); /* Sombra más intensa en hover */
-  transform: translateY(-2px) scale(1.05); /* Efecto de elevación */
+  /* transform: translateY(-2px) scale(1.05);  */
+  background: #3639e4;
 }
 
 #boton:active {
@@ -70,4 +73,12 @@
 
 #boton.especial {
   background-color: #a72048; /* Propiedades específicas */
+}
+
+/* Ajuste de botón en móviles */
+@media (max-width: 480px) {
+  #boton {
+      font-size: 12px;
+      padding: 8px;
+  }
 }

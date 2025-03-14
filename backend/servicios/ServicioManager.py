@@ -28,6 +28,8 @@ class ServicioManager:
             tarjeta= self.tarjetas.tarjeta_ge()
         elif self.tarjeta=="seguimiento":
             tarjeta= self.tarjetas.tarjeta_seguimiento()
+        elif self.tarjeta=="sin_telefonos":
+            tarjeta= self.tarjetas.tarjeta_sintelefonos()
         elif self.tarjeta=="todos":
             tarjeta= self.tarjetas.tarjeta_todos()
 

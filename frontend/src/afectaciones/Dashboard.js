@@ -14,6 +14,7 @@ function Dashboard({ setData }) {
     ami: 0,
     ge: 0,
     seguimiento: 0,
+    sin_telefonos: 0,
   });
 
   const [selectedCard, setSelectedCard] = useState(''); // Estado para la tarjeta seleccionada
@@ -40,6 +41,7 @@ function Dashboard({ setData }) {
         ami: result.dashboard[8] || 0,
         ge: result.dashboard[9] || 0,
         seguimiento: result.dashboard[10] || 0,
+        sin_telefonos: result.dashboard[11] || 0,
       });
 
       setData(result); // Actualiza el estado con el resultado del backend
@@ -57,6 +59,7 @@ function Dashboard({ setData }) {
     <div>
       <div id="header">
       <div className="dashboard">
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'afectados' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('afectados')}
@@ -65,6 +68,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">AFECTADOS</div>
             <div className="dashboard-number">{dashboardData.afectados}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'nuevos' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('nuevos')}
@@ -73,6 +77,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">NUEVOS</div>
             <div className="dashboard-number">{dashboardData.nuevos}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'normalizados' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('normalizados')}
@@ -81,6 +86,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">NORMALIZADOS</div>
             <div className="dashboard-number">{dashboardData.normalizados}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'reclamos' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('reclamos')}
@@ -89,6 +95,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">RECLAMOS</div>
             <div className="dashboard-number">{dashboardData.reclamos}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'reiteracion' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('reiteracion')}
@@ -97,6 +104,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">REITERACIONES</div>
             <div className="dashboard-number">{dashboardData.reiteracion}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'duracion' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('duracion')}
@@ -105,6 +113,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">DURACION</div>
             <div className="dashboard-number">{dashboardData.duracion}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'sin_autonomia' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('sin_autonomia')}
@@ -113,6 +122,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">SIN AUTONOMÍA</div>
             <div className="dashboard-number">{dashboardData.sin_autonomia}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'fae' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('fae')}
@@ -121,6 +131,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">FAE</div>
             <div className="dashboard-number">{dashboardData.fae}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'ami' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('ami')}
@@ -129,6 +140,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">AMI</div>
             <div className="dashboard-number">{dashboardData.ami}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'ge' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('ge')}
@@ -137,6 +149,7 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">GE</div>
             <div className="dashboard-number">{dashboardData.ge}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
           <div 
             className={`dashboard-card ${selectedCard === 'seguimiento' ? 'selected' : ''}`} 
             onClick={() => handleCardClick('seguimiento')}
@@ -145,6 +158,16 @@ function Dashboard({ setData }) {
             <div className="dashboard-title">SEGUIMIENTO</div>
             <div className="dashboard-number">{dashboardData.seguimiento}</div>
           </div>
+          {/* -------------------------------------------------------------------------------------------------- */}
+          <div 
+            className={`dashboard-card ${selectedCard === 'sin_telefonos' ? 'selected' : ''}`} 
+            onClick={() => handleCardClick('sin_telefonos')}
+            title="Clientes sin numeros de telefonos registrados."
+          >
+            <div className="dashboard-title">SIN TELEFONOS</div>
+            <div className="dashboard-number">{dashboardData.sin_telefonos}</div>
+          </div>        
+          {/* -------------------------------------------------------------------------------------------------- */}
         </div>
       </div> 
     </div>
