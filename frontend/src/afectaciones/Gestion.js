@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './css/Listas.css'; // Asegúrate de que el archivo CSS esté importado
 import './css/objeto_boton_cierre.css';
 
-function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], onGestionChange, onClose, onContactoAgregado }) {
+function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [], gestion , onGestionChange, onClose, onContactoAgregado }) {
   const [contacto, setContacto] = useState('');
   const [selectedTelefono, setSelectedTelefono] = useState('');
   const [efectivo, setEfectivo] = useState(1);  // Estado para contacto efectivo
-  const [selectedSolucion, setSelectedSolucion] = useState(solucion_provisoria[0] || '');
+  const [selectedSolucion, setSelectedSolucion] = useState(gestion || '');
   const [showSuccess, setShowSuccess] = useState(false);  
   const [showSuccessSP, setShowSuccessSP] = useState(false);  
   const [isLoading, setIsLoading] = useState(false); // Nuevo estado para la carga
@@ -56,7 +56,6 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
     })
       .then(response => response.json())
       .then(data => {
-        // console.log('Respuesta de la API:', data);
         if (data) {
           // Convertimos selectedTelefono a número
           const telefonoId = parseInt(selectedTelefono, 10);
@@ -123,9 +122,9 @@ function Gestion({ cuenta, idafectacion, telefonos = [], solucion_provisoria = [
 
   // Reiniciar el estado cuando `cuenta` o `idafectacion` cambien
   useEffect(() => {
-    setSelectedSolucion(solucion_provisoria[0] || '');
+    setSelectedSolucion(gestion || '');
     setShowSuccessSP(false);  // Ocultar el mensaje de éxito al cambiar de afectado
-  }, [cuenta, idafectacion, solucion_provisoria]);  
+  }, [cuenta, idafectacion, solucion_provisoria, gestion]);  
 
   return (
     <div>

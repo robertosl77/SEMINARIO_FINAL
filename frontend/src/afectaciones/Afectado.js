@@ -36,7 +36,7 @@ function Afectado({
 
   const handleclick = () => {
     if (onCardClick) {
-      onCardClick(telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria);
+      onCardClick(telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria, gestion);
     }
   };
 

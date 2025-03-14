@@ -35,11 +35,11 @@ function Afectaciones() {
   const [gestionData, setGestionData] = useState(null);
   const [visible, setVisible] = useState(false);
 
-  const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria) => {
+  const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria, gestion) => {
     setVisible(false);
     setTimeout(() => {
       setSelectedView({ telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
-      setGestionData({ cuenta, solucion_provisoria, telefonos, idafectacion });
+      setGestionData({ cuenta, solucion_provisoria, telefonos, idafectacion, gestion  });
       setVisible(true);
     }, 300);
   };
@@ -74,6 +74,7 @@ function Afectaciones() {
               <Gestion 
                 {...gestionData}
                 solucion_provisoria={data?.solucion_provisoria || []} 
+                gestion={gestionData?.gestion}
                 onGestionChange={(nuevaGestion) => {
                   const updatedData = data.afectados.map(afectado =>
                     afectado.cuenta === gestionData.cuenta
