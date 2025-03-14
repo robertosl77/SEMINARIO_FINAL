@@ -15,6 +15,7 @@ function App() {
         <Route path="/SGE/Afectaciones" element={<Afectaciones />} />
         <Route path="/SGE/Climatica" element={<Climatica />} />
         <Route path="/SGE/Clientes" element={<Clientes />} />
+        <Route path="*" element={<Navigate to="/SGE/Login" />} /> {/* Redirección de rutas inexistentes */}
       </Routes>
     </Router>
   );

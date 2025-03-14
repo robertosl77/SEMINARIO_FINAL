@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../navegacion/Navbar';
 import Dashboard from './Dashboard';
 import Afectados from './Afectados';
@@ -14,26 +15,43 @@ import ListaTelefonos from './detalle/ListaTelefonos';
 import Gestion from './Gestion';
 import ModalPanelControl from './ModalPanelControl'; // Importa el componente si no está importado
 import './css/Listas.css';
-// import './css/Gestion.css'
 import './css/objeto_boton.css'
 import './css/objeto_SwitchStyle.css'
 
 function Afectaciones() {
   // const username = sessionStorage.getItem('username');
+  const navigate = useNavigate();
   const rol = sessionStorage.getItem('rol');
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('rol'); // O usa la clave que almacena la sesión
+    if (!token) {
+      navigate('/SGE/Login'); // Redirige al login si no está autenticado
+    }
+  }, [navigate]); 
+
   const [data, setData] = useState(null);
   const [selectedView, setSelectedView] = useState(null);
   const [gestionData, setGestionData] = useState(null);
   const [visible, setVisible] = useState(false);
 
-  const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria) => {
+  const handleCardClick = (telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos, cuenta, idafectacion, solucion_provisoria, gestion) => {
     setVisible(false);
-
     setTimeout(() => {
       setSelectedView({ telefonos, marcas, contactos, aparatologias, pacientes, afectaciones, reclamos });
-      setGestionData({ cuenta, solucion_provisoria, telefonos, idafectacion });
+      setGestionData({ cuenta, solucion_provisoria, telefonos, idafectacion, gestion  });
       setVisible(true);
     }, 300);
+  };
+
+  const handleContactoAgregado = (nuevoContacto) => {
+    setSelectedView((prev) => {
+      const updatedView = {
+        ...prev,
+        contactos: prev.contactos ? [...prev.contactos, nuevoContacto] : [nuevoContacto],
+      };
+      return updatedView;
+    });
   };
 
   if (visible) {
@@ -56,6 +74,7 @@ function Afectaciones() {
               <Gestion 
                 {...gestionData}
                 solucion_provisoria={data?.solucion_provisoria || []} 
+                gestion={gestionData?.gestion}
                 onGestionChange={(nuevaGestion) => {
                   const updatedData = data.afectados.map(afectado =>
                     afectado.cuenta === gestionData.cuenta
@@ -65,7 +84,7 @@ function Afectaciones() {
                   setData({ ...data, afectados: updatedData });
                 }}
                 onClose={() => setVisible(false)} // 🔹 Pasamos la función para cerrar el modal
-                
+                onContactoAgregado={handleContactoAgregado}
               />
             </div>
             )}

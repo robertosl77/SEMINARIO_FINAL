@@ -1,10 +1,11 @@
 :root {
   --container-margin: auto 10px;
   --container-padding: 0 10px 10px;
-  --container-font-size: 11px;
+  --container-font-size: 10px;
   --container-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   --container-border-radius: 10px;
   --container-background-color: #d8d6d6;
+  --container-width: 95%;
 
   --table-border-collapse: collapse;
   --table-width: 100%;
@@ -24,7 +25,6 @@
   --cell-color: #555555;
 
   --row-transition: background-color 0.3s;
-
   --row-hover-background-color: #f2f6fc; /* Azul claro en hover */
 
   --noafectaciones-text-align: center;
@@ -34,7 +34,7 @@
   --row-odd-background-color: #f9f9f9; /* Gris muy claro para filas impares */
   --row-even-background-color: #ffffff; /* Blanco para filas pares */
 
-  --h3-font-size: 22px;
+  --h3-font-size: 18px;
   --h3-font-weight: bold;
   --h3-color: #333;
   --h3-margin-bottom: 10px;
@@ -43,7 +43,10 @@
 
   --fondo-controles-normal: #9d9ea1;
   --fondo-controles-foco: #868b9c;
+  --fondo-warning-message: #c46a16;
+  --fondo-success-message: #d4edda;
 
+  --fuente-container: 'Montserrat', sans-serif;
 }
 
 .container-superior {
@@ -78,6 +81,7 @@
 }
 
 .container-title, .container h3 {
+  font-family: var(--fuente-container);
   font-size: var(--h3-font-size);
   font-weight: var(--h3-font-weight);
   color: var(--h3-color);
@@ -85,11 +89,13 @@
   border-bottom: var(--h3-border-bottom);
   padding-bottom: var(--h3-padding-bottom);
   text-align: center;
+  padding: 10px;
 }
 
 .table {
   width: var(--table-width);
   border-collapse: var(--table-border-collapse);
+  border-radius: 0px;
 }
 
 .hiddenColumn {
@@ -219,13 +225,7 @@
   gap: 20px;
 }
 
-
-
-
-
-/* 📌 Contenedor principal de Gestión */
-
-/* 📌 Ajuste en pantallas pequeñas */
+/* Ajuste en pantallas pequeñas */
 @media (max-width: 768px) {
   .container-superior {
       width: 95%;
@@ -234,15 +234,14 @@
   }
 }
 
-/* 📌 Ajuste en móviles */
+/* Ajuste en móviles */
 @media (max-width: 480px) {
   .container-superior {
-      width: 98%;
-      padding: 8px;
+      width: 90%;
   }
 }
 
-/* 📌 Label de los controles */
+/* Label de los controles */
 .container-superior label {
   display: block;
   font-weight: bold;
@@ -250,7 +249,7 @@
   margin-bottom: 5px;
 }
 
-/* 📌 Selectores y campos de entrada */
+/* Selectores y campos de entrada */
 .container-superior select,
 .container-superior textarea {
   width: 50%;
@@ -265,7 +264,7 @@
   min-height: 40px;
 }
 
-/* 📌 Mejora de interacciones */
+/* Mejora de interacciones */
 .container-superior select:focus,
 .container-superior textarea:focus {
   border-color: var(--color-borde-foco);
@@ -274,7 +273,7 @@
   outline: none;
 }
 
-/* 📌 Selectores en móviles */
+/* Selectores en móviles */
 @media (max-width: 480px) {
   .container-superior select,
   .container-superior textarea {
@@ -284,7 +283,7 @@
   }
 }
 
-/* 📌 Contenedor del selector de teléfono y checkbox */
+/* Contenedor del selector de teléfono y checkbox */
 .telefono-contacto-container {
   display: flex;
   flex-wrap: wrap;
@@ -292,13 +291,13 @@
   gap: 10px;
 }
 
-/* 📌 Ajuste de la caja del selector */
+/* Ajuste de la caja del selector */
 .telefono-select-wrapper {
   flex-grow: 1; /* Ocupar el espacio disponible */
   min-width: 150px;
 }
 
-/* 📌 Checkbox para contacto efectivo */
+/* Checkbox para contacto efectivo */
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -306,45 +305,63 @@
   width: 100%; /* Asegura que ocupa toda la fila */
 }
 
-/* 📌 Botón de enviar */
-#boton {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 10px;
-}
-
-#boton:hover {
-  background: #0056b3;
-}
-
-/* 📌 Ajuste de botón en móviles */
-@media (max-width: 480px) {
-  #boton {
-      font-size: 12px;
-      padding: 8px;
-  }
-}
-
-/* 📌 Mensajes de éxito */
+/* Mensajes de éxito */
 .success-message {
   margin-top: 10px;
   padding: 10px;
-  background-color: #d4edda;
+  background-color: var(--fondo-success-message);
   color: #155724;
-  border: 1px solid #c3e6cb;
+  border: 1px solid var(--fondo-success-message);
   border-radius: 5px;
   animation: fade-in 0.5s ease-in-out;
 }
 
-/* 📌 Animación */
+/* Mensajes de Fallos */
+.warning-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--fondo-warning-message);
+  color: #ffffff;
+  border: 1px solid var(--fondo-warning-message);
+  border-radius: 5px;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+/* Animación */
 @keyframes fade-in {
   0% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+
+
+@media (max-width: 768px) {
+  .hiddenOnMobile1 {
+    display: none; /* Ocultar en pantallas menores a 768px */
+  }
+}
+
+/* Aplicar truncamiento con "..." en textos largos */
+@media (max-width: 480px) {
+  .hiddenOnMobile1, .hiddenOnMobile2 {
+    display: none; /* Oculta columnas específicas */
+  }
+
+  .cell {
+    white-space: nowrap; /* Evita el salto de línea */
+    overflow: hidden; /* Oculta el contenido desbordado */
+    text-overflow: ellipsis; /* Agrega "..." al recortar */
+    max-width: 100px; /* Ajusta el ancho máximo según el diseño */
+  }
+
+  .headerCell{
+    white-space: nowrap; /* Evita el salto de línea */
+    overflow: hidden; /* Oculta el contenido desbordado */
+    text-overflow: ellipsis; /* Agrega "..." al recortar */
+    max-width: 0px; /* Ajusta el ancho máximo según el diseño */
+  }
+
+  .container{
+    min-width: 200px;
+  }
 }

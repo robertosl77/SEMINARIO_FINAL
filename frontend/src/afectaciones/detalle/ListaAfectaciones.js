@@ -1,16 +1,8 @@
 import React from 'react';
+import { calcularDuracion } from '../../utils/funciones';
 import '../css/Listas.css';
 
 function ListaAfectaciones({ afectaciones }) {
-  // Función para calcular la duración en horas
-  const calcularDuracion = (inicio, restitucion) => {
-    const fechaInicio = new Date(inicio);
-    const fechaRestitucion = restitucion ? new Date(restitucion) : new Date();
-    const diferenciaMs = fechaRestitucion - fechaInicio;
-    const resultado = Math.floor(diferenciaMs / (1000 * 60 * 60));
-    return restitucion ? resultado : resultado + 3; // Convierte ms a horas
-  };
-
   return (
     <div className="container">
       <h3>Afectaciones</h3>
@@ -19,10 +11,10 @@ function ListaAfectaciones({ afectaciones }) {
           <tr>
             <th className="hiddenColumn">ID Afectación</th> 
             <th className="headerCell">Afectación</th>
-            <th className="headerCell">Tipo</th>
+            <th className="headerCell hiddenOnMobile2">Tipo</th>
             <th className="headerCell">Estado</th>
-            <th className="headerCell">Inicio</th>
-            <th className="headerCell">Restitución</th>
+            <th className="headerCell hiddenOnMobile1">Inicio</th>
+            <th className="headerCell hiddenOnMobile1">Restitución</th>
             <th className="headerCell">Duración (hs)</th>
           </tr>
         </thead>
@@ -32,10 +24,10 @@ function ListaAfectaciones({ afectaciones }) {
               <tr key={index} className="row">
                 <td className="hiddenColumn">{afectacion.idafectacion}</td> 
                 <td className="cell">{afectacion.afectacion}</td>
-                <td className="cell">{afectacion.tipo}</td>
+                <td className="cell hiddenOnMobile2">{afectacion.tipo}</td>
                 <td className="cell">{afectacion.estado}</td>
-                <td className="cell">{afectacion.inicio}</td>
-                <td className="cell">{afectacion.restitucion}</td>
+                <td className="cell hiddenOnMobile1">{afectacion.inicio}</td>
+                <td className="cell hiddenOnMobile1">{afectacion.restitucion}</td>
                 <td className="cell">{calcularDuracion(afectacion.inicio, afectacion.restitucion)}</td>
               </tr>
             ))
