@@ -24,17 +24,12 @@ function Climatica() {
   });
   const [isLoading, setIsLoading] = useState(false); 
 
-  const handleRiskChange = (e) => {
-    const { name, value } = e.target;
-    const parsedValue = parseInt(value) || 0;
-    if (name === "precipprob" && (parsedValue < 0 || parsedValue > 100)) return;
-    if (name === "windgust" && (parsedValue < 0 || parsedValue > 150)) return;
-    if (name === "severerisk" && (parsedValue < 0 || parsedValue > 100)) return;
-
-    setRiskValues((prev) => ({
-      ...prev,
-      [name]: parsedValue
-    }));
+  const handleButtonClick = () => {
+    const precipprob = parseInt(document.querySelector('input[name="precipprob"]').value) || 0;
+    const windgust = parseInt(document.querySelector('input[name="windgust"]').value) || 0;
+    const severerisk = parseInt(document.querySelector('input[name="severerisk"]').value) || 0;
+  
+    setRiskValues({ precipprob, windgust, severerisk });
   };
 
   useEffect(() => {
@@ -122,6 +117,7 @@ function Climatica() {
       <div className="content">
         <div className="reference-table-container">
           <table className="reference-table">
+            {/* Cabecera */}
             <thead>
               <tr>
                 <th>Parámetro</th>
@@ -131,6 +127,7 @@ function Climatica() {
               </tr>
             </thead>
             <tbody>
+              {/* Lluvia */}
               <tr>
                 <td>Probabilidad de lluvia (%)</td>
                 <td>30</td>
@@ -140,8 +137,8 @@ function Climatica() {
                     <input
                       type="number"
                       name="precipprob"
-                      value={riskValues.precipprob}
-                      onChange={handleRiskChange}
+                      defaultValue={riskValues.precipprob}
+                      // onChange={handleRiskChange}
                       min="0"
                       max="100"
                       step="5"
@@ -151,6 +148,7 @@ function Climatica() {
                   )}
                 </td>
               </tr>
+              {/* Viento */}
               <tr>
                 <td>Viento máximo (km/h)</td>
                 <td>40</td>
@@ -160,8 +158,8 @@ function Climatica() {
                   <input
                     type="number"
                     name="windgust"
-                    value={riskValues.windgust}
-                    onChange={handleRiskChange}
+                    defaultValue={riskValues.windgust}
+                    // onChange={handleRiskChange}
                     min="0"
                     max="150"
                     step="10"
@@ -171,6 +169,7 @@ function Climatica() {
                 )}
                 </td>
               </tr>
+              {/* Riesgo */}
               <tr>
                 <td>Riesgo severo</td>
                 <td>30</td>
@@ -180,8 +179,8 @@ function Climatica() {
                     <input
                       type="number"
                       name="severerisk"
-                      value={riskValues.severerisk}
-                      onChange={handleRiskChange}
+                      defaultValue={riskValues.severerisk}
+                      // onChange={handleRiskChange}
                       min="0"
                       max="100"
                       step="5"
@@ -191,6 +190,21 @@ function Climatica() {
                   )}
                 </td>
               </tr>
+              {/* Boton de cambio solo para admin */}
+              {['admin'].includes(rol) && (
+                <tr>
+                  <td colSpan={4}>
+                    <button 
+                      // id="boton"
+                      type="button"
+                      name="changeparameters"
+                      onClick={handleButtonClick}
+                    >
+                      Cambiar Parametros
+                    </button>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
