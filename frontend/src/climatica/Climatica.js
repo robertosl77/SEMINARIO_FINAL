@@ -105,7 +105,7 @@ function Climatica() {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 30 },
+      initialState: { pageIndex: 0, pageSize: 10 },
     },
     useSortBy,
     usePagination
@@ -275,8 +275,20 @@ function Climatica() {
             </span>
             <span>
               | Total de registros: <strong>{data.length}</strong>
+            </span>{' '}
+            <span>
+              | Mostrar{' '}
+              <select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}>
+                {[10, 20, 30, 50].map(size => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>{' '}
+              registros por página
             </span>
           </div>
+
         </div>
       </div>
     </div>
