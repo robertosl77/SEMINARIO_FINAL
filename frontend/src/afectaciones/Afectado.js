@@ -164,7 +164,7 @@ function Afectado({
           >{ge_propio ? 'GE' : ''}</div>
           <div 
             className={ami === 0 ? "afectado-icono ami_off" : "afectado-icono ami"} 
-            title={ami === 0 ? "No posee Medidor Inteligente con tecnologia GPS" : "Posee Medidor Inteligente con tecnologia GPS"} 
+            title={ami === 0 ? "No posee Medidor Inteligente con tecnologia GPRS" : "Posee Medidor Inteligente con tecnologia GPRS"} 
             onClick={(e) => e.stopPropagation()}
           >{ami ? 'AMI' : ''}</div>
         </div>
